@@ -21,9 +21,47 @@
   
   
     <main>
-      <div>
-        Contenu Principal
-      </div>
+        
+        <form action="confirmation.html">
+          <p><i>Completez le formulaire</i></p>
+          <fieldset>
+              <legend>
+                  Contact
+              </legend>
+            <label for="first-name">Prenom</label>
+          <br>
+          <input type="text" name="firstname" value="Mickey" id="first-name" required>
+          <br>
+          <label for="last-name">Nom</label>
+          <br>
+          <input type="text" name="lastname" value="Mouse" id="last-name" required>
+          <br>
+          <label for="email">Adresse courriel</label>
+          <br>
+          <input type="text" name="email" value="abc@gmail.com" id="email" required>
+          <br>
+          <label for="phone">Numero de telephone</label>
+          <br>
+          <input type="tel" name="phone" value="123-456-7890" id="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+          <br>
+          </fieldset>
+        
+        <fieldset>
+            <legend>
+                Paiement
+            </legend>
+            <label for="credit-card">Numero de cate de credit</label>
+        <br>
+        <input type="text" name="credit-card" value="0000-1111-2222-3333" id="credit-card" pattern="[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}" required>
+        <br>
+        <label for="credit-card-expiry">Date d expiration de la carte</label>
+        <br>
+        <input type="text" name="credit-card-expiry" value="20-dec-2121" id="credit-card-expiry" required>
+        <br>
+        </fieldset>
+        <input type="submit"  value="Payer" />
+        </form>
+
     </main>
     <hr>
   

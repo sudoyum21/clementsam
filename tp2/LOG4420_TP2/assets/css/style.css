@@ -11,25 +11,18 @@ body {
     border: 1px solid #999999;
     border-radius: 4px;
     margin: auto;
- 
     height:400px;
-    position:relative;
 }
 .container > div {
     flex: 1;
-    border:2px solid #000000;
     margin: 0 auto;
-}
-.container > div > div {
-    position: absolute;
-    /* left:50%;
-    top:50%; */
-    top: 50%;  /* position the top  edge of the element at the middle of the parent */
-    left: 50%; /* position the left edge of the element at the middle of the parent */
-    border:2px solid #00FF00;
-    transform: translate(-50%, -50%); /* This is a shorthand of
-                                         translateX(-50%) and translateY(-50%) */
-    /* border:2px solid #00FF00; */
+    text-align: center;
+    position:relative;
 }
 
-/*index style */
+.container > div > div {
+    top: 50%;
+    transform: translateY(-50%);
+    width:100%;
+    position: absolute;
+}

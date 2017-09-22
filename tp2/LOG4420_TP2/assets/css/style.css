@@ -1,42 +1,51 @@
-/*GENERAL STYLE*/
+/* General style */
 
 body {
-    padding:0px 25px;
+  padding: 0px 25px;
 }
-
 * {
   font-family: Arial;
 }
-
 p {
   text-align: justify;
 }
+.button { /* Utilisé pour Product, bouton Payer */
+  background-color: #14597f;
+  border: 1px solid #0b2d3d;
+  border-radius: 4px;
+  padding: 10px;
+  color: #ffffff;
+  transition: 0.2s;
+  transition-timing-function: ease-out;
+}
+.button:hover {
+  background-color: #1fb5e9;
+  /* enlever souligné du content (pour bouton accueil) */
+}
 
-/* Procuct.html */
+/* Product style */
 
-.product {
+.product { /* séparer 50/50 */
   display: flex;
   flex-direction: row;
 }
-
-input {
-  width: 30px;
+.buy { /* Aligner verticalement content + ajouter image cart */
+  border-top: 1px dashed #999999;
 }
-
-.form-control {
-  border: 1px;
-  border-color: #999999;
-  border-radius: 4px;
+.buy fieldset {
+  border: 0;
   float: right;
 }
-
-.fieldset-no-border {
-  border: 0;
+.form-control {
+  width: 30px;
+  border: 1px solid #999999;
+  border-radius: 4px;
+  padding: 5px;
 }
 
-/*contact style*/
+/* Contact style */
 
-.container{
+.container {
     display: flex;
     flex-direction: row;
     border: 1px solid #999999;
@@ -48,7 +57,7 @@ input {
     flex: 1;
     margin: 0 auto;
     text-align: center;
-    position:relative;
+    position: relative;
 }
 
 .container > div > div {

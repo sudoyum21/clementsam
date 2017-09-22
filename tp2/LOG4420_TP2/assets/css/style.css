@@ -2,20 +2,34 @@
 
 
 /*contact style*/
-#contact_root{
-
+body {
+    padding:0px 5px;
 }
 .container{
-
+    display: flex;
+    flex-direction: row;
     border: 1px solid #999999;
+    border-radius: 4px;
+    margin: auto;
+ 
+    height:400px;
+    position:relative;
 }
-.flottant {
-    box-sizing:border-box;
-
-    width: 33%;
+.container > div {
+    flex: 1;
+    border:2px solid #000000;
+    margin: 0 auto;
 }
-div >  i {
-    
+.container > div > div {
+    position: absolute;
+    /* left:50%;
+    top:50%; */
+    top: 50%;  /* position the top  edge of the element at the middle of the parent */
+    left: 50%; /* position the left edge of the element at the middle of the parent */
+    border:2px solid #00FF00;
+    transform: translate(-50%, -50%); /* This is a shorthand of
+                                         translateX(-50%) and translateY(-50%) */
+    /* border:2px solid #00FF00; */
 }
 
 /*index style */

@@ -1,0 +1,28 @@
+* {
+  font-family: Arial;
+}
+
+p {
+  text-align: justify;
+}
+
+/* Procuct.html */
+.product {
+  display: flex;
+  flex-direction: row;
+}
+
+input {
+  width: 30px;
+}
+
+.form-control {
+  border: 1px;
+  border-color: #999999;
+  border-radius: 4px;
+  float: right;
+}
+
+.fieldset-no-border {
+  border: 0;
+}

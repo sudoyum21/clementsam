@@ -1,10 +1,11 @@
-
+/*GENERAL STYLE*/
+body {
+    padding:0px 25px;
+}
 
 
 /*contact style*/
-body {
-    padding:0px 5px;
-}
+
 .container{
     display: flex;
     flex-direction: row;
@@ -25,4 +26,5 @@ body {
     transform: translateY(-50%);
     width:100%;
     position: absolute;
+    font-size: xx-large;
 }

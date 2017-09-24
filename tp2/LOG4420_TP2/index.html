@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <title>OnlineShop - Accueil</title>
@@ -9,10 +10,10 @@
 
 <body>
   <header>
-      <a href="index.html" title="OnlineShop logo">
+    <a href="index.html" title="OnlineShop logo">
         <img src="assets/img/logo.svg" alt="OnlineShop logo">
     </a>
-   
+
     <nav>
       <a href="index.html">Accueil</a>
       <a href="products.html">Produits</a>
@@ -20,17 +21,27 @@
       <a href="shopping-cart.html">Panier</a>
     </nav>
   </header>
-   
+
 
   <main>
-    <p>
-      Découvrez tous les produits électroniques du moment sur OnlineShop !
-    </p>
-    <a href="products.html">
-      <img src="assets/img/home.png" alt="OnlineShop home">
-    </a>
+
+
+
+    <div>
+      <div class="floating-acc">
+        <img src="assets/img/home.png" alt="OnlineShop home">
+      </div>
+      <p>
+        Découvrez tous les produits électroniques du moment sur OnlineShop !
+      </p>
+
+      <a  class="btn" href="./products.html"> En savoir plus » </a>
+      
+    </div>
+
+
   </main>
-   
+
 
   <footer>
     <p>
@@ -38,4 +49,26 @@
     </p>
   </footer>
 </body>
+
 </html>
+
+
+<!-- 
+L’image de la page d’accueil doit être un élément flottant aligné à droite. 
+
+De plus, le lien
+vers la liste de produits doit être stylisé sous la forme d’un bouton.
+
+La couleur d’arrière-plan du bouton doit être bleu foncé ( #14597f ). Le bouton doit
+également avoir une bordure de 1 px de couleur grise ( #0b2d3d ). De plus, les coins du
+bouton doivent être arrondis selon un rayon de 4 px. Lorsque le bouton est survolé par la
+souris (état hover ), la couleur d’arrière-plan du bouton doit être modifiée ( #1fb5e9 ) et le
+
+texte du lien ne doit pas être souligné. Ce changement d’état doit se faire avec une transition
+de type ease-out d’une durée de 0,2 s (voir la propriété transition). Il est conseillé de définir
+une classe particulière pour ce bouton dans votre code CSS (p. ex. .btn), puisque le design
+de ce même bouton sera réutilisé à plusieurs endroits sur le site web.
+Le design de la page d’accueil devrait être similaire à celui de la figure 6 en annexe. De
+plus, le rendu du bouton lorsque celui-ci est survolé par la souris devrait être similaire à la
+figure 7 (voir annexe). Assurez-vous également que l’élément du menu de navigation qui est
+actif correspond à « Accueil ». -->

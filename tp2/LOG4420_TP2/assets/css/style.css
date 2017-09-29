@@ -55,15 +55,30 @@ p {
 #product-categories button, #product-criteria button {
   background-color: #ffffff;
   border: 1px solid #999999;
-  border-radius: 4px;
+  margin: 0px;
+  padding: 10px;
+  text-align: left;
+  color: #555555;
+  font-size: 16px;
+}
+#product-categories button:not(:last-child), #product-criteria button:not(:last-child) {
+    border-bottom: none; /* Prevent double borders */
+}
+#product-categories button:last-child, #product-criteria button:last-child {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+#product-categories button:first-child, #product-criteria button:first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 }
 #product-categories button:hover, #product-criteria button:hover {
   background-color: #f3f3f3;
   transition: 0.2s;
   transition-timing-function: ease-out;
 }
-#product-categories button:selected, #product-criteria button:hover {
-  background-color: #f3f3f3;
+#product-categories .selected, #product-criteria .selected {
+  background-color: #ddf2fb;
 }
 
 /* Product style */

@@ -2,6 +2,8 @@
 
 * {
   font-family: Arial;
+  text-decoration: none;
+  box-sizing: border-box;
 }
 body {
   padding: 0px 25px;
@@ -22,7 +24,6 @@ p {
   padding: 10px;
   background-color: #14597f;
   color: #ffffff;
-  text-decoration: none;
   font-size: 16px;
 }
 .btn:hover {
@@ -38,7 +39,6 @@ p {
   flex-direction: row;
 }
 #products-main > aside {
-  box-sizing: border-box;
   flex-direction: column;
   flex-basis: 25%;
   padding-right: 30px;
@@ -91,9 +91,7 @@ p {
 }
 #products-list a {
   display: inline-block;
-  box-sizing: border-box;
   max-width: 33%;
-  text-decoration: none;
   border: 1px solid #999999;
   border-radius: 4px;
   padding: 10px;
@@ -128,45 +126,93 @@ p {
 .col {
   flex: 1;
 }
-.buy { /* Aligner verticalement content + ajouter image cart */
+.add-product { /* Aligner verticalement content + ajouter image cart */
   border-top: 1px dashed #999999;
 }
-.buy fieldset {
+.add-product fieldset {
   border: 0;
   float: right;
 }
 .form-control {
-  width: 40px;
+  width: 70px;
   border: 1px solid #999999;
   border-radius: 4px;
   padding: 10px;
   font-size: 16px;
 }
 
+/* Shopping Cart style */
+
+#cart-table {
+  width: 100%;
+  border-bottom: 1px solid #000000;
+  border-collapse: collapse;
+  text-align: left;
+  table-layout: fixed;
+}
+#cart-table th {
+  border-bottom: 3px solid #000000;
+}
+#cart-table a {
+  color: #1a73a5;
+}
+#cart-table th:first-child,
+#cart-table td:first-child {
+  width: 30px;
+  max-width: 30px;
+}
+#cart-table th:not(:first-child),
+#cart-table td:not(:first-child) {
+  padding: 10px;
+}
+#cart-table th:last-child,
+#cart-table td:last-child {
+  width: 150px;
+  max-width: 150px;
+  text-align: right;
+}
+#cart-table button {
+  border: none;
+  border-radius: 50%;
+  background-color: #dddddd;
+}
+#cart-table button:hover {
+  background-color: #bbbbbb;
+}
+#cart-table + p {
+  text-align: right;
+}
+.btn-order {
+  float: right;
+}
+
 /* Contact style */
 
 .container {
-    display: flex;
-    flex-direction: row;
-    border: 1px solid #999999;
-    border-radius: 4px;
-    margin: auto;
-    height:400px;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #999999;
+  border-radius: 4px;
+  margin: auto;
+  height: 200px;
 }
 .container > div {
-    flex: 1;
-    margin: 0 auto;
-    text-align: center;
-    position: relative;
+  flex: 1;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
 }
 
 .container > div > div {
-    top: 50%;
-    transform: translateY(-50%);
-    width:100%;
-    position: absolute;
-    font-size: xx-large;
-    
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  position: absolute;
+  font-size: 16px;
+}
+
+.container a {
+  color: #1a73a5;
 }
 
 /* Order html */

@@ -23,7 +23,7 @@
 
   <main>
     <h1>Panier</h1>
-    <table>
+    <table id="cart-table">
       <tr>
         <th></th>
         <th>Produit</th>
@@ -33,50 +33,50 @@
       </tr>
       <tr>
         <td>
-          <button>X</button>
+          <button><i class="fa fa-times" aria-hidden="true"></i></button>
         </td>
         <td><a href="product.html">Produit 1</a></td>
         <td>2,00 $</td>
         <td>
-          <button>-</button>
+          <button><i class="fa fa-minus" aria-hidden="true"></i></button>
           1
-          <button>+</button>
+          <button><i class="fa fa-plus" aria-hidden="true"></i></button>
         </td>
         <td>2,00 $</td>
       </tr>
       <tr>
         <td>
-          <button>X</button>
+          <button><i class="fa fa-times" aria-hidden="true"></i></button>
         </td>
         <td><a href="product.html">Produit 2</a></td>
         <td>4,00 $</td>
         <td>
-          <button>-</button>
+          <button><i class="fa fa-minus" aria-hidden="true"></i></button>
           2
-          <button>+</button>
+          <button><i class="fa fa-plus" aria-hidden="true"></i></button>
         </td>
         <td>8,00 $</td>
       </tr>
       <tr>
         <td>
-          <button>X</button>
+          <button><i class="fa fa-times" aria-hidden="true"></i></button>
         </td>
         <td><a href="product.html">Produit 3</a></td>
         <td>5,00 $</td>
         <td>
-          <button>-</button>
+          <button><i class="fa fa-minus" aria-hidden="true"></i></button>
           2
-          <button>+</button>
+          <button><i class="fa fa-plus" aria-hidden="true"></i></button>
         </td>
         <td>10,00 $</td>
       </tr>
     </table>
-    <p>Total : 20,00 $</p>
+    <p>Total : <strong>20,00 $</strong></p>
     <button class="btn">
       <i class="fa fa-trash-o" aria-hidden="true"></i>
       Vider le panier
     </button>
-    <a href="order.html" class="btn">
+    <a href="order.html" class="btn btn-order">
       Commander
       <i class="fa fa-angle-double-right" aria-hidden="true"></i>
     </a>

@@ -67,9 +67,8 @@ nav a:active {
 /* Main */
 main {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 60px auto 0px auto;
   padding: 0px 20px;
-  top: 60px;
 }
 /* Footer */
 

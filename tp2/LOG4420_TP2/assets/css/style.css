@@ -24,6 +24,11 @@ h2 {
 .img-float-right {
   float: right;
 }
+.img-float-right * {
+  right:0;
+  top:0;
+  position:absolute;
+}
 .btn {
   display: inline-block;
   border: 1px solid #0b2d3d;
@@ -264,4 +269,5 @@ fieldset {
 
 #orderBtnPayer1 {
   float:right;
+  margin: 0 5px 0 0;
 }

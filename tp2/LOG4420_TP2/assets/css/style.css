@@ -11,6 +11,13 @@ body {
 p {
   text-align: justify;
 }
+h1 {
+  font-size: 26px;
+}
+aside h1,
+h2 {
+  font-size: 18px;
+}
 
 /* Accueil index html */
 

@@ -11,6 +11,9 @@ body {
 p {
   text-align: justify;
 }
+h1 {
+  font-size: 26px;
+}
 
 /* Accueil index html */
 

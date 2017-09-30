@@ -24,9 +24,6 @@ header {
   top: 0px;
   height: 60px;
 }
-header * {
-  max-width: 1200px;
-}
 header img {
   position: absolute;
   left: 0px;
@@ -40,9 +37,7 @@ header nav {
 }
 nav a:not(.shopping-cart) {
   text-align: center;
-  color:white;
-  border: 1px solid #0b2d3d;
-  border-radius: 4px;
+  color: white;
   display: inline-block;
   padding: 10px;
   font-size: 16px;
@@ -51,15 +46,15 @@ nav a:active {
   background-color: #1fb5e9;
 }
 .fa-shopping-cart {
-  color:#14597f;
-  position:relative;
+  color: #14597f;
+  position: relative;
 }
 .count {
  position: absolute;
- bottom:0px;
- right:0px;
+ bottom: 0px;
+ right: 0px;
  background-color :#d9534f;
- color:white;
+ color: white;
 }
 .border-bottom{
   border-bottom: solid #0b2d3d 1px;

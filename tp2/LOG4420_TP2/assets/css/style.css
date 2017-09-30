@@ -18,15 +18,6 @@ aside h1,
 h2 {
   font-size: 18px;
 }
-
-/* Accueil index html */
-
-.img-float-right {
-  float: right;
-  max-width:40%;
-  max-height:40%;
-}
-
 .btn {
   display: inline-block;
   border: 1px solid #0b2d3d;
@@ -40,6 +31,14 @@ h2 {
   background-color: #1fb5e9;
   transition: 0.2s;
   transition-timing-function: ease-out;
+}
+
+/* Accueil index html */
+
+.img-float-right {
+  float: right;
+  max-width:40%;
+  max-height:40%;
 }
 
 /* Products style */
@@ -156,6 +155,7 @@ h2 {
 #div70px {
   width:70px;
 }
+
 /* Shopping Cart style */
 
 #cart-table {
@@ -197,7 +197,7 @@ h2 {
 #cart-table + p {
   text-align: right;
 }
-.btn-order {
+#btn-order {
   float: right;
 }
 
@@ -237,35 +237,32 @@ fieldset > div{
   width:50%;
   padding:0px;
 }
-
- fieldset > div > *  {
+fieldset > div > *  {
   margin:5px auto;
   width:99% ;
 }
-
 .div99perc > *  {
   width:99% ;
   margin:5px auto;
 
 }
-
 legend {
   position: absolute;
   left:-2px;
-  font-size:20px;
+  font-size:18px;
+  font-weight: bold;
 }
-form > p {
-  font-size:24px;
+label {
+  font-size: 14px;
+  font-weight: bold;
 }
-
 fieldset {
   position:relative;
   border: 0;
   margin: 0;
   padding: 0;
 }
-
-#orderBtnPayer1 {
+#btn-pay {
   float:right;
   margin: 0 5px 0 0;
 }

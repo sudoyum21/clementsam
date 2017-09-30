@@ -19,6 +19,48 @@ h2 {
   font-size: 18px;
 }
 
+header {
+  max-width: 1200px;
+  background-color :#14597f;
+  position: relative;
+  min-height: 115px;
+}
+header img {
+  position: absolute;
+  left: 0px;
+}
+header nav {
+  top:50%;
+  transform:translateY(-50%);
+  position: absolute;
+  right: 15px;
+}
+nav a:not(.shopping-cart) {
+  text-align: center;
+  color:white;
+  border: 1px solid #0b2d3d;
+  border-radius: 4px;
+  display: inline-block;
+  padding: 10px;
+  font-size: 16px;
+}
+nav a:active {
+  background-color: #1fb5e9;
+}
+.fa-shopping-cart {
+  color:#14597f;
+  position:relative;
+}
+.count {
+ position: absolute;
+ bottom:0;
+ right:0;
+ color:#d9534f;
+}
+.border-bottom{
+  border-bottom: solid #0b2d3d 1px;
+}
+
 /* Accueil index html */
 
 .img-float-right {

@@ -7,6 +7,7 @@
 }
 body {
   padding: 0px 25px;
+  /* max-width: 1200px; */
 }
 p {
   text-align: justify;
@@ -23,11 +24,12 @@ header {
   max-width: 1200px;
   background-color :#14597f;
   position: relative;
-  min-height: 115px;
+  height: 60px;
 }
 header img {
   position: absolute;
   left: 0px;
+  height:100%;
 }
 header nav {
   top:50%;
@@ -53,9 +55,10 @@ nav a:active {
 }
 .count {
  position: absolute;
- bottom:0;
- right:0;
- color:#d9534f;
+ bottom:0px;
+ right:0px;
+ background-color :#d9534f;
+ color:white;
 }
 .border-bottom{
   border-bottom: solid #0b2d3d 1px;

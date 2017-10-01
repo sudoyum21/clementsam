@@ -186,7 +186,7 @@ footer > div {
   background-color: #f3f3f3;
   transition: 0.2s;
   transition-timing-function: ease-out;
-} /* CLASSE POUR CA */
+}
 #product-categories .selected, 
 #product-criteria .selected {
   background-color: #ddf2fb;
@@ -279,6 +279,10 @@ footer > div {
   max-width: 150px;
   text-align: right;
 }
+.quantity {
+  display: inline;
+  margin: 0px 10px;
+}
 #cart-table button {
   border: none;
   border-radius: 50%;
@@ -310,7 +314,6 @@ footer > div {
   text-align: center;
   position: relative;
 }
-
 .container > div > div {
   top: 50%;
   transform: translateY(-50%);
@@ -318,7 +321,6 @@ footer > div {
   position: absolute;
   font-size: 16px;
 }
-
 .container a {
   color: #1a73a5;
 }
@@ -337,7 +339,6 @@ fieldset > div > *  {
 .div99perc > *  {
   width:99% ;
   margin:5px auto;
-
 }
 legend {
   position: absolute;

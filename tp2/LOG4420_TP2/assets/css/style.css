@@ -82,19 +82,28 @@ main {
 /* Footer */
 footer {
   border-top: solid #cccccc 1px;
-  height: 50px;
+  height: 70px;
   width:100%;
   background-color:#eeeeee;
-  position:relative;
-}
-footer p {
-  transform: translateX(50%);
-  position: absolute;
-
-  max-width: 1200px;
-  width:50%;
   text-align: center;
+  display:flex;
+  flex-direction: row;
+  justify-content:  flex-start;
+  position: relative;
+  margin: auto;
 }
+footer > div {
+  flex: 1;
+  margin: 0 auto;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  position: absolute;
+  font-size: 16px;
+}
+
+
 /* Accueil index html */
 
 .img-float-right {

@@ -1,4 +1,6 @@
 /* General style */
+
+
 html {
   height: 100%;
   margin: 0;
@@ -22,7 +24,45 @@ aside h1,
 h2 {
   font-size: 18px;
 }
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+}
+.col {
+  flex: 1;
+}
+.btn {
+  display: inline-block;
+  border: 1px solid #0b2d3d;
+  border-radius: 4px;
+  padding: 10px;
+  background-color: #14597f;
+  color: #ffffff;
+  font-size: 16px;
+  margin: 15px 0;
+}
+.btn:hover {
+  background-color: #1fb5e9;
+  transition: 0.2s;
+  transition-timing-function: ease-out;
+}
+.btn-right {
+  float: right;
+}
+.form-control {
+  border: 1px solid #999999;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 16px;
+}
+
 /* Header */
+
 header {
   width: 100%;
   background-color :#14597f;
@@ -37,7 +77,7 @@ header img {
   height:100%;
 }
 header > div {
-  max-width:1200px;
+  max-width: 1200px;
   min-height: 60px;
   position: absolute;
   margin: auto;
@@ -47,8 +87,8 @@ header > div {
   left: 0;
 }
 header nav {
-  top:50%;
-  transform:translateY(-50%);
+  top: 50%;
+  transform: translateY(-50%);
   position: absolute;
   right: 0px;;
 }
@@ -76,14 +116,18 @@ nav a:active {
 .border-bottom{
   border-bottom: solid #0b2d3d 1px;
 }
+
 /* Main */
+
 main {
   max-width: 1200px;
   margin: 60px auto -70px auto;
   padding: 20px;
   min-height: 100%;
 }
+
 /* Footer */
+
 footer {
   border-top: solid #cccccc 1px;
   height: 70px;
@@ -103,50 +147,30 @@ footer > div {
 }
 
 
-/* Accueil index html */
+/* Accueil style */
+
 
 .img-float-right {
   float: right;
-  max-width:40%;
-  max-height:40%;
-}
-.btn {
-  display: inline-block;
-  border: 1px solid #0b2d3d;
-  border-radius: 4px;
-  padding: 10px;
-  background-color: #14597f;
-  color: #ffffff;
-  font-size: 16px;
-  margin: 15px 0;
-}
-.btn:hover {
-  background-color: #1fb5e9;
-  transition: 0.2s;
-  transition-timing-function: ease-out;
+  max-width: 40%;
+  max-height: 40%;
 }
 
-/* Accueil index html */
-
-.img-float-right {
-  float: right;
-  max-width:40%;
-  max-height:40%;
-}
 
 /* Products style */
 
-#products-main {
+
+.products-main {
   display: flex;
   flex-direction: row;
 }
-#products-main > aside {
+.products-main > aside {
   flex-direction: column;
   flex-basis: 25%;
   padding-right: 30px;
   margin: 0 auto;
 }
-#products-main > section {
+.products-main > section {
   flex-direction: column;
   flex-basis: 75%;
   margin: 0 auto;
@@ -217,56 +241,48 @@ footer > div {
   text-align: right;
 }
 
+
 /* Product style */
 
-.row {
-  display: flex;
-  flex-direction: row;
-}
-.col {
-  flex: 1;
-}
+
 .add-product {
   border-top: 1px dashed #999999;
 }
 .add-product fieldset {
-  border: 0;
   float: right;
 }
-.form-control {
+.add-product .form-control {
   width: 70px;
-  border: 1px solid #999999;
-  border-radius: 4px;
-  padding: 10px;
-  font-size: 16px;
 }
+
 
 /* Shopping Cart style */
 
-#cart-table {
+
+.cart-table {
   width: 100%;
   border-bottom: 1px solid #000000;
   border-collapse: collapse;
   text-align: left;
   table-layout: fixed;
 }
-#cart-table th {
+.cart-table th {
   border-bottom: 3px solid #000000;
 }
-#cart-table a {
+.cart-table a {
   color: #1a73a5;
 }
-#cart-table th:first-child,
-#cart-table td:first-child {
+.cart-table th:first-child,
+.cart-table td:first-child {
   width: 30px;
   max-width: 30px;
 }
-#cart-table th:not(:first-child),
-#cart-table td:not(:first-child) {
+.cart-table th:not(:first-child),
+.cart-table td:not(:first-child) {
   padding: 10px;
 }
-#cart-table th:last-child,
-#cart-table td:last-child {
+.cart-table th:last-child,
+.cart-table td:last-child {
   width: 150px;
   max-width: 150px;
   text-align: right;
@@ -275,22 +291,21 @@ footer > div {
   display: inline;
   margin: 0px 10px;
 }
-#cart-table button {
+.cart-table button {
   border: none;
   border-radius: 50%;
   background-color: #dddddd;
 }
-#cart-table button:hover {
+.cart-table button:hover {
   background-color: #bbbbbb;
 }
-#cart-table + p {
+.cart-table + p {
   text-align: right;
 }
-.btn-right {
-  float: right;
-}
+
 
 /* Contact style */
+
 
 .container {
   display: flex;
@@ -317,17 +332,14 @@ footer > div {
   color: #1a73a5;
 }
 
+
 /* Order html */
 
-.order-fieldset {
-  border: 0;
-  margin: 0;
-  padding: 0;
-}
-legend {
+
+.order-fieldset legend {
   position: relative;
-  left:-2px;
-  font-size:18px;
+  left: -2px;
+  font-size: 18px;
   font-weight: bold;
   padding: 10px 0;
 }

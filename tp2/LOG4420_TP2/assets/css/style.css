@@ -90,22 +90,14 @@ footer {
   height: 70px;
   width:100%;
   background-color:#eeeeee;
-  text-align: center;
-  display:flex;
-  flex-direction: row;
-  justify-content:  flex-start;
   position: relative;
-  margin: auto;
 }
 footer > div {
-  flex: 1;
-  margin: 0 auto;
   text-align: center;
   top: 50%;
   transform: translateY(-50%);
   width: 100%;
   position: absolute;
-  font-size: 16px;
 }
 
 

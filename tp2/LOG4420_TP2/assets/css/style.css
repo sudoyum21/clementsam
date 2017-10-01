@@ -318,8 +318,14 @@ footer > div {
 .cart-table button:hover {
   background-color: #bbbbbb;
 }
+.cart-table i {
+  vertical-align: middle;
+}
 .cart-table + p {
   text-align: right;
+}
+.blocked-minus i {
+  color: #777777;
 }
 
 

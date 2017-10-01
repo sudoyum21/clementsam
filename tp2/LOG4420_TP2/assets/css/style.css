@@ -304,7 +304,13 @@ footer > div {
 }
 
 /* Contact style */
-
+.borderlessContainer{
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #FFFFFF;
+  margin: auto;
+  min-height: 200px;
+}
 .container {
   display: flex;
   flex-direction: row;

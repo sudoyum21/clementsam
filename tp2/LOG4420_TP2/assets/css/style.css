@@ -60,6 +60,12 @@ fieldset {
   padding: 10px;
   font-size: 16px;
 }
+.product-img {
+  display: block;
+  margin: auto;
+  max-width: 100%;
+  height: auto;
+}
 
 /* Header */
 
@@ -231,12 +237,6 @@ footer > div {
 }
 .products-list h2 {
   margin: 0;
-}
-.products-list img {
-  display: block;
-  margin: auto;
-  max-width: 100%;
-  height: auto;
 }
 .products-list p {
   /*position: absolute; /* SI BESOIN GERER RESIZE WINDOW*/

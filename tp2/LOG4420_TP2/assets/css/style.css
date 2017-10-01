@@ -118,6 +118,7 @@ footer > div {
   background-color: #14597f;
   color: #ffffff;
   font-size: 16px;
+  margin: 15px 0;
 }
 .btn:hover {
   background-color: #1fb5e9;
@@ -239,14 +240,6 @@ footer > div {
   padding: 10px;
   font-size: 16px;
 }
-/**** INUTILE ***********
-#div-inline {
-  display: inline;
-}
-#div70px {
-  width:70px;
-}
-************************/
 
 /* Shopping Cart style */
 
@@ -293,7 +286,7 @@ footer > div {
 #cart-table + p {
   text-align: right;
 }
-#btn-order {
+.btn-right {
   float: right;
 }
 
@@ -326,36 +319,33 @@ footer > div {
 
 /* Order html */
 
-fieldset > div{
-  float :left;
-  width:50%;
-  padding:0px;
-}
-fieldset > div > *  {
-  margin:5px auto;
-  width:99% ;
-}
-.div99perc > *  {
-  width:99% ;
-  margin:5px auto;
-}
-legend {
-  position: absolute;
-  left:-2px;
-  font-size:18px;
-  font-weight: bold;
-}
-label {
-  font-size: 14px;
-  font-weight: bold;
-}
-fieldset {
-  position:relative;
+.order-fieldset {
   border: 0;
   margin: 0;
   padding: 0;
 }
-#btn-pay {
-  float:right;
-  margin: 0 5px 0 0;
+legend {
+  position: relative;
+  left:-2px;
+  font-size:18px;
+  font-weight: bold;
+  padding: 10px 0;
+}
+.order-fieldset label {
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  display: block;
+  width: 100%;
+}
+.order-fieldset input {
+  display: block;
+  width: 100%;
+}
+.order-fieldset .col:first-child {
+  margin-right: 10px;
+}
+.order-fieldset .col:last-child {
+  margin-left: 10px;
 }

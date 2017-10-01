@@ -1,1 +1,8 @@
-le temps passé au total pour ce travail : 3 heures
+le temps passé au total pour ce travail : X heures
+clem: environ 22h
+
+TODO LIST:
+- nav: arrondir .count
+- products: régler problème footer 
+- contact: utiliser .row et .col
+- autre ??

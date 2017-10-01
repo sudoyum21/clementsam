@@ -225,7 +225,7 @@ footer > div {
 .col {
   flex: 1;
 }
-.add-product { /* Aligner verticalement content + ajouter image cart */
+.add-product {
   border-top: 1px dashed #999999;
 }
 .add-product fieldset {
@@ -239,12 +239,14 @@ footer > div {
   padding: 10px;
   font-size: 16px;
 }
+/**** INUTILE ***********
 #div-inline {
   display: inline;
 }
 #div70px {
   width:70px;
 }
+************************/
 
 /* Shopping Cart style */
 

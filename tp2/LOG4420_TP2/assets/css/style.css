@@ -213,13 +213,18 @@ footer > div {
 .product-criteria .selected {
   background-color: #ddf2fb;
 }
+.products-list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+}
 .products-list a {
-  display: inline-block;
   max-width: 33%;
   border: 1px solid #999999;
   border-radius: 4px;
   padding: 10px;
-  /*margin: 10px;*/
+  margin-bottom: 10px;
   color: #000000;
 }
 .products-list a img {

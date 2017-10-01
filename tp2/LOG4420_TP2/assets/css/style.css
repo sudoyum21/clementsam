@@ -1,5 +1,8 @@
 /* General style */
-
+html, body {
+  height: 100%;
+  margin: 0;
+}
 * {
   font-family: Arial;
   text-decoration: none;
@@ -72,11 +75,14 @@ nav a:active {
 /* Main */
 main {
   max-width: 1200px;
-  margin: 60px auto 0px auto;
+  margin: 60px auto -110px auto;
   padding: 0px 20px;
+ min-height: 100%;
 }
 /* Footer */
-
+.footer {
+  height: 50px;
+}
 /* Accueil index html */
 
 .img-float-right {

@@ -80,8 +80,20 @@ main {
  min-height: 100%;
 }
 /* Footer */
-.footer {
+footer {
+  border-top: solid #cccccc 1px;
   height: 50px;
+  width:100%;
+  background-color:#eeeeee;
+  position:relative;
+}
+footer p {
+  transform: translateX(50%);
+  position: absolute;
+
+  max-width: 1200px;
+  width:50%;
+  text-align: center;
 }
 /* Accueil index html */
 

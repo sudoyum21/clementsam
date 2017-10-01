@@ -220,6 +220,7 @@ footer > div {
   justify-content: space-between;
 }
 .products-list a {
+  /*position: relative; /* SI BESOIN GERER RESIZE WINDOW*/
   max-width: 33%;
   border: 1px solid #999999;
   border-radius: 4px;
@@ -227,22 +228,31 @@ footer > div {
   margin-bottom: 10px;
   color: #000000;
 }
-.products-list a img {
+.products-list h2 {
+  margin: 0;
+}
+.products-list img {
+  display: block;
+  margin: auto;
   max-width: 100%;
   height: auto;
 }
-.products-list a p {
+.products-list p {
+  /*position: absolute; /* SI BESOIN GERER RESIZE WINDOW*/
+  right: 10px;
+  bottom: 10px;
+  margin: 0;
   text-align: right;
 }
 .products-title {
   display: flex;
   flex-direction: row;
 }
-.products-title h1, 
-.products-title p {
+.products-title h1 {
   flex: 1;
 }
 .products-title p {
+  flex: 1;
   text-align: right;
 }
 

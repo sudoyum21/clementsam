@@ -332,31 +332,22 @@ footer > div {
 /* Contact style */
 
 
-.container {
-  display: flex;
-  flex-direction: row;
+.contacts .row {
   border: 1px solid #999999;
   border-radius: 4px;
-  margin: auto;
-  min-height: 200px;
+  margin: 0;
 }
-.container > div {
-  flex: 1;
-  margin: 0 auto;
+.contacts i {
+  margin: 20px 0;
+  display: block;
   text-align: center;
-  position: relative;
 }
-.container > div > div {
-  top: 50%;
-  transform: translateY(-50%);
-  width: 100%;
-  position: absolute;
-  font-size: 16px;
+.contacts a,
+.contacts .col p {
+  display: block;
+  text-align: center;
+  margin-bottom: 20px;
 }
-.container a {
-  color: #1a73a5;
-}
-
 
 /* Order html */
 

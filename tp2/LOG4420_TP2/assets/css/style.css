@@ -120,15 +120,11 @@ nav a:not(.shopping-cart) {
  background-color :#d9534f;
  color: white;
  border-radius: 50%;
-
  width: 18px;
  height: 18px;
  padding:3px 0 0 0;
-
  text-align: center;
-
  font: 10px Arial, sans-serif;
- content:22;
 }
 .border-bottom{
   border-bottom: solid #0b2d3d 1px;

@@ -129,7 +129,7 @@ nav a:not(.shopping-cart) {
 main {
   max-width: 1200px;
   margin: 60px auto -70px auto;
-  padding: 20px;
+  padding: 20px 20px 70px 20px;
   min-height: 100%;
 }
 
@@ -149,9 +149,9 @@ footer > div {
   width: 100%;
   position: absolute;
 }
-.push {
+/* .push {
   height: 70px;
-}
+} */
 
 
 /* Accueil style */

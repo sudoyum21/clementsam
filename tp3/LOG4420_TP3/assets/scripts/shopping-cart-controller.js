@@ -41,6 +41,8 @@ function setBadge(){
     }
 }
 
+$(".btn").css("visibility", "visible");
+
 setBadge();  
 
 

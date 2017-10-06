@@ -1,0 +1,382 @@
+/* General style */
+
+
+html {
+  height: 100%;
+  margin: 0;
+}
+body {
+  height: calc(100vh - 60px);
+  margin: 0;
+}
+* {
+  font-family: Arial;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+p {
+  text-align: justify;
+}
+h1 {
+  font-size: 26px;
+}
+aside h1,
+h2 {
+  font-size: 18px;
+}
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+}
+.col {
+  flex: 1;
+}
+.btn {
+  display: inline-block;
+  border: 1px solid #0b2d3d;
+  border-radius: 4px;
+  padding: 10px;
+  background-color: #14597f;
+  color: #ffffff;
+  font-size: 16px;
+  margin: 15px 0;
+}
+.btn:hover {
+  background-color: #1fb5e9;
+  transition: 0.2s;
+  transition-timing-function: ease-out;
+}
+.btn-right {
+  float: right;
+}
+.form-control {
+  border: 1px solid #999999;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 16px;
+}
+.product-img {
+  display: block;
+  margin: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Header */
+
+header {
+  width: 100%;
+  background-color :#14597f;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height: 60px;
+}
+header img {
+  position: absolute;
+  left: 0px;
+  height:100%;
+}
+header > div {
+  max-width: 1200px;
+  min-height: 60px;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+header nav {
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+  right: 0px;;
+}
+nav a:not(.shopping-cart) {
+  text-align: center;
+  color: white;
+  display: inline-block;
+  padding: 10px;
+  font-size: 16px;
+}
+.active {
+  border-radius: 4px;
+  background-color: #1fb5e9;
+}
+.fa-shopping-cart {
+  color: #14597f;
+  position: relative;
+}
+.count {
+ position: absolute;
+ bottom: -3px;
+ right: 0px;
+ background-color :#d9534f;
+ color: white;
+ border-radius: 50%;
+ width: 18px;
+ height: 18px;
+ padding:3px 0 0 0;
+ text-align: center;
+ font: 10px Arial, sans-serif;
+}
+.border-bottom{
+  border-bottom: solid #0b2d3d 1px;
+}
+
+/* Main */
+
+main {
+  max-width: 1200px;
+  margin: 60px auto -70px auto;
+  padding: 20px 20px 70px 20px;
+  min-height: 100%;
+}
+
+/* Footer */
+
+footer {
+  border-top: solid #cccccc 1px;
+  height: 70px;
+  width:100%;
+  background-color:#eeeeee;
+  position: relative;
+}
+footer > div {
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  position: absolute;
+}
+
+
+/* Accueil style */
+
+
+.img-float-right {
+  float: right;
+  max-width: 40%;
+  max-height: 40%;
+}
+
+
+/* Products style */
+
+
+.products-main {
+  display: flex;
+  flex-direction: row;
+}
+.products-main > aside {
+  flex-direction: column;
+  flex-basis: 25%;
+  padding-right: 30px;
+  margin: 0 auto;
+}
+.products-main > section {
+  flex-direction: column;
+  flex-basis: 75%;
+  margin: 0 auto;
+}
+.product-categories, 
+.product-criteria {
+  display: flex;
+  flex-direction: column;
+}
+.product-categories button, 
+.product-criteria button {
+  background-color: #ffffff;
+  border: 1px solid #999999;
+  margin: 0px;
+  padding: 10px;
+  text-align: left;
+  color: #555555;
+  font-size: 16px;
+}
+.product-categories button:not(:last-child), 
+.product-criteria button:not(:last-child) {
+  border-bottom: none; /* Prevent double borders */
+}
+.product-categories button:last-child, 
+.product-criteria button:last-child {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.product-categories button:first-child, 
+.product-criteria button:first-child {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.gray-hover:hover {
+  background-color: #f3f3f3;
+  transition: 0.2s;
+  transition-timing-function: ease-out;
+}
+.product-categories .selected, 
+.product-criteria .selected {
+  background-color: #ddf2fb;
+}
+.products-list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.products-list a {
+  position: relative;
+  max-width: 32%;
+  border: 1px solid #999999;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 15px;
+  color: #000000;
+}
+.products-list h2 {
+  margin: 0;
+}
+.products-list .product-img {
+  margin-bottom: 30px;
+}
+.products-list p {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  margin: 0;
+  text-align: right;
+}
+.products-title {
+  display: flex;
+  flex-direction: row;
+}
+.products-title h1 {
+  flex: 1;
+}
+.products-title p {
+  flex: 1;
+  text-align: right;
+}
+
+
+/* Product style */
+
+
+.add-product {
+  border-top: 1px dashed #999999;
+}
+.add-product fieldset {
+  float: right;
+}
+.add-product .form-control {
+  width: 70px;
+}
+
+
+/* Shopping Cart style */
+
+
+.cart-table {
+  width: 100%;
+  border-bottom: 1px solid #000000;
+  border-collapse: collapse;
+  text-align: left;
+  table-layout: fixed;
+}
+.cart-table th {
+  border-bottom: 3px solid #000000;
+}
+.cart-table a {
+  color: #1a73a5;
+}
+.cart-table th:first-child,
+.cart-table td:first-child {
+  width: 30px;
+  max-width: 30px;
+}
+.cart-table th:not(:first-child),
+.cart-table td:not(:first-child) {
+  padding: 10px;
+}
+.cart-table th:last-child,
+.cart-table td:last-child {
+  width: 150px;
+  max-width: 150px;
+  text-align: right;
+}
+.quantity {
+  display: inline;
+  margin: 0px 10px;
+}
+.cart-table button {
+  border: none;
+  border-radius: 50%;
+  background-color: #dddddd;
+}
+.cart-table button:hover {
+  background-color: #bbbbbb;
+}
+.cart-table i {
+  vertical-align: middle;
+}
+.cart-table + p {
+  text-align: right;
+}
+.blocked-minus i {
+  color: #777777;
+}
+
+
+/* Contact style */
+
+
+.contacts .row {
+  border: 1px solid #999999;
+  border-radius: 4px;
+  margin: 0;
+}
+.contacts i {
+  margin: 20px 0;
+  display: block;
+  text-align: center;
+}
+.contacts a,
+.contacts .col p {
+  display: block;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Order html */
+
+
+.order-fieldset legend {
+  position: relative;
+  left: -2px;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 0;
+}
+.order-fieldset label {
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  display: block;
+  width: 100%;
+}
+.order-fieldset input {
+  display: block;
+  width: 100%;
+}
+.order-fieldset .col:first-child {
+  margin-right: 10px;
+}
+.order-fieldset .col:last-child {
+  margin-left: 10px;
+}

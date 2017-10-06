@@ -25,6 +25,7 @@
         })
         totalPrice.text(parseFloat(price.toString()).toFixed(2) + "$");
     }
+    //test
     function setOnClickEvent(){
         $("button.btn").click(function(){
             table.remove();

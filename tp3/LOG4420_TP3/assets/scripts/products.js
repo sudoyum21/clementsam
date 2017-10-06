@@ -9,21 +9,20 @@ var getProducts = (function () {
 	}
 	function trier(data){
 		//trier tableau avewc $
-		alert(data)
-		alert($("#products-list"))
 		var id = "";
-		for(var attr in data){
-			id=data[attr].id;
-			$("#products-list").append('		<div class="product">	'+
-			'		<a href="./product.html" title="En savoir plus...">	'+
-			'	<h2>'+id+'</h2>		 '+
-			'	<img alt="Manette Xbox 360" '+
+
+		data.forEach((element) => {
+			$("#products-list").append(
+				'		<div class="product">	'+
+				'		<a href="./product.html" title="En savoir plus...">	'+
+				'	<h2>'+element.id+'</h2>		 '+
+				'	<img alt="Manette Xbox 360" '+
 				'src="./assets/img/xbox-controller.png">		 '+
 				'<p><small>Prix</small> 29,99&thinsp;$</p>		'+
 				'</a>'+
-						'</div>')
-		}
-
+				'</div>')
+			});
+		
 
 
 

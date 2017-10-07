@@ -1,8 +1,5 @@
-'use strict'
-/* Besoin de séparer services et controllers (controllers = touche au html)
-   Clic catégorie: supprimer tout le html de produtcs-list et rajouter ceux qu'il faut
-*/
 var ProductsController = (function () {
+	'use strict'
 	var self = {};
 
 	function getProductTemplate(name, image, price) {
@@ -24,7 +21,10 @@ var ProductsController = (function () {
 	return self;
 })();
 ProductsServices.getData().done(data => {
+	ProductsServices.setOnClickCategories();
+	ProductsServices.setOnClickCriteria();
 	var camerasOnly = ProductsServices.camerasOnly(data);
 	ProductsServices.sortPriceLowHigh(camerasOnly);
 	ProductsController.displayProducts(camerasOnly);
+	$('#products-count').html(camerasOnly.length + ' produits');
 });

@@ -1,92 +1,39 @@
+'use strict';
+
 var ProductsServices = (function() {
-	'use strict'
 	var self = {};
 
 	self.getData = function() {
 		return $.get("./data/products.json");
-	};
+	}
 
-	return self;
-})();
+	self.update = function(data, filter, sort) {
+		var updatedData = _updateCatagories(data, filter);
+		_updateCriteria(updatedData, sort);
+		return updatedData;
+	}
 
-ProductsServices.Categories = (function() {
-	var self = {};
-	
-	self.setOnClick = function() {
-		$('#product-categories > button').each(function() {
-			$(this).click(() => {
-				$('#product-categories > button').each(function() {
-					$(this).removeClass('selected');
-				});
-				$(this).addClass('selected');
-			});
-		});
-	};
-
-	self.camerasOnly = function(data) {
+	function _updateCatagories(data, filter) {
+		if (filter === 'all') return data;
 		return data.filter(product => {
-			return product.category === 'cameras';
+			return product.category === filter;
 		});
-	};
+	}
 
-	self.consolesOnly = function(data) {
-		return data.filter(product => {
-			return product.category === 'consoles';
-		});
-	};
-
-	self.screensOnly = function(data) {
-		return data.filter(product => {
-			return product.category === 'screens';
-		});
-	};
-
-	self.computersOnly = function(data) {
-		return data.filter(product => {
-			return product.category === 'computers';
-		});
-	};
-
-	return self;
-})();
-
-ProductsServices.Criteria = (function() {
-	var self = {};
-
-	self.setOnClick = function() {
-		$('#product-criteria > button').each(function() {
-			$(this).click(() => {
-				$('#product-criteria > button').each(function() {
-					$(this).removeClass('selected');
-				});
-				$(this).addClass('selected');
-			});
-		});
-	};
-
-	self.sortPriceLowHigh = function(data) {
+	function _updateCriteria(data, sort) {
 		data.sort((a, b) => {
-			return a.price > b.price;
+			return _applySortCriteria(a, b, sort);
 		});
-	};
-	
-	self.sortPriceHighLow = function(data) {
-		data.sort((a, b) => {
-			return a.price < b.price;
-		});
-	};
-	
-	self.sortNameAZ = function(data) {
-		data.sort((a, b) => {
-			return a.name > b.name;
-		});
-	};
-	
-	self.sortNameZA = function(data) {
-		data.sort((a, b) => {
-			return a.name < b.name;
-		});
-	};
+	}
+
+	function _applySortCriteria(a, b, sort) {
+		switch(sort) {
+			case 'LH': return a.price > b.price;
+			case 'HL': return a.price < b.price;
+			case 'AZ': return a.name > b.name;
+			case 'ZA': return a.name < b.name;
+		}
+	}
 
 	return self;
 })();

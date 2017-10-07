@@ -20,11 +20,13 @@ var ProductsController = (function () {
 
 	return self;
 })();
+
+
+ProductsServices.Categories.setOnClick();
+ProductsServices.Criteria.setOnClick();
 ProductsServices.getData().done(data => {
-	ProductsServices.setOnClickCategories();
-	ProductsServices.setOnClickCriteria();
-	var camerasOnly = ProductsServices.camerasOnly(data);
-	ProductsServices.sortPriceLowHigh(camerasOnly);
+	var camerasOnly = ProductsServices.Categories.camerasOnly(data);
+	ProductsServices.Criteria.sortPriceLowHigh(camerasOnly);
 	ProductsController.displayProducts(camerasOnly);
 	$('#products-count').html(camerasOnly.length + ' produits');
 });

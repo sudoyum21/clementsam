@@ -6,6 +6,23 @@ var ProductsServices = (function() {
 		return $.get("./data/products.json");
 	};
 
+	return self;
+})();
+
+ProductsServices.Categories = (function() {
+	var self = {};
+	
+	self.setOnClick = function() {
+		$('#product-categories > button').each(function() {
+			$(this).click(() => {
+				$('#product-categories > button').each(function() {
+					$(this).removeClass('selected');
+				});
+				$(this).addClass('selected');
+			});
+		});
+	};
+
 	self.camerasOnly = function(data) {
 		return data.filter(product => {
 			return product.category === 'cameras';
@@ -29,7 +46,24 @@ var ProductsServices = (function() {
 			return product.category === 'computers';
 		});
 	};
-	
+
+	return self;
+})();
+
+ProductsServices.Criteria = (function() {
+	var self = {};
+
+	self.setOnClick = function() {
+		$('#product-criteria > button').each(function() {
+			$(this).click(() => {
+				$('#product-criteria > button').each(function() {
+					$(this).removeClass('selected');
+				});
+				$(this).addClass('selected');
+			});
+		});
+	};
+
 	self.sortPriceLowHigh = function(data) {
 		data.sort((a, b) => {
 			return a.price > b.price;
@@ -51,28 +85,6 @@ var ProductsServices = (function() {
 	self.sortNameZA = function(data) {
 		data.sort((a, b) => {
 			return a.name < b.name;
-		});
-	};
-	
-	self.setOnClickCategories = function() {
-		$('#product-categories > button').each(function() {
-			$(this).click(() => {
-				$('#product-categories > button').each(function() {
-					$(this).removeClass('selected');
-				});
-				$(this).addClass('selected');
-			});
-		});
-	};
-
-	self.setOnClickCriteria = function() {
-		$('#product-criteria > button').each(function() {
-			$(this).click(() => {
-				$('#product-criteria > button').each(function() {
-					$(this).removeClass('selected');
-				});
-				$(this).addClass('selected');
-			});
 		});
 	};
 

@@ -6,19 +6,9 @@ var ProductsController = (function () {
 
 	self.init = function(data) {
 		originalData = data;
-	}
-	
-	self.setOnClick = function() {
 		_setOnClickSideBar($('#product-categories > button'));
 		_setOnClickSideBar($('#product-criteria > button'));
-	}
-
-	self.up = function() {
-		$('#products-list').empty();
-		var filter = _getSelectedCategory();
-		var sort = _getSelectedCriteria();
-		var updatedData = ProductsServices.update(originalData, filter, sort);
-		_displayProducts(updatedData);
+		_updateProducts();
 	}
 
 	function _setOnClickSideBar(buttonsGroup) {
@@ -28,9 +18,17 @@ var ProductsController = (function () {
 					$(this).removeClass('selected');
 				});
 				$(this).addClass('selected');
-				self.up();
+				_updateProducts();
 			});
 		});
+	}
+
+	function _updateProducts() {
+		$('#products-list').empty();
+		var filter = _getSelectedCategory();
+		var sort = _getSelectedCriteria();
+		var updatedData = ProductsServices.update(originalData, filter, sort);
+		_displayProducts(updatedData);
 	}
 	
 	function _displayProducts(data) {
@@ -41,13 +39,13 @@ var ProductsController = (function () {
 	}
 
 	function _getProductTemplate(id, name, image, price) {
-		return '        <div class="product">' +
-		'		   <a href="./product.html?id=' + id + '" title="En savoir plus...">' +
-		'	         <h2>' + name + '</h2>' +
-		'	         <img alt="' + name + '" src="./assets/img/' + image + '">' +
-		'            <p><small>Prix</small> ' + price + '&thinsp;$</p>' +
-		'          </a>' +
-		'        </div>';
+		return '<div class="product">' +
+		'  <a href="./product.html?id=' + id + '" title="En savoir plus...">' +
+		'    <h2>' + name + '</h2>' +
+		'    <img alt="' + name + '" src="./assets/img/' + image + '">' +
+		'    <p><small>Prix</small> ' + price + '&thinsp;$</p>' +
+		'  </a>' +
+		'</div>';
 	}
 
 	function _getSelectedCategory() {
@@ -85,6 +83,4 @@ var ProductsController = (function () {
 
 ProductsServices.getData().done(data => {
 	ProductsController.init(data);
-	ProductsController.setOnClick();
-	ProductsController.up();
 });

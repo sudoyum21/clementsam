@@ -14,8 +14,7 @@ var ProductsController = (function () {
 	}
 
 	self.up = function() {
-		//$('#produits-list').empty();
-		$('#produits-list').html('');
+		$('#products-list').empty();
 		var filter = _getSelectedCategory();
 		var sort = _getSelectedCriteria();
 		var updatedData = ProductsServices.update(originalData, filter, sort);

@@ -8,12 +8,12 @@ var ProductsServices = (function() {
 	}
 
 	self.update = function(data, filter, sort) {
-		var updatedData = _updateCatagories(data, filter);
+		var updatedData = _updateCatagory(data, filter);
 		_updateCriteria(updatedData, sort);
 		return updatedData;
 	}
 
-	function _updateCatagories(data, filter) {
+	function _updateCatagory(data, filter) {
 		if (filter === 'all') return data;
 		return data.filter(product => {
 			return product.category === filter;

@@ -2,8 +2,42 @@
 
 var ProductsController = (function () {
 	var self = {};
+	var originalData;
+
+	self.init = function(data) {
+		originalData = data;
+	}
 	
-	self.displayProducts = function(data) {
+	self.setOnClickSideBar = function() {
+		_setOnClick($('#product-categories > button'));
+		_setOnClick($('#product-criteria > button'));
+	}
+
+	self.up = function() {
+		//$('#produits-list').empty();
+		$('#produits-list').html('');
+		var filter = _getSelectedCategory();
+		var sort = _getSelectedCriteria();
+		var updatedData = ProductsServices.update(originalData, filter, sort);
+		_displayProducts(updatedData);
+		console.log('UP: ' + filter + ', ' + sort);
+		console.log('    data: ' + updatedData);
+	}
+
+	function _setOnClick(buttonsGroup) {
+		buttonsGroup.each(function() {
+			$(this).click(() => {
+				buttonsGroup.each(function() {
+					$(this).removeClass('selected');
+				});
+				$(this).addClass('selected');
+				self.up();
+			});
+		});
+	}
+	
+	function _displayProducts(data) {
+		$('#products-count').html(data.length + ' produits');
 		data.forEach(product => {
 			$("#products-list").append(_getProductTemplate(product.name, product.image, product.price));
 		});
@@ -19,32 +53,8 @@ var ProductsController = (function () {
 		'        </div>';
 	}
 
-	return self;
-})();
-
-ProductsController.Categories = (function() {
-	var self = {};
-	
-	self.setOnClick = function() {
-		$('#product-categories > button').each(function() {
-			$(this).click(() => {
-				$('#product-categories > button').each(function() {
-					$(this).removeClass('selected');
-				});
-				$(this).addClass('selected');
-			});
-		});
-	}
-
-	self.whichSelected = function() {
-		var selectedText;
-		$('#product-categories > button').each(function() {
-			if ($(this).attr('class') === 'selected') {
-				selectedText = $(this).text();
-				return false;
-			}
-		});
-		switch(selectedText) {
+	function _getSelectedCategory() {
+		switch(_findSelectedText($('#product-categories > button'))) {
 			case 'Appareils photo': return 'cameras';
 			case 'Consoles': return 'consoles';
 			case 'Écrans': return 'screens';
@@ -53,32 +63,8 @@ ProductsController.Categories = (function() {
 		}
 	}
 
-	return self;
-})();
-
-ProductsController.Criteria = (function() {
-	var self = {};
-
-	self.setOnClick = function() {
-		$('#product-criteria > button').each(function() {
-			$(this).click(() => {
-				$('#product-criteria > button').each(function() {
-					$(this).removeClass('selected');
-				});
-				$(this).addClass('selected');
-			});
-		});
-	}
-
-	self.whichSelected = function() {
-		var selectedText;
-		$('#product-criteria > button').each(function() {
-			if ($(this).attr('class') === 'selected') {
-				selectedText = $(this).text();
-				return false;
-			}
-		});
-		switch(selectedText) {
+	function _getSelectedCriteria() {
+		switch(_findSelectedText($('#product-criteria > button'))) {
 			case 'Prix (bas-haut)': return 'LH';
 			case 'Prix (haut-bas)': return 'HL';
 			case 'Nom (A-Z)': return 'AZ';
@@ -86,15 +72,22 @@ ProductsController.Criteria = (function() {
 		}
 	}
 
+	function _findSelectedText(buttonsGroup) {
+		var selectedText;
+		buttonsGroup.each(function() {
+			if ($(this).attr('class') === 'selected') {
+				selectedText = $(this).text();
+				return false;
+			}
+		});
+		return selectedText;
+	}
+
 	return self;
 })();
 
-ProductsController.Categories.setOnClick();
-ProductsController.Criteria.setOnClick();
 ProductsServices.getData().done(data => {
-	var filter = ProductsController.Categories.whichSelected(); 
-	var sort = ProductsController.Criteria.whichSelected(); 
-	var updatedData = ProductsServices.update(data, filter, sort);
-	ProductsController.displayProducts(updatedData);
-	$('#products-count').html(updatedData.length + ' produits');
+	ProductsController.init(data);
+	ProductsController.setOnClickSideBar();
+	ProductsController.up();
 });

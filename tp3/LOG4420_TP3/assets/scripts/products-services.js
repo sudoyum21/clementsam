@@ -2,18 +2,23 @@
 
 var ProductsServices = (function() {
 	var self = {};
+	var data;
 
-	self.getData = function() {
+	self.getRequest = function() {
 		return $.get("./data/products.json");
 	}
 
-	self.update = function(data, filter, sort) {
-		var updatedData = _updateCatagory(data, filter);
+	self.initData = function(d) {
+		data = d;
+	}
+
+	self.update = function(filter, sort) {
+		var updatedData = _updateCatagory(filter);
 		_updateCriteria(updatedData, sort);
 		return updatedData;
 	}
 
-	function _updateCatagory(data, filter) {
+	function _updateCatagory(filter) {
 		if (filter === 'all') return data;
 		return data.filter(product => {
 			return product.category === filter;

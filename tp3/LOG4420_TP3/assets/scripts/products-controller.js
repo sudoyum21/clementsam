@@ -2,10 +2,8 @@
 
 var ProductsController = (function () {
 	var self = {};
-	var originalData;
 
-	self.init = function(data) {
-		originalData = data;
+	self.init = function() {
 		_setOnClickSideBar($('#product-categories > button'));
 		_setOnClickSideBar($('#product-criteria > button'));
 		_updateProducts();
@@ -27,7 +25,7 @@ var ProductsController = (function () {
 		$('#products-list').empty();
 		var filter = _getSelectedCategory();
 		var sort = _getSelectedCriteria();
-		var updatedData = ProductsServices.update(originalData, filter, sort);
+		var updatedData = ProductsServices.update(filter, sort);
 		_displayProducts(updatedData);
 	}
 	
@@ -81,6 +79,7 @@ var ProductsController = (function () {
 	return self;
 })();
 
-ProductsServices.getData().done(data => {
-	ProductsController.init(data);
+ProductsServices.getRequest().done(data => {
+	ProductsServices.initData(data);
+	ProductsController.init();
 });

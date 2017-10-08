@@ -2,31 +2,14 @@
 
 var ProductController = (function() {
 	var self = {};
-	var originalData;
 
-	self.getData = function() {
-		return $.get("./data/products.json");
-	}
-
-	self.test = function(data) {
-		originalData = data;
-		var product = _getProduct($.urlParam('id'));
+	self.init = function() {
+		var product = ProductServices.getProduct($.urlParam('id'));
 		if (product != null) {
 			_displayProduct(product);
 		} else {
 			_displayNotFound();
 		}
-	}
-
-	function _getProduct(id) {
-		var myProduct = null;
-		originalData.some(product => {
-			if (product.id == id) {
-				myProduct = product;
-				return true;
-			}
-		});
-		return myProduct;
 	}
 
 	function _displayProduct(product) {
@@ -45,7 +28,7 @@ var ProductController = (function() {
 		$('.row').remove();
 	}
 
-	$.urlParam  = function(name){
+	$.urlParam = function(name){
 		var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
 		return results[1] || 0;
 	}
@@ -53,6 +36,7 @@ var ProductController = (function() {
 	return self;
 })();
 
-ProductController.getData().done(data => {
-	ProductController.test(data);
+ProductServices.getRequest().done(data => {
+	ProductServices.initData(data);
+	ProductController.init();
 });

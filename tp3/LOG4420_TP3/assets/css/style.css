@@ -171,7 +171,6 @@ a:hover {
 }
 #dialog.show {
   visibility: visible;
-  animation-delay: 5s;
 }
 header {
   height: 60px;

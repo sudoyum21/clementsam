@@ -1,32 +1,22 @@
 'use strict';
 
 var ShoppingCartServices = (function() {
-	var self = {};
-	var cart;
+    var self = {};
 
-    self.removeProduct = function(id) {
+    self.removeProduct = function(index) {
 
     }
 
-    self.addOneToProduct = function(id) {
-    	cart = self.getCart();
-    	cart.some(product => {
-            if (product.id === productToSave.id) {
-                productPresent = true;
-                product.quantity += 1;
-                return true;
-            }
-        });
-    	HeaderServices.addToCartCount(1);
-    }
-    
-    self.subOneToProduct = function(id) {
-    	HeaderServices.addToCartCount(-1);
+    self.addToProductQuantity = function(index, quantityToAdd) {
+        var cart = self.getCart();
+        cart[index].quantity += quantityToAdd;
+        HeaderServices.addToCartCount(quantityToAdd);
+        localStorage['cart'] = JSON.stringify(cart);
     }
     
     self.emptyCart = function() {
-		localStorage['cart'] = [];
-		HeaderServices.setToZeroCartCount();
+        localStorage['cart'] = [];
+        HeaderServices.setToZeroCartCount();
     }
 
     self.getCart = function() {
@@ -36,6 +26,14 @@ var ShoppingCartServices = (function() {
         } 
         return JSON.parse(localCartData);
     }
+/*
+    self.getTotalPrice = function() {
+        var total;
+        self.getCart().forEach(product =>  {
 
-	return self;
+        });
+        return 
+    }*/
+
+    return self;
 })();

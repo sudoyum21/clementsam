@@ -1,14 +1,14 @@
 'use struct';
 
 var HeaderServices = (function() {
-	var self = {};
+    var self = {};
 
     self.getCartCount = function() {
-    	var cartCount = localStorage['cartCount'];
-    	if (cartCount == null) {
-    		localStorage['cartCount'] = 0;
-    		return 0;
-    	}
+        var cartCount = localStorage['cartCount'];
+        if (cartCount == null) {
+            localStorage['cartCount'] = 0;
+            return 0;
+        }
         return cartCount;
     }
 
@@ -17,8 +17,8 @@ var HeaderServices = (function() {
     }
 
     self.setToZeroCartCount = function() {
-    	localStorage['cartCount'] = 0;
+        localStorage['cartCount'] = 0;
     }
 
-	return self;
+    return self;
 })();

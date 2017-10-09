@@ -78,8 +78,8 @@ var ProductsController = (function () {
     $(document).ready(function() {
         ProductsServices.getRequest().done(data => {
             ProductsServices.initData(data);
-            ProductsController.setOnClick();
             ProductsController.updateProducts();
+            ProductsController.setOnClick();
         });
     });
 

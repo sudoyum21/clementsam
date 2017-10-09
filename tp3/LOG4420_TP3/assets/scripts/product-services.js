@@ -49,8 +49,6 @@ ProductServices.Cart = (function() {
         var cart = _getCart();
         _addToCart(cart, productToSave);
         localStorage['cart'] = JSON.stringify(cart);
-        console.log('Cart local storage:');
-        console.log(cart);
     }
 
     function _getCart() {

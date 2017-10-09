@@ -1,12 +1,11 @@
 'use struct';
 
 var HeaderController = (function() {
-	var self = {};
+    var self = {};
 
     self.updateCartCount = function() {
-    	var cartCount = HeaderServices.getCartCount();
-        console.log('update cart count: ' + cartCount);
-    	if(cartCount > 0){
+        var cartCount = HeaderServices.getCartCount();
+        if(cartCount > 0){
             $(".shopping-cart > .count").css("visibility", "visible");
             $(".shopping-cart > .count").text(cartCount);
         } else {
@@ -18,5 +17,5 @@ var HeaderController = (function() {
         HeaderController.updateCartCount();
     })
 
-	return self;
+    return self;
 })();

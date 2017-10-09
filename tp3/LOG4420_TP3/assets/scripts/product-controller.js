@@ -46,10 +46,11 @@ var ProductController = (function() {
     }
 
     $(document).ready(function() {
+        //localStorage.clear();
         ProductServices.getRequest().done(data => {
             ProductServices.initData(data);
-            ProductController.setOnSubmitAddToCartForm();
             ProductController.displayProduct();
+            ProductController.setOnSubmitAddToCartForm();
         });
     });
 

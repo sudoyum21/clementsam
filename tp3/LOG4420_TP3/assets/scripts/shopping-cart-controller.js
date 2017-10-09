@@ -11,7 +11,7 @@ var ShoppingCartController = (function() {
 
     self.onChanges = function() {
         HeaderController.updateCartCount();
-        ShoppingCartController.Page.displayTotalPrice();
+        ShoppingCartController.Page.updateCartPage();
     }
 
     function _setOnClickRemoveProductBtn() {
@@ -27,14 +27,13 @@ var ShoppingCartController = (function() {
     function _setOnClickEmptyCartBtn() {
         $('#remove-all-items-button').click(() => {
             // pop up confirmation
-            _displayEmptyCartPage();
             ShoppingCartServices.emptyCart();
             self.onChanges();
         });    
     }
 
     $(document).ready(function() {
-        ShoppingCartController.Page.displayShoppingCartPage();
+        ShoppingCartController.Page.setHtmlCartPage();
         ShoppingCartController.setOnClick();
     });
 
@@ -44,16 +43,26 @@ var ShoppingCartController = (function() {
 ShoppingCartController.Page = (function() {
     var self = {};
 
-    self.displayShoppingCartPage = function() {
+    self.setHtmlCartPage = function() {
+        if (HeaderServices.getCartCount() == 0) {
+            _displayEmptyCartPage();
+            return;
+        }
+        var cart = ShoppingCartServices.getCart();
+        cart.forEach(product => {
+            $('tbody').append(_getRowTemplate(product));
+        });
+    }
+
+    self.updateCartPage = function() {
         if (HeaderServices.getCartCount() == 0) {
             _displayEmptyCartPage();
         } else {
-            _displayCartPage();
-            self.displayTotalPrice();
+            _displayTotalPrice();
         }
     }
 
-    self.displayTotalPrice = function() {
+    function _displayTotalPrice() {
         let price = 0;
         var cart = ShoppingCartServices.getCart();
         cart.forEach(product => {
@@ -67,14 +76,7 @@ ShoppingCartController.Page = (function() {
         $('article').append('<p>Aucun produit dans le panier.</p>');
     }
 
-    function _displayCartPage() {
-        var cart = ShoppingCartServices.getCart();
-        cart.forEach(product => {
-            $('tbody').append(_getLineTemplate(product));
-        });
-    }
-
-    function _getLineTemplate(product) {
+    function _getRowTemplate(product) {
         var disabled = '';
         if (product.quantity == 1) {
             disabled = ' disabled=""';

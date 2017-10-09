@@ -8,7 +8,7 @@ var ShoppingCartServices = (function() {
         var quantityToRemove = cart[index].quantity;
         cart.splice(index, 1);
         localStorage['cart'] = JSON.stringify(cart);
-        HeaderServices.addToCartCount(- quantityToRemove);
+        HeaderServices.addToCartCount(-quantityToRemove);
     }
 
     self.addToProductQuantity = function(index, quantityToAdd) {

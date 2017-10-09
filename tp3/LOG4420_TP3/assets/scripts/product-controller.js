@@ -16,6 +16,10 @@ var ProductController = (function() {
 
     self.displayProduct = function() {
         productId = $.urlParam('id');
+        if (productId == null) {
+            _displayNotFound();
+            return;
+        }
         var product = ProductServices.getProduct(productId);
         if (product != null) {
             _displayProduct(product);
@@ -42,11 +46,11 @@ var ProductController = (function() {
 
     $.urlParam = function(name){
         var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results == null) return null;
         return results[1] || 0;
     }
 
     $(document).ready(function() {
-        //localStorage.clear();
         ProductServices.getRequest().done(data => {
             ProductServices.initData(data);
             ProductController.displayProduct();

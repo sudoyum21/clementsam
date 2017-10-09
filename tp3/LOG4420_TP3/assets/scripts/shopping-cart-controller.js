@@ -14,7 +14,7 @@ var ShoppingCartController = (function() {
 
     self.onChanges = function() {
         HeaderController.updateCartCount();
-        self.displayCart();
+        self.displayShoppingCartPage();
         self.setTotalPrice();
     }
 
@@ -29,7 +29,20 @@ var ShoppingCartController = (function() {
         totalPrice.text(parseFloat(price.toString()).toFixed(2) + "$");
     }
 
-    self.displayCart = function() {
+    self.displayShoppingCartPage = function() {
+        if (HeaderServices.getCartCount() == 0) {
+            _displayEmptyCartPage();
+        } else {
+            _displayCartPage();
+        }
+    }
+
+    function _displayEmptyCartPage() {
+        $('article > *:not(:first-child)').remove();
+        $('article').append('<p>Aucun produit dans le panier.</p>');
+    }
+
+    function _displayCartPage() {
         var cart = ShoppingCartServices.getCart();
         cart.forEach(product => {
             $('tbody').append(_getLineTemplate(product));
@@ -90,11 +103,6 @@ var ShoppingCartController = (function() {
             ShoppingCartServices.emptyCart();
             self.onChanges();
         });    
-    }
-
-    function _displayEmptyCartPage() {
-        $('article > *:not(:first-child)').remove();
-        $('article').append('<p>Aucun produit dans le panier.</p>');
     }
 
     $(document).ready(function() {

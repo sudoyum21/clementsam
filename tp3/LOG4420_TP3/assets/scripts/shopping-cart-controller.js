@@ -5,7 +5,20 @@ var ShoppingCartController = (function() {
     var table = $('table.table > tbody > tr');
     var totalPrice = $(".shopping-cart-total");
 
-    self.setPrice = function() {
+    self.setOnClick = function(){
+        _setOnClickRemoveProductBtn();
+        _setOnClickSubOneBtn();
+        _setOnClickAddOneBtn();
+        _setOnClickEmptyCartBtn();
+    }
+
+    self.onChanges = function() {
+        HeaderController.updateCartCount();
+        self.displayCart();
+        self.setTotalPrice();
+    }
+
+    self.setTotalPrice = function() {
         let price = 0;
         console.log( table.find('td:last-child'))
         table.find('td:last-child').each(function(idx,value){
@@ -13,31 +26,80 @@ var ShoppingCartController = (function() {
             price += parseFloat(valueParsed);
             console.log(valueParsed)
         });
-        console.log(parseFloat(price.toString()));
         totalPrice.text(parseFloat(price.toString()).toFixed(2) + "$");
     }
-    
-    self.setOnClickEmptyCartBtn = function(){
-        $('#remove-all-items-button').click(function(){
-            // pop up confirmation
-            // display page "no product in cart" without refresh
-            ShoppingCartServices.emptyCart();
-            HeaderController.updateCartCount();
-            
-            // Avant :
-            //table.remove();
-            //self.onChanges();
+
+    self.displayCart = function() {
+        var cart = ShoppingCartServices.getCart();
+        cart.forEach(product => {
+            $('tbody').append(_getLineTemplate(product));
+        });
+    }
+
+    function _getLineTemplate(product) {
+        // disabled="" à mettre si quantité == 0, sinon non
+        return '<tr>' +
+        '  <td><button class="remove-item-button" title="Supprimer"><i class="fa fa-times"></i></button></td>' +
+        '  <td><a href="./product.html">' + product.name + '</a></td>' +
+        '  <td>' + product.price + '&thinsp;$</td>' +
+        '  <td>' +
+        '    <div class="row">' +
+        '      <div class="col">' +
+        '        <button class="remove-quantity-button" title="Retirer" disabled=""><i class="fa fa-minus"></i></button>' +
+        '      </div>' +
+        '      <div class="col quantity">' + product.quantity + '</div>' +
+        '      <div class="col">' +
+        '        <button class="add-quantity-button" title="Ajouter"><i class="fa fa-plus"></i></button>' +
+        '      </div>' +
+        '    </div>' +
+        '  </td>' +
+        '  <td>' + (product.price*product.quantity) + '&thinsp;$</td>' +
+        '</tr>';
+    }
+
+    function _setOnClickRemoveProductBtn() {
+        $('.remove-item-button').click(() => {
+            // Remove line
+            //ShoppingCartServices.removeProduct(id); => need to know which one to change
+            self.onChanges();
         });    
     }
 
-    self.onChanges = function(){
-        HeaderController.updateCartCount();
-        self.setPrice();
+    function _setOnClickSubOneBtn() {
+        $('.remove-quantity-button').click(() => {
+            // Change quantity -1
+            // Change line price
+            //ShoppingCartServices.subOneToProduct(id); => need to know which one to change
+            self.onChanges();
+        });    
+    }
+
+    function _setOnClickAddOneBtn() {
+        $('.add-quantity-button').click(() => {
+            // Change quantity +1
+            // Change line prices
+            //ShoppingCartServices.addOneToProduct(id); => need to know which one to change
+            self.onChanges();
+        });    
+    }
+    
+    function _setOnClickEmptyCartBtn() {
+        $('#remove-all-items-button').click(() => {
+            // pop up confirmation
+            _displayEmptyCartPage();
+            ShoppingCartServices.emptyCart();
+            self.onChanges();
+        });    
+    }
+
+    function _displayEmptyCartPage() {
+        $('article > *:not(:first-child)').remove();
+        $('article').append('<p>Aucun produit dans le panier.</p>');
     }
 
     $(document).ready(function() {
         ShoppingCartController.onChanges();
-        ShoppingCartController.setOnClickEmptyCartBtn();
+        ShoppingCartController.setOnClick();
     });
 
     return self;

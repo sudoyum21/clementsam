@@ -9,21 +9,29 @@ var ShoppingCartServices = (function() {
     }
 
     self.addOneToProduct = function(id) {
-
+    	cart = self.getCart();
+    	cart.some(product => {
+            if (product.id === productToSave.id) {
+                productPresent = true;
+                product.quantity += 1;
+                return true;
+            }
+        });
+    	HeaderServices.addToCartCount(1);
     }
     
     self.subOneToProduct = function(id) {
-
+    	HeaderServices.addToCartCount(-1);
     }
     
     self.emptyCart = function() {
 		localStorage['cart'] = [];
 		HeaderServices.setToZeroCartCount();
     }
-    
-    function _getCartLocalStorage() {
+
+    self.getCart = function() {
         var localCartData = localStorage['cart'];
-        if (localCartData == null) {
+        if (localCartData == null || localCartData == []) {
             return [];
         } 
         return JSON.parse(localCartData);

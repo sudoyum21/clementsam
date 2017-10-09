@@ -4,7 +4,7 @@ var HeaderController = (function() {
 	var self = {};
 
     self.updateCartCount = function() {
-    	var cartCount = HeaderServices.getCartCountLocalStorage();
+    	var cartCount = HeaderServices.getCartCount();
         console.log('update cart count: ' + cartCount);
     	if(cartCount > 0){
             $(".shopping-cart > .count").css("visibility", "visible");

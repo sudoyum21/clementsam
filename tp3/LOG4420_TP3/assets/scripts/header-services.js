@@ -3,7 +3,7 @@
 var HeaderServices = (function() {
 	var self = {};
 
-    self.getCartCountLocalStorage = function() {
+    self.getCartCount = function() {
     	var cartCount = localStorage['cartCount'];
     	if (cartCount == null) {
     		localStorage['cartCount'] = 0;

@@ -8,7 +8,9 @@ var ProductController = (function() {
         $('#add-to-cart-form').submit((event) => {
             event.preventDefault();
             var quantity = $('#product-quantity').val();
-            // Show dialog to confirm
+            $('#dialog').text('Le produit a été ajouté au panier.');
+            $('#dialog').addClass('show');
+            setTimeout(function(){ $('#dialog').removeClass('show'); }, 5000);
             ProductServices.Cart.saveAddedProduct(productId, quantity);
             HeaderController.updateCartCount();
         });

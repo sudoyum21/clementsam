@@ -25,7 +25,7 @@ var ProductsController = (function () {
         $('#products-list').empty();
         var filter = _getSelectedCategory();
         var sort = _getSelectedCriteria();
-        var updatedData = ProductsServices.update(filter, sort);
+        var updatedData = ProductsServices.getUpdatedData(filter, sort);
         _displayProducts(updatedData);
     }
     
@@ -77,6 +77,7 @@ var ProductsController = (function () {
     }
 
     $(document).ready(function() {
+        HeaderController.updateCartCount();
         ProductsServices.getRequest().done(data => {
             ProductsServices.initData(data);
             ProductsController.init();

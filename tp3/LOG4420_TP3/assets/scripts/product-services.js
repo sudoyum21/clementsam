@@ -28,15 +28,11 @@ var ProductServices = (function() {
 
 ProductServices.Cart = (function() {
     var self = {};
-    var cart;
 
     self.saveAddedProduct = function(id, quantity) {
         var productToSave = _getProductToSave(id, quantity);
-        cart = _getCartFromLocalStorage();
-        _addToCart(productToSave);
-        localStorage['cart'] = JSON.stringify(cart);
-        console.log('Cart local storage:');
-        console.log(cart);
+        _updateCart(productToSave);
+        HeaderServices.addToCartCount(quantity);
     }
 
     function _getProductToSave(id, quantity) {
@@ -49,15 +45,23 @@ ProductServices.Cart = (function() {
         };
     }
 
-    function _getCartFromLocalStorage() {
+    function _updateCart(productToSave) {
+        var cart = _getCart();
+        _addToCart(cart, productToSave);
+        localStorage['cart'] = JSON.stringify(cart);
+        console.log('Cart local storage:');
+        console.log(cart);
+    }
+
+    function _getCart() {
         var localCartData = localStorage['cart'];
-        if (localCartData == null) {
+        if (localCartData == null || localCartData == []) {
             return [];
         } 
         return JSON.parse(localCartData);
     }
 
-    function _addToCart(productToSave) {
+    function _addToCart(cart, productToSave) {
         var productPresent = false;
         cart.some(product => {
             if (product.id === productToSave.id) {

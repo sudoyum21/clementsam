@@ -12,7 +12,7 @@ var ProductsServices = (function() {
         data = d;
     }
 
-    self.update = function(filter, sort) {
+    self.getUpdatedData = function(filter, sort) {
         var updatedData = _updateCatagory(filter);
         _updateCriteria(updatedData, sort);
         return updatedData;

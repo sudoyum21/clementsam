@@ -20,10 +20,8 @@ var ProductController = (function() {
             event.preventDefault();
             var quantity = $('#product-quantity').val();
             // Show dialog to confirm
-            // Add quantity of items to the cart
             ProductServices.Cart.saveAddedProduct(productId, quantity);
-            // Update cart count
-            return false;
+            HeaderController.updateCartCount();
         });
     }
 
@@ -49,7 +47,7 @@ var ProductController = (function() {
     }
 
     $(document).ready(function() {
-        //localStorage.clear(); // RESET LE LOCAL STORAGE: POUR TEST
+        HeaderController.updateCartCount();
         ProductServices.getRequest().done(data => {
             ProductServices.initData(data);
             ProductController.init();

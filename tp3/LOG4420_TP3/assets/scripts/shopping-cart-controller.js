@@ -1,46 +1,46 @@
+'use strict';
 
-
-(function() {
-    'use strict'
-    var table = $('table.table >tbody >tr');
+var ShoppingCartController = (function() {
+    var self = {};
+    var table = $('table.table > tbody > tr');
     var totalPrice = $(".shopping-cart-total");
 
-    function setBadge(){
-        let rowCount = table.length;
-        if(rowCount){
-            $(".count").css("visibility", "visible");
-            $(".count").text(rowCount);
-        } else {
-            $(".count").css("visibility", "hidden");
-        }
-    }
-    function setPrice(){
+    self.setPrice = function() {
         let price = 0;
         console.log( table.find('td:last-child'))
         table.find('td:last-child').each(function(idx,value){
-
             let valueParsed = value.innerText.toString().slice(0, -1);
-            price+=parseFloat(valueParsed);
+            price += parseFloat(valueParsed);
             console.log(valueParsed)
-        })
+        });
+        console.log(parseFloat(price.toString()));
         totalPrice.text(parseFloat(price.toString()).toFixed(2) + "$");
     }
-    //test
-    function setOnClickEvent(){
-        $("button.btn").click(function(){
-            table.remove();
-            onChanges();
+    
+    self.setOnClickEmptyCartBtn = function(){
+        $('#remove-all-items-button').click(function(){
+            // pop up confirmation
+            // display page "no product in cart" without refresh
+            ShoppingCartServices.emptyCart();
+            HeaderController.updateCartCount();
+            
+            // Avant :
+            //table.remove();
+            //self.onChanges();
         });    
     }
-    function onChanges(){
-        table = $('table.table >tbody >tr');
-        setBadge();  
-        setPrice();
+
+    self.onChanges = function(){
+        HeaderController.updateCartCount();
+        self.setPrice();
     }
-    $( document ).ready(function() {
-        onChanges();
-        setOnClickEvent();
+
+    $(document).ready(function() {
+        ShoppingCartController.onChanges();
+        ShoppingCartController.setOnClickEmptyCartBtn();
     });
+
+    return self;
 })();
 
 

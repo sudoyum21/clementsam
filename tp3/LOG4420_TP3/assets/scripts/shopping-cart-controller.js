@@ -52,6 +52,7 @@ ShoppingCartController.Page = (function() {
         cart.forEach(product => {
             $('tbody').append(_getRowTemplate(product));
         });
+        _displayTotalPrice();
     }
 
     self.updateCartPage = function() {

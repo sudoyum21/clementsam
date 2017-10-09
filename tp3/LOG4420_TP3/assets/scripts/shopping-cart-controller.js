@@ -50,7 +50,7 @@ var ShoppingCartController = (function() {
     }
 
     function _getLineTemplate(product) {
-        // disabled="" à mettre si quantité == 0, sinon non
+        // disabled="" à mettre si quantité == 1, sinon non
         return '<tr>' +
         '  <td><button class="remove-item-button" title="Supprimer"><i class="fa fa-times"></i></button></td>' +
         '  <td><a href="./product.html">' + product.name + '</a></td>' +

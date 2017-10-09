@@ -14,5 +14,9 @@ var HeaderController = (function() {
         }
     }
 
+    $(document).ready(function() {
+        HeaderController.updateCartCount();
+    })
+
 	return self;
 })();

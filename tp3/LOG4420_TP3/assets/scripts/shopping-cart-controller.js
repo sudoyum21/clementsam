@@ -2,8 +2,6 @@
 
 var ShoppingCartController = (function() {
     var self = {};
-    var table = $('table.table > tbody > tr');
-    var totalPrice = $(".shopping-cart-total");
 
     self.setOnClick = function(){
         _setOnClickRemoveProductBtn();
@@ -12,29 +10,17 @@ var ShoppingCartController = (function() {
         _setOnClickEmptyCartBtn();
     }
 
-    self.onChanges = function() {
-        HeaderController.updateCartCount();
-        self.displayShoppingCartPage();
-        self.setTotalPrice();
-    }
-
-    self.setTotalPrice = function() {
-        let price = 0;
-        console.log( table.find('td:last-child'))
-        table.find('td:last-child').each(function(idx,value){
-            let valueParsed = value.innerText.toString().slice(0, -1);
-            price += parseFloat(valueParsed);
-            console.log(valueParsed)
-        });
-        totalPrice.text(parseFloat(price.toString()).toFixed(2) + "$");
-    }
-
     self.displayShoppingCartPage = function() {
         if (HeaderServices.getCartCount() == 0) {
             _displayEmptyCartPage();
         } else {
             _displayCartPage();
+            _setTotalPrice();
         }
+    }
+
+    self.onChanges = function() {
+        HeaderController.updateCartCount();
     }
 
     function _displayEmptyCartPage() {
@@ -50,7 +36,7 @@ var ShoppingCartController = (function() {
     }
 
     function _getLineTemplate(product) {
-        // disabled="" à mettre si quantité == 1, sinon non
+        // button: disabled="" à mettre si quantité == 1 pour les boutons -
         return '<tr>' +
         '  <td><button class="remove-item-button" title="Supprimer"><i class="fa fa-times"></i></button></td>' +
         '  <td><a href="./product.html">' + product.name + '</a></td>' +
@@ -68,6 +54,16 @@ var ShoppingCartController = (function() {
         '  </td>' +
         '  <td>' + (product.price*product.quantity) + '&thinsp;$</td>' +
         '</tr>';
+    }
+
+    function _setTotalPrice() {
+        let price = 0;
+        $('table.table > tbody > tr').find('td:last-child').each(function(idx,value){
+            let valueParsed = value.innerText.toString().slice(0, -1);
+            price += parseFloat(valueParsed);
+            console.log(valueParsed)
+        });
+        $(".shopping-cart-total").html('Total: <strong>' + parseFloat(price.toString()).toFixed(2) + '&thinsp;$</strong>');
     }
 
     function _setOnClickRemoveProductBtn() {
@@ -106,8 +102,8 @@ var ShoppingCartController = (function() {
     }
 
     $(document).ready(function() {
-        ShoppingCartController.onChanges();
         ShoppingCartController.setOnClick();
+        ShoppingCartController.displayShoppingCartPage();
     });
 
     return self;

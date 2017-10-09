@@ -4,18 +4,7 @@ var ProductController = (function() {
     var self = {};
     var productId;
 
-    self.init = function() {
-        productId = $.urlParam('id');
-        var product = ProductServices.getProduct(productId);
-        if (product != null) {
-            _displayProduct(product);
-        } else {
-            _displayNotFound();
-        }
-        _setOnSubmitAddToCartForm();
-    }
-
-    function _setOnSubmitAddToCartForm() {
+    self.setOnSubmitAddToCartForm = function() {
         $('#add-to-cart-form').submit((event) => {
             event.preventDefault();
             var quantity = $('#product-quantity').val();
@@ -23,6 +12,16 @@ var ProductController = (function() {
             ProductServices.Cart.saveAddedProduct(productId, quantity);
             HeaderController.updateCartCount();
         });
+    }
+
+    self.displayProduct = function() {
+        productId = $.urlParam('id');
+        var product = ProductServices.getProduct(productId);
+        if (product != null) {
+            _displayProduct(product);
+        } else {
+            _displayNotFound();
+        }
     }
 
     function _displayProduct(product) {
@@ -47,10 +46,10 @@ var ProductController = (function() {
     }
 
     $(document).ready(function() {
-        HeaderController.updateCartCount();
         ProductServices.getRequest().done(data => {
             ProductServices.initData(data);
-            ProductController.init();
+            ProductController.setOnSubmitAddToCartForm();
+            ProductController.displayProduct();
         });
     });
 

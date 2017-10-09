@@ -3,10 +3,17 @@
 var ProductsController = (function () {
     var self = {};
 
-    self.init = function() {
+    self.setOnClick = function() {
         _setOnClickSideBar($('#product-categories > button'));
         _setOnClickSideBar($('#product-criteria > button'));
-        _updateProducts();
+    }
+
+    self.updateProducts = function() {
+        $('#products-list').empty();
+        var filter = _getSelectedCategory();
+        var sort = _getSelectedCriteria();
+        var updatedData = ProductsServices.getUpdatedData(filter, sort);
+        _displayProducts(updatedData);
     }
 
     function _setOnClickSideBar(buttonsGroup) {
@@ -16,17 +23,9 @@ var ProductsController = (function () {
                     $(this).removeClass('selected');
                 });
                 $(this).addClass('selected');
-                _updateProducts();
+                self.updateProducts();
             });
         });
-    }
-
-    function _updateProducts() {
-        $('#products-list').empty();
-        var filter = _getSelectedCategory();
-        var sort = _getSelectedCriteria();
-        var updatedData = ProductsServices.getUpdatedData(filter, sort);
-        _displayProducts(updatedData);
     }
     
     function _displayProducts(data) {
@@ -77,10 +76,10 @@ var ProductsController = (function () {
     }
 
     $(document).ready(function() {
-        HeaderController.updateCartCount();
         ProductsServices.getRequest().done(data => {
             ProductsServices.initData(data);
-            ProductsController.init();
+            ProductsController.setOnClick();
+            ProductsController.updateProducts();
         });
     });
 

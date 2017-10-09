@@ -16,19 +16,23 @@ var ShoppingCartController = (function() {
 
     function _setOnClickRemoveProductBtn() {
         $('.remove-item-button').click(function() {
-            // pop up confirmation
-            var row = $(this).closest('tr');
-            ShoppingCartServices.removeProduct(row.index());
-            row.remove();
-            self.onChanges();
+            var confirmBox = confirm("Voulez-vous supprimer le produit du panier ?");
+            if (confirmBox == true) {
+                var row = $(this).closest('tr');
+                ShoppingCartServices.removeProduct(row.index());
+                row.remove();
+                self.onChanges();
+            }
         });    
     }
     
     function _setOnClickEmptyCartBtn() {
         $('#remove-all-items-button').click(() => {
-            // pop up confirmation
-            ShoppingCartServices.emptyCart();
-            self.onChanges();
+            var confirmBox = confirm("Voulez-vous supprimer tous les produits du panier ?");
+            if (confirmBox == true) {
+                ShoppingCartServices.emptyCart();
+                self.onChanges();
+            }
         });    
     }
 

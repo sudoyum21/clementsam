@@ -1,6 +1,6 @@
 'use strict';
 
-var ProductServices = (function() {
+var OrderServices = (function() {
     var self = {};
     var data;
 
@@ -26,7 +26,7 @@ var ProductServices = (function() {
     return self;
 })();
 
-ProductServices.Cart = (function() {
+OrderServices.Cart = (function() {
     var self = {};
 
     self.saveAddedProduct = function(id, quantity) {
@@ -36,7 +36,7 @@ ProductServices.Cart = (function() {
     }
 
     function _getProductToSave(id, quantity) {
-        var product = ProductServices.getProduct(id);
+        var product = OrderServices.getProduct(id);
         return {
             id: parseInt(id),
             name: product.name || "",

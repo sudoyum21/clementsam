@@ -26,9 +26,16 @@ var ProductsServices = (function() {
     }
 
     function _updateCriteria(data, sort) {
-        data.sort((a, b) => {
-            return _applySortCriteria(a, b, sort);
-        });
+        switch(sort) {
+            case 'LH':  data.sort(function(a,b) {return (parseFloat(a.price.toString().replace(",", ".")) > parseFloat(b.price.toString().replace(",", "."))) ? 1 : ((parseFloat(b.price.toString().replace(",", ".")) > (parseFloat(a.price.toString().replace(",", "."))) ? -1 : 0))} );
+            break;
+            case 'HL':  data.sort(function(a,b) {return (parseFloat(a.price.toString().replace(",", ".")) < parseFloat(b.price.toString().replace(",", "."))) ? 1 : ((parseFloat(b.price.toString().replace(",", "."))< (parseFloat(a.price.toString().replace(",", "."))) ? -1 : 0))} );
+            break;
+            case 'AZ':  data.sort(function(a,b) {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);} );
+            break;
+            case 'ZA':  data.sort(function(a,b) {return (a.name < b.name) ? 1 : ((b.name < a.name) ? -1 : 0);} );
+            break;
+        }
     }
 
     function _applySortCriteria(a, b, sort) {

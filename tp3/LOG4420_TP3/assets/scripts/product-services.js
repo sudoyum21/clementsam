@@ -37,6 +37,7 @@ ProductServices.Cart = (function() {
 
     function _getProductToSave(id, quantity) {
         var product = ProductServices.getProduct(id);
+
         return {
             id: parseInt(id),
             name: product.name || "",

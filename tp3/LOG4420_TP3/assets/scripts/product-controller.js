@@ -38,11 +38,11 @@ var ProductController = (function() {
         product.features.forEach(feature => {
             $('#product-features').append('<li>' + feature + '</li>');
         });
-        $('#product-price').html(product.price + ' $');
+        $('#product-price').html(product.price + '$');
     }
 
     function _displayNotFound(product) {
-        $('#product-name').html('Page non trouvée !');
+        $('#product-name').html('Page non trouvée!');
         $('.row').remove();
     }
 

@@ -41,7 +41,7 @@ var ProductsController = (function () {
         '  <a href="./product.html?id=' + id + '" title="En savoir plus...">' +
         '    <h2>' + name + '</h2>' +
         '    <img alt="' + name + '" src="./assets/img/' + image + '">' +
-        '    <p><small>Prix</small> ' + price.toFixed(2).replace(".", ",") + '&thinsp;$</p>' +
+        '    <p><small>Prix</small> ' + price + '&thinsp;$</p>' +
         '  </a>' +
         '</div>';
     }

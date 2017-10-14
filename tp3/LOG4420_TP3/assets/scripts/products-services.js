@@ -32,9 +32,11 @@ var ProductsServices = (function() {
     }
 
     function _applySortCriteria(a, b, sort) {
+        console.log(a.price.toString().replace(",", "."))
+        console.log(b.price.toString().replace(",", "."))
         switch(sort) {
-            case 'LH': return a.price > b.price;
-            case 'HL': return a.price < b.price;
+            case 'LH': return a.price.toString().replace(",", ".") > b.price.toString().replace(",", ".");
+            case 'HL': return a.price.toString().replace(",", ".") < b.price.toString().replace(",", ".");
             case 'AZ': return a.name > b.name;
             case 'ZA': return a.name < b.name;
         }

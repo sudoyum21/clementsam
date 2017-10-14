@@ -151,7 +151,7 @@ ShoppingCartController.Quantity = (function() {
     function _updatePrice(button) {
         var rowIndex = button.closest('tr').index();
         var cart = ShoppingCartServices.getCart();
-        var newPrice = parseFloat(cart[rowIndex].price) * cart[rowIndex].quantity;
+        var newPrice = parseFloat(cart[rowIndex].price.replace(",", ".")) * cart[rowIndex].quantity;
         var priceNode = button.closest('tr').find('.price');
         priceNode.text(newPrice.toFixed(2).replace(".", ",") + ' $');
     }

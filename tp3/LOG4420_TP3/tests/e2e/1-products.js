@@ -32,13 +32,14 @@ function validateProductsList(client, expectedProductsList) {
       // Retrieve the element text.
       client.elementIdText(v.ELEMENT, function(result) {
         // Check if the product name is correct.
+        let test = result.value;
         client.assert.ok(result.value.indexOf(expectedProductsList[i].name) !== -1,
-          "Le produit #" + id + " doit être '" + expectedProductsList[i].name + "'.");
+          "Le produit #" + id + " doit être '" + expectedProductsList[i].name + "'." + test);
 
         // Check if the product price is correct.
         var price = utils.getFormattedPrice(expectedProductsList[i].price);
         assert(result.value.indexOf(price) !== -1,
-          "Le prix pour le produit #" + id + " doit être '" + price + "$'.");
+          "Le prix pour le produit #" + id + "  doit être '" + price + "$'." + test);
       });
 
       // Check if the product image is correct.

@@ -34,9 +34,14 @@ var ProductsServices = (function() {
     function _applySortCriteria(a, b, sort) {
         console.log(a.price.toString().replace(",", "."))
         console.log(b.price.toString().replace(",", "."))
+        let aPrice = parseFloat(a.price.toString().replace(",", "."));
+        let bPrice = parseFloat(b.price.toString().replace(",", "."));
+        console.log(aPrice > bPrice)
+        console.log(aPrice + " " +  bPrice)
+        console.log("============")
         switch(sort) {
-            case 'LH': return a.price.toString().replace(",", ".") > b.price.toString().replace(",", ".");
-            case 'HL': return a.price.toString().replace(",", ".") < b.price.toString().replace(",", ".");
+            case 'LH': return aPrice > bPrice;
+            case 'HL': return aPrice < bPrice;
             case 'AZ': return a.name > b.name;
             case 'ZA': return a.name < b.name;
         }

@@ -32,7 +32,7 @@ var ProductsController = (function () {
         let suffix = " produit" + ((data.length > 1) ? "s" : "");
         $('#products-count').html(data.length + suffix);
         data.forEach(product => {
-            $("#products-list").append(_getProductTemplate(product.id, product.name, product.image, product.price));
+            $("#products-list").append(_getProductTemplate(product.id, product.name, product.image, product.price.toFixed(2).replace(".", ",")));
         });
     }
 
@@ -41,7 +41,7 @@ var ProductsController = (function () {
         '  <a href="./product.html?id=' + id + '" title="En savoir plus...">' +
         '    <h2>' + name + '</h2>' +
         '    <img alt="' + name + '" src="./assets/img/' + image + '">' +
-        '    <p><small>Prix</small> ' + price + '&thinsp;$</p>' +
+        '    <p><small>Prix</small> ' + price.toFixed(2).replace(".", ",") + '&thinsp;$</p>' +
         '  </a>' +
         '</div>';
     }

@@ -41,7 +41,7 @@ ProductServices.Cart = (function() {
         return {
             id: parseInt(id),
             name: product.name || "",
-            price: product.price || "",
+            price: product.price.toFixed(2).replace(".", ",") || "",
             quantity: parseInt(quantity)
         };
     }

@@ -38,7 +38,7 @@ var ProductController = (function() {
         product.features.forEach(feature => {
             $('#product-features').append('<li>' + feature + '</li>');
         });
-        $('#product-price').html(product.price + '$');
+        $('#product-price').html(product.price.toFixed(2).replace(".", ",") + '$');
     }
 
     function _displayNotFound(product) {

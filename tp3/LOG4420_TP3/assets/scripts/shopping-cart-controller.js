@@ -73,7 +73,7 @@ ShoppingCartController.Page = (function() {
         cart.forEach(product => {
             price += product.price * product.quantity;
         });
-        $("#total-amount strong").text(price.toFixed(2) + ' $');
+        $("#total-amount strong").text(price.toFixed(2).replace(".", ",") + ' $');
     }
 
     function _displayEmptyCartPage() {
@@ -83,13 +83,15 @@ ShoppingCartController.Page = (function() {
 
     function _getRowTemplate(product) {
         var disabled = '';
+        var priceFormatted = parseFloat(product.price.toString()).toFixed(2).replace(".", ",");
+        var priceQuantityFormatted = parseFloat(product.price*product.quantity).toFixed(2).replace(".", ",");
         if (product.quantity == 1) {
             disabled = ' disabled=""';
         }
         return '<tr>' +
         '  <td><button class="remove-item-button" title="Supprimer"><i class="fa fa-times"></i></button></td>' +
         '  <td><a href="./product.html?id=' + product.id + '">' + product.name + '</a></td>' +
-        '  <td>' + product.price + ' $</td>' +
+        '  <td>' + priceFormatted + ' $</td>' +
         '  <td>' +
         '    <div class="row">' +
         '      <div class="col">' +
@@ -101,7 +103,7 @@ ShoppingCartController.Page = (function() {
         '      </div>' +
         '    </div>' +
         '  </td>' +
-        '  <td class="price">' + (product.price*product.quantity).toFixed(2) + ' $</td>' +
+        '  <td class="price">' + priceQuantityFormatted + ' $</td>' +
         '</tr>';
     }
 
@@ -148,7 +150,7 @@ ShoppingCartController.Quantity = (function() {
         var cart = ShoppingCartServices.getCart();
         var newPrice = cart[rowIndex].price * cart[rowIndex].quantity;
         var priceNode = button.closest('tr').find('.price');
-        priceNode.text(newPrice.toFixed(2) + ' $');
+        priceNode.text(newPrice.toFixed(2).replace(".", ",") + ' $');
     }
 
     return self;

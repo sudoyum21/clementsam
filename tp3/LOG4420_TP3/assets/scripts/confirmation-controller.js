@@ -10,8 +10,8 @@ var ConfirmationController = (function () {
         if(lastOrder == null){
             return ":( Votre commande a été refusée. Veuillez contacter OnlineShopping pour plus d'informations.";
         }
+        $("#name").text(confirmationPrefix + lastOrder['firstname'] + " " + lastOrder['lastname'] + "!");   
         $("#confirmation-number").html(lastOrder['orderNumber']);
-        return confirmationPrefix + lastOrder['firstname'] + " " + lastOrder['lastname'] + "!";
     }
     self.clearLS = function(){        
         ShoppingCartServices.emptyCart();
@@ -25,7 +25,7 @@ var ConfirmationController = (function () {
         return null;
     }
     $(document).ready(function () {
-        $("#confirmation-info").html(ConfirmationController.buildConfirmationInfo());        
+        ConfirmationController.buildConfirmationInfo();          
         ConfirmationController.clearLS();
     });
 

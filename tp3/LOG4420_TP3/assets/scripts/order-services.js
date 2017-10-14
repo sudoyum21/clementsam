@@ -4,76 +4,32 @@ var OrderServices = (function() {
     var self = {};
     var data;
 
-    self.getRequest = function() {
-        return $.get("./data/products.json");
-    }
-
-    self.initData = function(d) {
-        data = d;
-    }
-
-    self.getProduct = function(id) {
-        var myProduct = null;
-        data.some(product => {
-            if (product.id == id) {
-                myProduct = product;
-                return true;
-            }
+    self.updateLastOrderToLS = function(firstname, lastname, orderNumber) {
+        var orders = [];
+        let ordersLSRaw = localStorage.getItem('orders');
+        if(ordersLSRaw){
+            orders = JSON.parse(ordersLSRaw);
+        }     
+        orders.push({
+            firstname : firstname,
+            lastname : lastname,
+            orderNumber : orderNumber
         });
-        return myProduct;
+        localStorage.setItem('orders', JSON.stringify(orders));  
     }
 
-    return self;
-})();
-
-OrderServices.Cart = (function() {
-    var self = {};
-
-    self.saveAddedProduct = function(id, quantity) {
-        var productToSave = _getProductToSave(id, quantity);
-        _updateCart(productToSave);
-        HeaderServices.addToCartCount(quantity);
-    }
-
-    function _getProductToSave(id, quantity) {
-        var product = OrderServices.getProduct(id);
-        return {
-            id: parseInt(id),
-            name: product.name || "",
-            price: product.price || "",
-            quantity: parseInt(quantity)
-        };
-    }
-
-    function _updateCart(productToSave) {
-        var cart = _getCart();
-        _addToCart(cart, productToSave);
-        localStorage['cart'] = JSON.stringify(cart);
-    }
-
-    function _getCart() {
-        var localCartData = localStorage['cart'];
-        if (localCartData == null || localCartData == []) {
-            return [];
+    self.getLastOrder = function (){
+        let lastOrder = {};
+        let orders, ordersLength;
+        let ordersLSRaw = localStorage.getItem('orders');
+        if(ordersLSRaw){
+            orders = JSON.parse(ordersLSRaw);  
+            ordersLength = Object.keys(orders).length;       
+        }        
+        if(ordersLength > 0) {
+            lastOrder = orders[ordersLength-1];
         } 
-        return JSON.parse(localCartData);
-    }
-
-    function _addToCart(cart, productToSave) {
-        var productPresent = false;
-        cart.some(product => {
-            if (product.id === productToSave.id) {
-                productPresent = true;
-                product.quantity += productToSave.quantity;
-                return true;
-            }
-        });
-        if (!productPresent) {
-            cart.push(productToSave);
-            cart.sort((a, b) => {
-                return a.name > b.name;
-            });
-        }
+        return lastOrder;
     }
 
     return self;

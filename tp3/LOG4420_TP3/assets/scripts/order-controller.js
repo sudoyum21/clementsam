@@ -5,11 +5,13 @@ var OrderController = (function () {
 
     self.setOnSubmitClearCartCount = function ()  {
         $('#order-form').submit((event) => {
-            let cart = ShoppingCartServices.getCart();
-            if(Object.keys(cart).length > 0){
-                let firstname = $('#first-name').val();
-                let lastname = $('#last-name').val();
-                OrderServices.updateLastOrderToLS(firstname, lastname);
+            if($("#order-form").valid()){
+                let cart = ShoppingCartServices.getCart();
+                if(Object.keys(cart).length > 0){
+                    let firstname = $('#first-name').val();
+                    let lastname = $('#last-name').val();
+                    OrderServices.updateLastOrderToLS(firstname, lastname);
+                }
             }
         });
     }

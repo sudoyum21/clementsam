@@ -6,12 +6,9 @@ var OrderServices = (function() {
 
     self.updateLastOrderToLS = function(firstname, lastname) {
         var orders = [];
-        let newOrderNumber = 1;
+        
         let lastOrder = self.getLastOrder();
-        if(lastOrder['orderNumber']){
-            newOrderNumber =  parseInt(lastOrder['orderNumber'].toString()) + 1;
-        }        
-        console.log(newOrderNumber)
+        let newOrderNumber = lastOrder['orderNumber'] ? parseInt(lastOrder['orderNumber'].toString()) + 1 : 1; 
         let ordersLSRaw = localStorage.getItem('orders');
         if(ordersLSRaw){
             orders = JSON.parse(ordersLSRaw);
@@ -22,7 +19,6 @@ var OrderServices = (function() {
             orderNumber : newOrderNumber
         });
         localStorage.setItem('orders', JSON.stringify(orders));  
-        console.log(localStorage.getItem('orders'))
     }
 
     self.getLastOrder = function (){

@@ -40,13 +40,15 @@ function validateShoppingCartTable(client, productsList) {
 
       client.elementIdText(v.ELEMENT, function(result) {
         // Check if the name of the product is valid.
+        let temp = result.value;
         client.assert.ok(result.value.indexOf(product.name) !== -1, "Le produit #" + i
-          + " doit être '" + product.name + "'.");
+          + " doit être '" + product.name + "'." + temp);
 
         // Check if the unit price is valid.
         var expectedUnitPrice = utils.getFormattedPrice(product.price);
+
         assert.ok(result.value.indexOf(expectedUnitPrice) !== -1, "Le prix unitaire pour le product '"
-          + product.name + "' doit être " + expectedUnitPrice + "$.");
+          + product.name + "' doit être " + expectedUnitPrice + "$." + temp);
       });
 
       // Check if the "X" button is present.
@@ -84,9 +86,10 @@ function validateShoppingCartTable(client, productsList) {
       client.elementIdElement(v.ELEMENT, "css selector", config.elements.price, function(result) {
         client.elementIdText(result.value.ELEMENT, function(result) {
           var expectedValue = utils.getFormattedPrice(product.price * product.quantity);
+          let temp = result.value;
           assert.ok(result.value.indexOf(expectedValue) !== -1, "Le prix pour le produit '" + product.name
-            + "' doit être " + expectedValue + "$.");
-        });
+            + "' doit être " + expectedValue + "$." + temp + " ");
+        }); 
       });
     });
   });

@@ -87,6 +87,7 @@ ShoppingCartController.Page = (function() {
         var priceFormatted = parseFloat(product.price);
         //var priceQuantityFormatted = parseFloat(parseFloat(product.price*product.quantity).toFixed(2).replace(".", ","));
         var priceQuantityFormatted = parseFloat(parseFloat(product.price)*product.quantity).toFixed(2).replace(".", ",");
+        console.log(priceQuantityFormatted)
         if (product.quantity == 1) {
             disabled = ' disabled=""';
         }
@@ -150,7 +151,7 @@ ShoppingCartController.Quantity = (function() {
     function _updatePrice(button) {
         var rowIndex = button.closest('tr').index();
         var cart = ShoppingCartServices.getCart();
-        var newPrice = cart[rowIndex].price * cart[rowIndex].quantity;
+        var newPrice = parseFloat(cart[rowIndex].price) * cart[rowIndex].quantity;
         var priceNode = button.closest('tr').find('.price');
         priceNode.text(newPrice.toFixed(2).replace(".", ",") + ' $');
     }

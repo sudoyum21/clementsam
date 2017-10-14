@@ -71,7 +71,7 @@ ShoppingCartController.Page = (function() {
         let price = 0;
         var cart = ShoppingCartServices.getCart();
         cart.forEach(product => {
-            (price) += parseFloat(product.price) * product.quantity;
+            (price) += parseFloat(product.price.replace(",", ".")) * product.quantity;
         });
         $("#total-amount strong").text(price.toFixed(2).replace(".", ",") + ' $');
     }
@@ -83,11 +83,11 @@ ShoppingCartController.Page = (function() {
 
     function _getRowTemplate(product) {
         var disabled = '';
+        
         //var priceFormatted = parseFloat(parseFloat(product.price.toString()).toFixed(2).replace(".", ","));
-        var priceFormatted = parseFloat(product.price);
+        var priceFormatted = product.price;
         //var priceQuantityFormatted = parseFloat(parseFloat(product.price*product.quantity).toFixed(2).replace(".", ","));
-        var priceQuantityFormatted = parseFloat(parseFloat(product.price)*product.quantity).toFixed(2).replace(".", ",");
-        console.log(priceQuantityFormatted)
+        var priceQuantityFormatted = (parseFloat(product.price.replace(",", "."))*product.quantity).toFixed(2).replace(".", ",");
         if (product.quantity == 1) {
             disabled = ' disabled=""';
         }

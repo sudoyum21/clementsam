@@ -29,7 +29,8 @@ var ProductsController = (function () {
     }
     
     function _displayProducts(data) {
-        $('#products-count').html(data.length + ' produits');
+        let suffix = " produit" + ((data.length > 1) ? "s" : "");
+        $('#products-count').html(data.length + suffix);
         data.forEach(product => {
             $("#products-list").append(_getProductTemplate(product.id, product.name, product.image, product.price));
         });

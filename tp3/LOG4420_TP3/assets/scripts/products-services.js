@@ -28,28 +28,14 @@ var ProductsServices = (function() {
 
     function _updateCriteria(data, sort) {
         switch(sort) {
-            case 'LH':  data.sort(function(a,b) {return (a.price > b.price) ? 1 : ((b.price > a.price) ? -1 : 0);} );
+            case 'LH':  data.sort(function(a,b) {return (parseFloat(a.price.toString().replace(",", ".")) > parseFloat(b.price.toString().replace(",", "."))) ? 1 : ((parseFloat(b.price.toString().replace(",", ".")) > (parseFloat(a.price.toString().replace(",", "."))) ? -1 : 0))} );
             break;
-            case 'HL':  data.sort(function(a,b) {return (a.price < b.price) ? 1 : ((b.price < a.price) ? -1 : 0);} );
+            case 'HL':  data.sort(function(a,b) {return (parseFloat(a.price.toString().replace(",", ".")) < parseFloat(b.price.toString().replace(",", "."))) ? 1 : ((parseFloat(b.price.toString().replace(",", "."))< (parseFloat(a.price.toString().replace(",", "."))) ? -1 : 0))} );
             break;
-            case 'AZ':  data.sort(function(a,b) {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);} );
+            case 'AZ':  data.sort(function(a,b) {return (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : ((b.name.toLowerCase() > a.name.toLowerCase()) ? -1 : 0);} );
             break;
-            case 'ZA':  data.sort(function(a,b) {return (a.name < b.name) ? 1 : ((b.name < a.name) ? -1 : 0);} );
+            case 'ZA':  data.sort(function(a,b) {return (a.name.toLowerCase() < b.name.toLowerCase()) ? 1 : ((b.name.toLowerCase() < a.name.toLowerCase()) ? -1 : 0);} );
             break;
-        }
-       
-
-    }
-
-    function _applySortCriteria(a, b, sort) {
-        console.log(a)
-        console.log(b)
-        console.log(a.price > b.price)
-        switch(sort) {
-            case 'LH': return a.price > b.price;
-            case 'HL': return a.price < b.price;
-            case 'AZ': return a.name > b.name;
-            case 'ZA': return a.name < b.name;
         }
     }
 

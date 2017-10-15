@@ -32,7 +32,7 @@ var ProductsController = (function () {
         let suffix = " produit" + ((data.length > 1) ? "s" : "");
         $('#products-count').html(data.length + suffix);
         data.forEach(product => {
-            $("#products-list").append(_getProductTemplate(product.id, product.name, product.image, product.price));
+            $("#products-list").append(_getProductTemplate(product.id, product.name, product.image, product.price.toFixed(2).replace(".", ",")));
         });
     }
 

@@ -71,9 +71,9 @@ ShoppingCartController.Page = (function() {
         let price = 0;
         var cart = ShoppingCartServices.getCart();
         cart.forEach(product => {
-            price += product.price * product.quantity;
+            (price) += parseFloat(product.price.replace(",", ".")) * product.quantity;
         });
-        $("#total-amount strong").text(price.toFixed(2) + ' $');
+        $("#total-amount strong").text(price.toFixed(2).replace(".", ",") + ' $');
     }
 
     function _displayEmptyCartPage() {
@@ -83,13 +83,18 @@ ShoppingCartController.Page = (function() {
 
     function _getRowTemplate(product) {
         var disabled = '';
+        
+        //var priceFormatted = parseFloat(parseFloat(product.price.toString()).toFixed(2).replace(".", ","));
+        var priceFormatted = product.price;
+        //var priceQuantityFormatted = parseFloat(parseFloat(product.price*product.quantity).toFixed(2).replace(".", ","));
+        var priceQuantityFormatted = (parseFloat(product.price.replace(",", "."))*product.quantity).toFixed(2).replace(".", ",");
         if (product.quantity == 1) {
             disabled = ' disabled=""';
         }
         return '<tr>' +
         '  <td><button class="remove-item-button" title="Supprimer"><i class="fa fa-times"></i></button></td>' +
         '  <td><a href="./product.html?id=' + product.id + '">' + product.name + '</a></td>' +
-        '  <td>' + product.price + ' $</td>' +
+        '  <td>' + priceFormatted + ' $</td>' +
         '  <td>' +
         '    <div class="row">' +
         '      <div class="col">' +
@@ -101,7 +106,7 @@ ShoppingCartController.Page = (function() {
         '      </div>' +
         '    </div>' +
         '  </td>' +
-        '  <td class="price">' + (product.price*product.quantity).toFixed(2) + ' $</td>' +
+        '  <td class="price">' + priceQuantityFormatted + ' $</td>' +
         '</tr>';
     }
 
@@ -146,9 +151,9 @@ ShoppingCartController.Quantity = (function() {
     function _updatePrice(button) {
         var rowIndex = button.closest('tr').index();
         var cart = ShoppingCartServices.getCart();
-        var newPrice = cart[rowIndex].price * cart[rowIndex].quantity;
+        var newPrice = parseFloat(cart[rowIndex].price.replace(",", ".")) * cart[rowIndex].quantity;
         var priceNode = button.closest('tr').find('.price');
-        priceNode.text(newPrice.toFixed(2) + ' $');
+        priceNode.text(newPrice.toFixed(2).replace(".", ",") + ' $');
     }
 
     return self;

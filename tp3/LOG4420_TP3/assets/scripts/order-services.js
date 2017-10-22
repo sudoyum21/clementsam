@@ -3,7 +3,9 @@
 var OrderServices = (function() {
     var self = {};
     var data;
-
+    /**
+     * Met a jour la derniere commande dans le local storage
+     */
     self.updateLastOrderToLS = function(firstname, lastname) {
         var orders = [];
         
@@ -20,7 +22,9 @@ var OrderServices = (function() {
         });
         localStorage.setItem('orders', JSON.stringify(orders));  
     }
-
+    /**
+     * Obtenir la derniere commande
+     */
     self.getLastOrder = function (){
         let lastOrder = {};
         let orders, ordersLength;
@@ -37,7 +41,9 @@ var OrderServices = (function() {
         console.log(lastOrder)
         return lastOrder;
     }
-
+    /**
+     * Vider les commandes du local storage
+     */
     self.clearOrders = function(){
         let orders = [];
         localStorage.setItem('orders', JSON.stringify(orders));  

@@ -2,7 +2,9 @@
 
 var OrderController = (function () {
     var self = {};
-
+    /**
+     * Met a jour la derniere commande au order service object
+     */
     self.setOnSubmitClearCartCount = function ()  {
         $('#order-form').submit((event) => {
             if($("#order-form").valid()){
@@ -15,7 +17,9 @@ var OrderController = (function () {
             }
         });
     }
-
+    /**
+     * Personalisation du formvalidator (voir la documentation du validator)
+     */
     self.formValidator = function (){
         $("#order-form").validate({
             rules: {
@@ -47,7 +51,9 @@ var OrderController = (function () {
         });
         _addExpCreditValidator();
     }
-
+    /**
+     * Ajout de la methode pour parser la carte de credit
+     */
     function _addExpCreditValidator(){
         $.validator.addMethod("expCredit", function (value, element) {
             return this.optional(element) || /^(0[1-9]|1[0-2])\/?([0-9]{2})$/.test(value);

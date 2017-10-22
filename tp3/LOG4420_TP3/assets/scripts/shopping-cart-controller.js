@@ -2,18 +2,24 @@
 
 var ShoppingCartController = (function() {
     var self = {};
-
+    /**
+     * Set les click handlers
+     */
     self.setOnClick = function(){
         _setOnClickRemoveProductBtn();
         ShoppingCartController.Quantity.setOnClickQuantityBtn();
         _setOnClickEmptyCartBtn();
     }
-
+    /**
+     * Aux changements, mettre a jour le panier et la page
+     */
     self.onChanges = function() {
         HeaderController.updateCartCount();
         ShoppingCartController.Page.updateCartPage();
     }
-
+    /**
+     * Le handler pour enelver un produit
+     */
     function _setOnClickRemoveProductBtn() {
         $('.remove-item-button').click(function() {
             var confirmBox = confirm("Voulez-vous supprimer le produit du panier ?");
@@ -25,7 +31,9 @@ var ShoppingCartController = (function() {
             }
         });    
     }
-    
+    /**
+     * Le handler click pour vider le panier
+     */
     function _setOnClickEmptyCartBtn() {
         $('#remove-all-items-button').click(() => {
             var confirmBox = confirm("Voulez-vous supprimer tous les produits du panier ?");
@@ -46,7 +54,9 @@ var ShoppingCartController = (function() {
 
 ShoppingCartController.Page = (function() {
     var self = {};
-
+    /**
+     * Preparer la page pour le panier
+     */
     self.setHtmlCartPage = function() {
         if (HeaderServices.getCartCount() == 0) {
             _displayEmptyCartPage();
@@ -58,7 +68,9 @@ ShoppingCartController.Page = (function() {
         });
         _displayTotalPrice();
     }
-
+    /**
+     * Mettre a jour la page du panier
+     */
     self.updateCartPage = function() {
         if (HeaderServices.getCartCount() == 0) {
             _displayEmptyCartPage();
@@ -66,7 +78,9 @@ ShoppingCartController.Page = (function() {
             _displayTotalPrice();
         }
     }
-
+    /**
+     * Affichage des prix
+     */
     function _displayTotalPrice() {
         let price = 0;
         var cart = ShoppingCartServices.getCart();
@@ -75,12 +89,17 @@ ShoppingCartController.Page = (function() {
         });
         $("#total-amount strong").text(price.toFixed(2).replace(".", ",") + ' $');
     }
-
+    /**
+     * Afficher panier vide
+     */
     function _displayEmptyCartPage() {
         $('article > *:not(:first-child)').remove();
         $('article').append('<p>Aucun produit dans le panier.</p>');
     }
-
+    /**
+     * Obtenir un row
+     * @param {product} - le produit a ajouter dans la table
+     */
     function _getRowTemplate(product) {
         var disabled = '';
         
@@ -115,7 +134,9 @@ ShoppingCartController.Page = (function() {
 
 ShoppingCartController.Quantity = (function() {
     var self = {};
-
+    /**
+     * Set le click handler pour la quantite
+     */
     self.setOnClickQuantityBtn = function() {
         $('.remove-quantity-button').click(function() {
             _updateQuantity($(this), -1);
@@ -130,7 +151,10 @@ ShoppingCartController.Quantity = (function() {
             ShoppingCartController.onChanges();
         });   
     }
-
+    /**
+     * Mettre hors function du bouton de diminution si applicable
+     * @param {button} - le bouton pour obtenir la quantite selon le td le plus pres
+     */
     function _disableMinusButtonIfNecessary(button) {
         var quantityNode = button.closest('td').find('.quantity');
         if (parseInt(quantityNode.text()) <= 1) {
@@ -139,7 +163,11 @@ ShoppingCartController.Quantity = (function() {
             button.closest('td').find('.remove-quantity-button').removeAttr("disabled");
         }
     }
-
+    /**
+     * Mettre a jour la quantite
+     * @param {button} - le bouton pour obtenir la quantite selon le td le plus pres
+     * @param {addOrSUb} - savoir si on ajoute ou on diminue
+     */
     function _updateQuantity(button, addOrSub) {
         var quantityNode = button.closest('td').find('.quantity');
         quantityNode.text(parseInt(quantityNode.text()) + addOrSub);
@@ -147,7 +175,10 @@ ShoppingCartController.Quantity = (function() {
         var rowIndex = button.closest('tr').index();
         ShoppingCartServices.addToProductQuantity(rowIndex, addOrSub);
     }
-
+    /**
+     * mettre a jour le prix
+     * @param {button} - le bouton pour obtenir la quantite selon le tr le plus pres
+     */
     function _updatePrice(button) {
         var rowIndex = button.closest('tr').index();
         var cart = ShoppingCartServices.getCart();

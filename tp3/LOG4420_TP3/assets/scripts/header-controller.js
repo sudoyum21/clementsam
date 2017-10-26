@@ -2,7 +2,9 @@
 
 var HeaderController = (function() {
     var self = {};
-
+/**
+ * Met a jour le nombre ditem
+ */
     self.updateCartCount = function() {
         var cartCount = HeaderServices.getCartCount();
         if(cartCount > 0){

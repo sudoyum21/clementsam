@@ -3,7 +3,9 @@
 var ProductController = (function() {
     var self = {};
     var productId;
-
+    /**
+     * Alert popup dun ajout dun produit dans le panier
+     */
     self.setOnSubmitAddToCartForm = function() {
         $('#add-to-cart-form').submit((event) => {
             event.preventDefault();
@@ -15,7 +17,9 @@ var ProductController = (function() {
             HeaderController.updateCartCount();
         });
     }
-
+    /**
+     * Afficher un produit
+     */
     self.displayProduct = function() {
         productId = $.urlParam('id');
         if (productId == null) {
@@ -29,7 +33,10 @@ var ProductController = (function() {
             _displayNotFound();
         }
     }
-
+    /**
+     * Fonction privee pour afficher les informations dun produit
+     * @param {product} - le produit a afficher
+     */
     function _displayProduct(product) {
         $('#product-name').html(product.name);
         $('#product-image').attr('alt', product.name);
@@ -40,12 +47,18 @@ var ProductController = (function() {
         });
         $('#product-price').html(product.price.toFixed(2).replace(".", ",") + '$');
     }
-
+    /**
+     * Si produit pas trouve, annonce page non trouvee et mettre a jour la ligne
+     * @param {produit} - concerne
+     */
     function _displayNotFound(product) {
         $('#product-name').html('Page non trouvée!');
         $('.row').remove();
     }
-
+    /**
+     * Parser lurl pour obtenir un param
+     * @param {name} - param en question
+     */
     $.urlParam = function(name){
         var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
         if (results == null) return null;

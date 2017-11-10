@@ -9,12 +9,7 @@ var mongoose = require('mongoose')
 
 require("./lib/db");
 var index = require("./routes/index");
-// var produits = require("./routes/produits");
-// var produit = require("./routes/produit");
-// var contact = require("./routes/contact");
-// var panier = require("./routes/panier");
-var commande = require("./routes/commande");
-// var confirmation = require("./routes/confirmation");
+var api = require("./routes/api");
 
 var app = express();
 
@@ -43,12 +38,7 @@ app.use(session({
 
 
 app.use("/", index);
-// app.use("/produits", produits);
-// app.use("/produit", produit);
-// app.use("/contact", contact);
-// app.use("/panier", panier);
-app.use("/commande", commande);
-// app.use("/confirmation", confirmation);
+app.use("/api", api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -68,6 +58,6 @@ app.use(function(err, req, res) {
   res.render("error");
 });
 //TODO REMOVE TEST
-mongoose.connect('mongodb://admin:admin@ds235775.mlab.com:35775/log4420');
+
 
 module.exports = app;

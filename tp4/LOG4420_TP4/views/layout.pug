@@ -9,18 +9,18 @@ html(lang='fr')
     header
       .header-container
         .logo
-          a(href='./index.html')
+          a(href='/accueil')
             img(alt='logo', src='/assets/img/logo.svg', title='Accueil')
         nav
           ul
             li.active
-              a(href='/index.html') Accueil
+              a(href='/accueil') Accueil
             li
-              a(href='/products.html') Produits
+              a(href='/produits') Produits
             li
-              a(href='/contact.html') Contact
+              a(href='/contact') Contact
             li
-              a.shopping-cart(href='/shopping-cart.html', title='Panier')
+              a.shopping-cart(href='/panier', title='Panier')
                 span.fa-stack.fa-lg
                   i.fa.fa-circle.fa-stack-2x.fa-inverse
                   i.fa.fa-shopping-cart.fa-stack-1x
@@ -30,4 +30,6 @@ html(lang='fr')
     footer
       p Ba Samson Lam (1671028) & Clément Sorneau (1909113)
     block scripts
+      script(type='text/javascript', src='./assets/js/jquery-3.2.1.min.js')
+      script(type='text/javascript', src='./assets/scripts/utils.js')
 

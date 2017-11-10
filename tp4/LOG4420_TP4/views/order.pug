@@ -3,7 +3,7 @@ extends layout
 block content
   article
     h1 Commande
-    form#order-form(action='./confirmation.html', method='post')
+    form#order-form(action='/confirmation', method='post')
       section
         h2 Contact
         .row
@@ -39,12 +39,10 @@ block content
         | Payer
         i.fa.fa-angle-double-right
 
-block scripts
-  script(type='text/javascript', src='./assets/js/jquery-3.2.1.min.js')
+append scripts
   script(type='text/javascript', src='./assets/js/jquery.validate.min.js')
   script(type='text/javascript', src='./assets/js/additional-methods.min.js')
   script(type='text/javascript', src='./assets/js/messages_fr.js')
-  script(type='text/javascript', src='./assets/scripts/utils.js')
   script(type='text/javascript', src='./assets/scripts/products.service.js')
   script(type='text/javascript', src='./assets/scripts/shopping-cart.service.js')
   script(type='text/javascript', src='./assets/scripts/orders.service.js')

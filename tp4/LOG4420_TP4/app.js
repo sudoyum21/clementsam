@@ -9,7 +9,7 @@ var mongoose = require('mongoose')
 
 require("./lib/db");
 var index = require("./routes/index");
-var api = require("./routes/api");
+var apiShoppingCart = require("./routes/api/shopping-cart");
 
 var app = express();
 
@@ -38,7 +38,9 @@ app.use(session({
 
 
 app.use("/", index);
-app.use("/api", api);
+app.use("/api/shopping-cart", apiShoppingCart);
+// app.use("/api/shopping-cart", apiShoppingCart);
+// app.use("/api/shopping-cart", apiShoppingCart);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

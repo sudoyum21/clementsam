@@ -38,15 +38,7 @@ router.get("/confirmation", function(req, res) {
 router.get("/contact", function(req, res) {
   res.render("index", { title: "Accueil", message: "Ça semble fonctionner!", test:'clems' });
 });
-router.get("/products", function(req, res) {
-  res.render("index", { title: "Accueil", message: "Ça semble fonctionner!", test:'clems' });
-});
-router.get("/shopping-cart", function(req, res) {
-  res.render("index", { title: "Accueil", message: "Ça semble fonctionner!", test:'clems' });
-});
-router.get("/orders", function(req, res) {
-  res.render("index", { title: "Accueil", message: "Ça semble fonctionner!", test:'clems' });
-});
+
 
 
 module.exports = router;

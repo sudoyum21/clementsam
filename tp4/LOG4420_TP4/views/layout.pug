@@ -13,11 +13,15 @@ html(lang='fr')
             img(alt='logo', src='/assets/img/logo.svg', title='Accueil')
         nav
           ul
-            li.active
+            if ((title === 'Produit') || (title === 'Produits'))
+              - var current = 'Produits'
+            else
+              - var current = title
+            li(class=(current === 'Accueil') ? 'active' : '')
               a(href='/accueil') Accueil
-            li
+            li(class=(current === 'Produits') ? 'active' : '')
               a(href='/produits') Produits
-            li
+            li(class=(current === 'Contact') ? 'active' : '')
               a(href='/contact') Contact
             li
               a.shopping-cart(href='/panier', title='Panier')
@@ -32,4 +36,3 @@ html(lang='fr')
     block scripts
       script(type='text/javascript', src='./assets/js/jquery-3.2.1.min.js')
       script(type='text/javascript', src='./assets/scripts/utils.js')
-

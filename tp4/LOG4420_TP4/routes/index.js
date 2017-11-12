@@ -25,25 +25,25 @@ router.get("/", function (req, res) {
 
 });
 router.get("/accueil", function (req, res) {
-  res.render("index", { title: "Accueil"});
+  res.render("index", { title: "Accueil" });
 });
 router.get("/produits", function(req, res) {
-  res.render("products", { title: "Produits"});
+  res.render("products", { title: "Produits" });
 });
 router.get("/produit", function(req, res) {
-  res.render("product", { title: "Produit"});
+  res.render("product", { title: "Produit" });
 });
 router.get("/contact", function(req, res) {
-  res.render("contact", { title: "Contact"});
+  res.render("contact", { title: "Contact" });
 });
 router.get("/panier", function(req, res) {
-  res.render("shopping-cart", { title: "Panier"});
+  res.render("shopping-cart", { title: "Panier" });
 });
 router.get("/commande", function(req, res) {
-  res.render("order", { title: "Commande"});
+  res.render("order", { title: "Commande" });
 });
 router.get("/confirmation", function(req, res) {
-  res.render("confirmation", { title: "Confirmation"});
+  res.render("confirmation", { title: "Confirmation" });
 });
 
 

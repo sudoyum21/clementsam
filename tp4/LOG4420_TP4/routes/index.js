@@ -11,7 +11,7 @@ var mongooseAPI = require('../lib/db');
 var router = express.Router();
 
 router.get("/", function (req, res) {
-  res.render("index", { title: "COMMANDE", message: "Ça semble fonfdsfsdfctionner!" });
+  res.render("index", { title: "Accueil" });
   //Get the default connection
   // var db = mongoose.connection;
   // //Bind connection to error event (to get notification of connection errors)

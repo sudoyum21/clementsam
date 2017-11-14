@@ -1,17 +1,16 @@
 var express = require("express");
 var router = express.Router();
 
-var products = require('./api/products');
-var orders = require('./api/orders');
-var shoppingCart = require('./api/shopping-cart');
+var products = require('./api/products/products-controller');
+var orders = require('./api/orders/orders-controller');
+var shoppingCart = require('./api/shopping-cart/shopping-cart-controller');
 
 /// products ///
 
-/* GET catalog home page. */
+/* GET all products */
 router.get('/products/', products.index);
 
-/* GET request for creating a Book. NOTE This must come before routes that display Book (uses id) */
-// router.get('/products/create', products.book_create_get);
+/* GET products with criteria filter */
 
 // /* POST request for creating Book. */
 // router.post('/products/create', products.book_create_post);

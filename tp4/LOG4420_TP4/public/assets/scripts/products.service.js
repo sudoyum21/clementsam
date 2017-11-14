@@ -20,16 +20,16 @@ onlineShop.productsService = (function($) {
    * @returns {jquery.promise}  A promise that contains the products list.
    */
   self.getProducts = function(sortingCriteria, category) {
-    if (!productsPromise) {
-      productsPromise = $.get("http://127.0.0.1:8000/api/products");
-    }
+    //if (!productsPromise) {
+      productsPromise = $.get("http://127.0.0.1:8000/api/products?category="+category+"&sortingCriteria="+sortingCriteria);
+    //}
     return productsPromise.then(function(products) {
-      if (category) {
-        products = _applyCategory(products, category);
-      }
-      if (sortingCriteria) {
-        products = _applySortingCriteria(products, sortingCriteria);
-      }
+      // if (category) {
+      //   products = _applyCategory(products, category);
+      // }
+      // if (sortingCriteria) {
+      //   products = _applySortingCriteria(products, sortingCriteria);
+      // }
       return products;
     });
   };

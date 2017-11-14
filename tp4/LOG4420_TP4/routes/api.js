@@ -6,32 +6,24 @@ var orders = require('./api/orders/orders-controller');
 var shoppingCart = require('./api/shopping-cart/shopping-cart-controller');
 
 /// products ///
+//TODO REMOVE DEBUG restore
+/* GET RESTORE products */
+router.get('/products/test', products.restoreAll);
 
 /* GET all products */
 router.get('/products/', products.index);
 
-/* GET products with criteria filter */
+/* GET product by ID */
+router.get('/product/:id', products.getById);
 
-// /* POST request for creating Book. */
-// router.post('/products/create', products.book_create_post);
+/* POST request for creating product. */
+router.post('/products/create', products.createProduct);
 
-// /* GET request to delete Book. */
-// router.get('/products/:id/delete', products.book_delete_get);
+/* DELETE request for a specific product by id. */
+router.delete('/products/:id', products.deleteProduct);
 
-// // POST request to delete Book
-// router.post('/products/:id/delete', products.book_delete_post);
-
-// /* GET request to update Book. */
-// router.get('/products/:id/update', products.book_update_get);
-
-// // POST request to update Book
-// router.post('/products/:id/update', products.book_update_post);
-
-// /* GET request for one Book. */
-// router.get('/products/:id', products.book_detail);
-
-// /* GET request for list of all Book items. */
-// router.get('/products', products.book_list);
+/* DELETE request for all products. */
+router.delete('/products/', products.deleteAllProducts);
 
 
 // /// shopping-cart ///

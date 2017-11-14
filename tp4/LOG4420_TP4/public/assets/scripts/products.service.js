@@ -41,16 +41,19 @@ onlineShop.productsService = (function($) {
    * @returns {jquery.promise}  A promise that contains the product associated with the ID specified.
    */
   self.getProduct = function(productId) {
-    return self.getProducts().then(function(products) {
-      var product = products.filter(function(product) {
-        return product.id === productId;
-      });
-      if (product.length > 0) {
-        return product[0];
-      } else {
-        return null;
-      }
+    return $.get("http://127.0.0.1:8000/api/product/"+productId).then(function(product) {
+      return product;
     });
+    // return self.getProducts().then(function(products) {
+    //   var product = products.filter(function(product) {
+    //     return product.id === productId;
+    //   });
+    //   if (product.length > 0) {
+    //     return product[0];
+    //   } else {
+    //     return null;
+    //   }
+    // });
   };
 
   /**

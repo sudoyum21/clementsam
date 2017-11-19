@@ -76,6 +76,10 @@ var ShoppingCartService = (function (productsService) {
     };
 
     self.filterProducts = function (products, req) {
+
+        console.log('req')
+        console.log('req')
+        console.log(req.session.data)
         if(req.session && req.session.data){
             return products.filter(function (product) {
                 return req.session.data.hasOwnProperty(product.id) && req.session.data[product.id] !== undefined;
@@ -89,21 +93,6 @@ var ShoppingCartService = (function (productsService) {
         }
         return [];
     }
-
-    /**
-     * Gets the items count in the shopping cart.
-     *
-     * @returns {number}  The items count.
-     */
-    self.getItemsCount = function () {
-        var total = 0;
-        for (var productId in items) {
-            if (items.hasOwnProperty(productId) && items[productId]) {
-                total += items[productId];
-            }
-        }
-        return total;
-    };
 
     /**
      * Gets the quantity associated with an item.
@@ -153,19 +142,31 @@ var ShoppingCartService = (function (productsService) {
      *
      * @param productId   The product ID associated with the item to remove.
      */
-    self.removeItem = function (productId) {
-        if (items[productId]) {
-            items[productId] = undefined;
+    self.removeItem = function (productId, req) {
+        if(req.session && req.session.data){
+            if(req.session.data[id] >= 0){
+                console.log('before delete ' + id)
+                console.log(req.session.data)
+                delete req.session.data.id;
+            }
+            console.log('deleted ')
+            console.log(req.session.data[id]);
+            
+            
         }
-        _updateLocalItems();
     };
 
     /**
      * Removes all the items in the shopping cart.
      */
-    self.removeAllItems = function () {
-        items = {};
-        _updateLocalItems();
+    self.removeAllItems = function (req) {
+        if(req.session && req.session.data){
+            let data = req.session.data;
+            req.session.data = null;
+            console.log('deleted ')
+            console.log(req.session.data);
+            
+        }
     };
 
     /**

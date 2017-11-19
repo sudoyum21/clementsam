@@ -10,7 +10,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
   "use strict";
 
   var self = {};
-  var items = {};
+  // var items = {};
   var shoppingCartPromise;
 
   /**
@@ -27,9 +27,18 @@ onlineShop.shoppingCartService = (function($, productsService) {
       quantity = 1;
     }
     _addItemToShoppingCart(productId, quantity);
-    items = this.getItems();
+    // items = this.getItems();
   };
-
+    /**
+     * Gets the items count in the shopping cart.
+     *
+     * @returns {number}  The items count.
+     */
+    self.getItemsCount = function () {
+      return this.getItems().then(function(items){
+        return items.length;
+      })
+  };
   /**
    * Gets the items in the shopping cart.
    *
@@ -75,11 +84,17 @@ onlineShop.shoppingCartService = (function($, productsService) {
    *
    * @param productId   The product ID associated with the item to remove.
    */
-  self.removeItem = function(productId) {
-    if (items[productId]) {
-      items[productId] = undefined;
+  self.removeItem = function(id) {   
+    $.ajax({
+      url: "http://127.0.0.1:8000/api/shopping-cart/" + id,
+      type: 'DELETE',
+      contentType: "application/json; charset=utf-8",
+      success: function(result) {
+      },
+      error: function (err){
     }
-    items = this.getItems();
+  });
+  // }
   };
   self.getItemQuantity = function (productId) {
     return self.getItems().then(function(items){
@@ -98,9 +113,16 @@ onlineShop.shoppingCartService = (function($, productsService) {
    * Removes all the items in the shopping cart.
    */
   self.removeAllItems = function() {
-    items = {};
-    items = this.getItems();
-  };
+    $.ajax({
+      url: "http://127.0.0.1:8000/api/shopping-cart/",
+      type: 'DELETE',
+      contentType: "application/json; charset=utf-8",
+      success: function(result) {
+      },
+      error: function (err){
+    }
+  });
+  }
   
   /**
    * Add new item the shopping cart via req.
@@ -150,6 +172,10 @@ onlineShop.shoppingCartService = (function($, productsService) {
   }
 
   /**
+   * Gets all the products.
+   *
+   * @param [sortingCriteria]   The sorting criteria to use. If no value is specified, the list returned isn't sorted.
+   * @param [category]          The c
    * Gets all the products.
    *
    * @param [sortingCriteria]   The sorting criteria to use. If no value is specified, the list returned isn't sorted.

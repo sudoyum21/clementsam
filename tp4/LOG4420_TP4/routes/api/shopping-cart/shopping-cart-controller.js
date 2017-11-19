@@ -7,36 +7,31 @@ const ShoppingCartService = require('./shopping-cart-services');
 var shoppingCart = {
     index: function (req, res) {
         try {
-            // console.log('session'+req.session);
-            // console.log('got u');
-            // console.log(req.sessionID);
             let result = ShoppingCartService.getItems(req);
             res.status(200).send(result);
             // avoid general exception in real life! :P
         } catch (e){
-            var vDebug = "";
-            for (var prop in e)
-            {
-               vDebug += "property: "+ prop+ " value: ["+ e[prop]+ "]\n";
-            }
-            vDebug += "toString(): " + " value: [" + e.toString() + "]";
-            // status.rawValue = vDebug;
-            console.error('in shoppingcart2 controller : ' + e);
             res.status(500).send(e);
         }
     },
     getById: function (req, res) {
-        let id = req.params.id;
+        let id = req.params.productId;
         if(id){
             mongoose.model("Product").findOne({ id: id }).exec(function (err, result) {
                 if (err) {
                     res.status(500).send(err);
-                }
-                if (result == null) {
+                }             
+                if (result == null || result.length == 0 ||  !req.session || !req.session.data) {
                     //console.log('404')
                     res.status(404);
+                    res.end();
+                    return;
                 }
-                res.status(200).json(result);
+                let data = req.session.data;
+                res.status(200).json({
+                    "productId" : id, 
+                    "quantity" : data[id]
+                } || {});
             });
         } else {
             res.status(404).send('Invalid id : ' + id);
@@ -81,24 +76,11 @@ var shoppingCart = {
         };
     },
     deleteProduct: function (req, res) {
-        let id = req.params.id;
+        let id = req.params.productId;
         if(id){
             try {
-                mongoose.model("Product").remove({
-                    id: id
-                }, function (err, result) {
-                    if (err) {
-                        res.status(500).send(err);
-                    }
-                    let itemRemoved = result.result.n;
-                    if (itemRemoved == 0) {
-                        res.status(404);
-                        // res.end();
-                    } else {
-                        res.status(204).json(result);
-                        // res.end();
-                    }
-                })
+                ShoppingCartService.removeItem(id, req)
+                res.status(204);
             } catch (e) {
                 res.status(404);
             };
@@ -109,13 +91,8 @@ var shoppingCart = {
     deleteAllProducts: function (req, res) {
         console.log('deleting all')
         try {
-            mongoose.model("Product").remove({}, function (err, result) {
-                if (err) {
-                    res.status(500).send(err);
-                }
-                res.status(204).json(result);
-                // res.end();
-            })
+            ShoppingCartService.removeAllItems(req);
+            res.status(204);
         } catch (e) {
             res.status(400);
         };

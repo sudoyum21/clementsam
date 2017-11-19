@@ -83,12 +83,16 @@ var onlineShop = onlineShop || {};
         if (confirm("Voulez-vous supprimer le produit du panier?")) {
           shoppingCartService.removeItem(product.id);
           rowElement.remove();
-          if (shoppingCartService.getItemsCount() === 0) {
-            _renderEmptyView();
-          } else {
-            _updateTotalAmount();
-          }
-          _updateCount();
+          shoppingCartService.getItems().done(function(items) {
+            console.log(items)
+            if (items.length === 0) {
+              console.log('is empty?')
+              _renderEmptyView();
+            } else {
+              _updateTotalAmount();
+            }
+            _updateCount();
+          });
         }
       });
       

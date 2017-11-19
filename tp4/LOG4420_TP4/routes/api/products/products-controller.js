@@ -21,25 +21,41 @@ var products = {
             // console.log('index')
             let category = req.query ? req.query.category : "all";
             // console.log('index')
-            let sortingCriteria = req.query ?req.query.sortingCriteria : "price-asc";
+            let sortingCriteria = req.query ?req.query.criteria : "price-asc";
             // console.log('index')
-            // if (!_.some(sortingCriteriaEnum, function (crit) {
-            //     return crit === sortingCriteria;
-            // }) || !_.some(categoryEnum, function (cat) {
-            //     return cat === category;
-            // })) {
-            //     //res.status(400).send("Parameters criteria " + sortingCriteria + " or category " + category + " are invalid");
-            //     // res.status(400);
-            //     //POUR LES TESTS DU TP
-            //     // res.status(404).send(err);
-            //     // res.end();
-            // }
+            if (!_.some(sortingCriteriaEnum, function (crit) {
+                return crit === sortingCriteria;
+            }) && sortingCriteria) {
+                // console.log('dude wtf')
+                res.status(400).send("Parameters criteria " + sortingCriteria + " or category " + category + " are invalid");
+                // res.status(400);
+                //POUR LES TESTS DU TP
+                // res.status(404).send(err);
+                res.end();
+                return;
+            }
+            if (    !_.some(categoryEnum, function (cat) {
+                return cat === category;
+            }) && category) {
+                // console.log('dude wtf')
+                res.status(400).send("Parameters criteria " + sortingCriteria + " or category " + category + " are invalid");
+                // res.status(400);
+                //POUR LES TESTS DU TP
+                // res.status(404).send(err);
+                res.end();
+                return;
+            }
+
+
+
+
+        
             mongoose.model("Product").find({}).exec(function (err, results) {
                 if (err) {
                     // res.status(500).send(err);
                     //POUR LES TESTS DU TP
                     res.status(404).send(err);
-                    res.end();
+                    //res.end();
                 }
                 
                 productsServices.initData(results || []);
@@ -49,11 +65,13 @@ var products = {
                 if(!category){
                     category = "all";
                 }
+                console.log(category)
+                console.log(sortingCriteria)
                 let resultsFiltered = productsServices.getUpdatedData(category, sortingCriteria);
                 res.status(200).json(resultsFiltered || []);
                 // req.body = results;
                 // console.log(req.body )
-                // res.end();
+                //res.end();
             });
             // avoid general exception in real life! :P
         // } catch (e) {
@@ -67,6 +85,7 @@ var products = {
     getById: function (req, res) {
         let id = req.params.id;
         console.log('getById')
+        console.log(id)
         if (id) {
             mongoose.model("Product").findOne({ id: id }).exec(function (err, result) {
                 if (err) {
@@ -74,18 +93,20 @@ var products = {
                     //POUR LES TESTS DU TP
                     res.status(404).send(e);
                     res.end();
+                    return;
                 }
                 if (result == null) {
                     //console.log('404')
                     res.status(404);
                     res.end();
+                    return;
                 }
-                res.status(201).json(result);
+                // console.log(result)
+                res.status(200).json(result);
             });
         } else {
             res.status(404).send('Invalid id : ' + id);
         }
-        res.end();
     },
     createProduct: function (req, res) {
         let body = req.body;

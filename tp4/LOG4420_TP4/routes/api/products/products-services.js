@@ -8,11 +8,11 @@ var ProductsServices = (function () {
      * Initialisation des datas
      */
     self.initData = function (d) {
-        if (!self.data) {
+        // if (!self.data) {
             self.data = d;
             console.log('in init')
-            console.log(self.data)
-        }
+            // console.log(self.data)
+        // }
     }
     /**
  * Gets all the products.
@@ -100,12 +100,14 @@ var ProductsServices = (function () {
         return products;
     }
     self.sortingCriteriaEnum = {
+        EMPTY: "",
         PRICEASC: "price-asc",
         PRICEDSC: "price-dsc",
         ALPHAASC: "alpha-asc",
         ALPHADSC: "alpha-dsc"
     }
     self.categoryEnum = {
+        EMPTY: "",
         ALL: "all",
         CAMERAS: "cameras",
         COMPUTERS: "computers",

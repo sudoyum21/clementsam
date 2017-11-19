@@ -178,7 +178,7 @@ describe("API des produits", function() {
             res.should.have.status(200);
             var product = productsList.find(function(product) {
               return product.id === productId;
-            });
+            });            
             validateProduct(res.body, product);
             done();
           });

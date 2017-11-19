@@ -16,7 +16,7 @@ var session = require('express-session');
 router.get('/products', products.index);
 
 /* GET product by ID */
-router.get('/product/:id', products.getById);
+router.get('/products/:id', products.getById);
 
 /* POST request for creating product. */
 router.post('/products/create', products.createProduct);

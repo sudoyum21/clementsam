@@ -15,13 +15,21 @@ var onlineShop = onlineShop || {};
    * @private
    */
   function _updateCount() {
-    var itemsCount = shoppingCartService.getItemsCount();
-    var countElement = $(".shopping-cart").find(".count");
-    if (itemsCount > 0) {
-      countElement.addClass("visible").text(itemsCount);
-    } else {
-      countElement.removeClass("visible");
-    }
+    let total = 0;
+    shoppingCartService.getItemsCount().then(function(products) {
+      for (var productId in products) {
+          total += products[productId].quantity;
+      }
+      var countElement = $(".shopping-cart").find(".count");
+      if (total > 0) {
+        countElement.addClass("visible").text(total);
+      } else {
+        countElement.removeClass("visible");
+      }
+      return total;
+    });;
+
+
   }
 
   /**
@@ -51,6 +59,7 @@ var onlineShop = onlineShop || {};
    * @private
    */
   function _renderShoppingCartView(items) {
+    console.log('here')
     var shoppingCartTable = $(".shopping-cart-table tbody");
     items.forEach(function(item) {
       var product = item.product;
@@ -83,6 +92,7 @@ var onlineShop = onlineShop || {};
         updateQuantity(shoppingCartService.getItemQuantity(product.id) - 1);
       });
       rowElement.find(".add-quantity-button").click(function() {
+        console.log('add')
         updateQuantity(shoppingCartService.getItemQuantity(product.id) + 1);
       });
 
@@ -145,6 +155,8 @@ var onlineShop = onlineShop || {};
       if (items.length === 0) {
         _renderEmptyView();
       } else {
+        console.log('items')
+        console.log(items)
         _renderShoppingCartView(items);
       }
     });

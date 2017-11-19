@@ -30,6 +30,7 @@ onlineShop.productsService = (function($) {
       // if (sortingCriteria) {
       //   products = _applySortingCriteria(products, sortingCriteria);
       // }
+      console.log(products)
       return products;
     });
   };

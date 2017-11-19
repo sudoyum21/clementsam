@@ -5,9 +5,11 @@ var logger = require("morgan");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var session = require("express-session");
-var mongoose = require('mongoose')
-
+var mongoose = require('mongoose');
+var parseurl = require('parseurl');
+var products = require('./routes/api/products/products-controller');
 require("./lib/db");
+products.init();
 var index = require("./routes/index");
 const api = require("./routes/api");
 
@@ -33,9 +35,25 @@ app.use(session({
   secret: 'log4420',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }
+  cookie: { secure: false },
 }));
+// link : https://github.com/expressjs/session
+// app.use(function (req, res, next) {
+//   console.log('req.session in app ')
+//   console.log(req.session.data)
 
+//   if (!req.session.views) {
+//     req.session.views = {}
+//   }
+
+//   // get the url pathname
+//   var pathname = parseurl(req).pathname
+
+//   // count the views
+//   req.session.views[pathname] = (req.session.views[pathname] || 0) + 1
+
+//   next()
+// })
 
 app.use("/", index);
 app.use("/api", api);

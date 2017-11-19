@@ -2,22 +2,30 @@
 
 var ProductsServices = (function () {
     var self = {};
-    var data;
+    self.data;
 
     /**
      * Initialisation des datas
      */
     self.initData = function (d) {
-        data = d;
+        if(!self.data){
+            self.data = d;
+        }        
     }
+      /**
+   * Gets all the products.
+   */
+  self.getProducts = function(sortingCriteria, category) {
+    let results = self.getUpdatedData(sortingCriteria);
+    return results;
+  }
     /**
      * Mettre a jour les datas
      */
     self.getUpdatedData = function (filter, sort) {
-        var updatedData = _applyCategory(data, filter);
-        //console.log(updatedData)
+        var updatedData = _applyCategory(self.data, filter);
         _applySortingCriteria(updatedData, sort);
-        return updatedData;
+        return self.data;
     }
     /**
      * Applies a filter to the specified products list to keep only the products of the specified category.

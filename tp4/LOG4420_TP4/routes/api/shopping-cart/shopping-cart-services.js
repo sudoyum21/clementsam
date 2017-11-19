@@ -36,6 +36,7 @@ var ShoppingCartService = (function (productsService) {
         } else {
             req.session.data[productId] = quantity;
         }
+        console.log(req.session['data'])
         _updateLocalItems();
         return req.session.data;
     };
@@ -64,7 +65,10 @@ var ShoppingCartService = (function (productsService) {
      *
   */
     self.getItems = function (req) {
-        let productsHolder = productsService.getProducts("alpha-asc");
+        let productsHolder = productsService.getProducts("alpha-asc", "all");
+        console.log('productsHolder')
+        console.log(productsHolder)
+        console.log(productsHolder)
         if (req && req.session) {
             if (productsHolder && productsHolder.then) {
                 return productsHolder.then(function (products) {

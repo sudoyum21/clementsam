@@ -13,6 +13,7 @@ var ProductsServices = (function () {
     self.initData = function (d) {
         // if (!self.data) {
             self.data = d;
+            // console.log(self.data)
         // }
     }
     /**
@@ -25,8 +26,8 @@ var ProductsServices = (function () {
     /**
      * Mettre a jour les datas
      */
-    self.getUpdatedData = function (filter, sort) {
-        var data = _applyCategory(self.data, filter);
+    self.getUpdatedData = function (sort,category) {
+        var data = _applyCategory(self.data, category);
         _applySortingCriteria(data, sort);
         return data;
     },
@@ -62,6 +63,11 @@ var ProductsServices = (function () {
         }
         // if (fs.existsSync(imagePath)) {
         //     // Do something
+        //      console.log('here15')
+        //     console.log('here17')
+        // } else {
+        //     console.log('11111')
+        //     console.log(imagePath)
         //     return false;
         // }
 

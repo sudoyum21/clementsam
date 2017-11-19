@@ -16,17 +16,12 @@ var products = {
         // try {
         //check if req query are valids       
         let categoryEnum = productsServices.categoryEnum;
-        // console.log('index')
         let sortingCriteriaEnum = productsServices.sortingCriteriaEnum;
-        // console.log('index')
         let category = req.query ? req.query.category : "all";
-        // console.log('index')
         let sortingCriteria = req.query ? req.query.criteria : "price-asc";
-        // console.log('index')
         if (!_.some(sortingCriteriaEnum, function (crit) {
             return crit === sortingCriteria;
         }) && sortingCriteria) {
-            // console.log('dude wtf')
             res.status(400).send("Parameters criteria " + sortingCriteria + " or category " + category + " are invalid");
             // res.status(400);
             //POUR LES TESTS DU TP
@@ -37,7 +32,6 @@ var products = {
         if (!_.some(categoryEnum, function (cat) {
             return cat === category;
         }) && category) {
-            // console.log('dude wtf')
             res.status(400).send("Parameters criteria " + sortingCriteria + " or category " + category + " are invalid");
             // res.status(400);
             //POUR LES TESTS DU TP
@@ -60,9 +54,7 @@ var products = {
             if (!category) {
                 category = "all";
             }
-            //console.log(category)
-            //console.log(sortingCriteria)
-            let resultsFiltered = productsServices.getUpdatedData(category, sortingCriteria);
+            let resultsFiltered = productsServices.getUpdatedData(sortingCriteria, category);
             res.status(200).json(resultsFiltered || []);
             // req.body = results;
             // console.log(req.body )

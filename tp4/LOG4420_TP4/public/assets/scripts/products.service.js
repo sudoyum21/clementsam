@@ -21,7 +21,8 @@ onlineShop.productsService = (function($) {
    */
   self.getProducts = function(sortingCriteria, category) {
     //if (!productsPromise) {
-      productsPromise = $.get("http://127.0.0.1:8000/api/products?category="+category+"&sortingCriteria="+sortingCriteria);
+      console.log('sending category ' + category + " " + sortingCriteria)
+      productsPromise = $.get("http://127.0.0.1:8000/api/products?category="+category+"&criteria="+sortingCriteria);
     //}
     return productsPromise.then(function(products) {
       // if (category) {

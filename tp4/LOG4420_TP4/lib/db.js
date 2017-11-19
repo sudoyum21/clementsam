@@ -16,11 +16,11 @@ var Order = new Schema({
 
 var Product = new Schema({
   id: { type: Number, unique: true },
-  name: String,
+  name: {type : String, min:[1, 'Invalid name']},
   price: Number,
   image: String,
-  category: String,
-  description: String,
+  category: {type : String, min:[1, 'Invalid category']},
+  description: {type : String, min:[1, 'Invalid description']},
   features: Array
 }, { versionKey: false });
 

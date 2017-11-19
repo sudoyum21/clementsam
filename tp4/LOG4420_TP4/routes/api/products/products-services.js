@@ -1,4 +1,7 @@
 'use strict';
+var mongoose = require('mongoose');
+var _ = require('lodash');
+var fs = require('fs');
 
 var ProductsServices = (function () {
     var self = {};
@@ -28,6 +31,59 @@ var ProductsServices = (function () {
         var data = _applyCategory(self.data, filter);
         _applySortingCriteria(data, sort);
         return data;
+    },
+        /**
+     * Validate all fields in product 
+     */
+    self.validate = function(body){
+        /*                  id: body.id,
+        name: body.name,
+        price: body.price,
+        image: body.image,
+        category: body.category,
+        description: body.description,
+        features: body.features,
+        */
+        if(checkStrLengthFail(body, 'name')||checkStrLengthFail(body, 'description')||checkStrLengthFail(body, 'image')){
+            return false;
+        }
+        let featureArray = body.features;
+        if(featureArray && featureArray.length > 0){     
+            let fail = false;
+            featureArray.forEach(function(feat){
+                if((!feat )|| (!feat.length > 0)){     
+                    fail = true;    
+                    return false;
+                }
+            })       
+            if(fail){
+                return false;
+            }
+        } else {
+            return false;
+        }
+        // if (fs.existsSync(imagePath)) {
+        //     // Do something
+        //      console.log('here15')
+        //     console.log('here17')
+        // } else {
+        //     console.log('11111')
+        //     console.log(imagePath)
+        //     return false;
+        // }
+
+        if (!_.some(self.categoryEnum, function (cat) {
+            return cat === body.category;
+        })) {            
+            return false;
+        }
+        return true;
+        function checkStrLengthFail(obj, name){
+            if(!obj || !obj[name].length > 0){            
+                return true;
+            }
+            return false;
+        }
     }
     /**
      * Applies a filter to the specified products list to keep only the products of the specified category.

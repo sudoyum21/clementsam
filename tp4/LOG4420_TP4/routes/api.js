@@ -19,7 +19,7 @@ router.get('/products', products.index);
 router.get('/products/:id', products.getById);
 
 /* POST request for creating product. */
-router.post('/products/create', products.createProduct);
+router.post('/products/', products.createProduct);
 
 /* DELETE request for a specific product by id. */
 router.delete('/products/:id', products.deleteProduct);

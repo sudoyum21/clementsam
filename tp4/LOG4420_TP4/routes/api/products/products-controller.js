@@ -14,66 +14,61 @@ var products = {
     index: function (req, res) {
         // console.log('index')
         // try {
-            //check if req query are valids       
-            let categoryEnum = productsServices.categoryEnum;
-            // console.log('index')
-            let sortingCriteriaEnum = productsServices.sortingCriteriaEnum;
-            // console.log('index')
-            let category = req.query ? req.query.category : "all";
-            // console.log('index')
-            let sortingCriteria = req.query ?req.query.criteria : "price-asc";
-            // console.log('index')
-            if (!_.some(sortingCriteriaEnum, function (crit) {
-                return crit === sortingCriteria;
-            }) && sortingCriteria) {
-                // console.log('dude wtf')
-                res.status(400).send("Parameters criteria " + sortingCriteria + " or category " + category + " are invalid");
-                // res.status(400);
+        //check if req query are valids       
+        let categoryEnum = productsServices.categoryEnum;
+        // console.log('index')
+        let sortingCriteriaEnum = productsServices.sortingCriteriaEnum;
+        // console.log('index')
+        let category = req.query ? req.query.category : "all";
+        // console.log('index')
+        let sortingCriteria = req.query ? req.query.criteria : "price-asc";
+        // console.log('index')
+        if (!_.some(sortingCriteriaEnum, function (crit) {
+            return crit === sortingCriteria;
+        }) && sortingCriteria) {
+            // console.log('dude wtf')
+            res.status(400).send("Parameters criteria " + sortingCriteria + " or category " + category + " are invalid");
+            // res.status(400);
+            //POUR LES TESTS DU TP
+            // res.status(404).send(err);
+            res.end();
+            return;
+        }
+        if (!_.some(categoryEnum, function (cat) {
+            return cat === category;
+        }) && category) {
+            // console.log('dude wtf')
+            res.status(400).send("Parameters criteria " + sortingCriteria + " or category " + category + " are invalid");
+            // res.status(400);
+            //POUR LES TESTS DU TP
+            // res.status(404).send(err);
+            res.end();
+            return;
+        }
+        mongoose.model("Product").find({}).exec(function (err, results) {
+            if (err) {
+                // res.status(500).send(err);
                 //POUR LES TESTS DU TP
-                // res.status(404).send(err);
-                res.end();
-                return;
-            }
-            if (    !_.some(categoryEnum, function (cat) {
-                return cat === category;
-            }) && category) {
-                // console.log('dude wtf')
-                res.status(400).send("Parameters criteria " + sortingCriteria + " or category " + category + " are invalid");
-                // res.status(400);
-                //POUR LES TESTS DU TP
-                // res.status(404).send(err);
-                res.end();
-                return;
-            }
-
-
-
-
-        
-            mongoose.model("Product").find({}).exec(function (err, results) {
-                if (err) {
-                    // res.status(500).send(err);
-                    //POUR LES TESTS DU TP
-                    res.status(404).send(err);
-                    //res.end();
-                }
-                
-                productsServices.initData(results || []);
-                if(!sortingCriteria){
-                    sortingCriteria = "price-asc";
-                }
-                if(!category){
-                    category = "all";
-                }
-                console.log(category)
-                console.log(sortingCriteria)
-                let resultsFiltered = productsServices.getUpdatedData(category, sortingCriteria);
-                res.status(200).json(resultsFiltered || []);
-                // req.body = results;
-                // console.log(req.body )
+                res.status(404).send(err);
                 //res.end();
-            });
-            // avoid general exception in real life! :P
+            }
+
+            productsServices.initData(results || []);
+            if (!sortingCriteria) {
+                sortingCriteria = "price-asc";
+            }
+            if (!category) {
+                category = "all";
+            }
+            //console.log(category)
+            //console.log(sortingCriteria)
+            let resultsFiltered = productsServices.getUpdatedData(category, sortingCriteria);
+            res.status(200).json(resultsFiltered || []);
+            // req.body = results;
+            // console.log(req.body )
+            //res.end();
+        });
+        // avoid general exception in real life! :P
         // } catch (e) {
         //     console.error('in products controllers : ' + e);
         //     //req.status(500).send(e);
@@ -84,8 +79,8 @@ var products = {
     },
     getById: function (req, res) {
         let id = req.params.id;
-        console.log('getById')
-        console.log(id)
+        //console.log('getById')
+        //console.log(id)
         if (id) {
             mongoose.model("Product").findOne({ id: id }).exec(function (err, result) {
                 if (err) {
@@ -113,6 +108,13 @@ var products = {
         try {
             if (body) {
                 var ObjectID = mongoose.ObjectID;
+                if (!productsServices.validate(body)) {
+                    // res.status(500).send(err);
+                    //POUR LES TESTS DU TP
+                    res.status(400).send("Failed validator");
+                    res.end();
+                    return;
+                }
                 mongoose.model("Product").create({
                     id: body.id,
                     name: body.name,
@@ -126,45 +128,53 @@ var products = {
                     if (err) {
                         // res.status(500).send(err);
                         //POUR LES TESTS DU TP
-                        res.status(400).send(e);
+                        res.status(400).send(err);
                         res.end();
+                        return;
                     }
                     if (result == null) {
                         //console.log('400')
                         // res.status(400);
                         //POUR LES TESTS DU TP
-                        res.status(400).send(e);
+                        res.status(400).send("Empty result");
                         res.end();
+                        return;
                     }
                     res.status(201).json(result);
                     res.end();
+                    return;
                 })
             } else {
                 res.status(400).send('Invalid body : ' + body);
+                res.end();
+                return;
             }
         } catch (e) {
             // res.status(400);
             //POUR LES TESTS DU TP
             res.status(400).send(e);
+            res.end();
+            return;
         };
-        res.end();
+        // res.end();
     },
     deleteProduct: function (req, res) {
         let id = req.params.id;
         if (id) {
             try {
+                console.log('here2')
                 mongoose.model("Product").remove({
                     id: id
                 }, function (err, result) {
                     if (err) {
-                        
+
                         //res.status(500).send(err);
                         res.status(400).send(err);
                         res.end();
                     }
                     let itemRemoved = result.result.n;
                     if (itemRemoved == 0) {
-                        res.status(404);
+                        res.status(404).send('Nothing removed');
                         // res.end();
                     } else {
                         res.status(204);
@@ -178,7 +188,7 @@ var products = {
         } else {
             res.status(404).send('Invalid id : ' + id);
         }
-        res.end();
+        // res.end();
     },
     deleteAllProducts: function (req, res) {
         // console.log('deleting all')

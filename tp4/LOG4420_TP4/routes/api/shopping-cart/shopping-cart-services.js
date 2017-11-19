@@ -24,6 +24,9 @@ var ShoppingCartService = (function (productsService) {
     self.addItem = function (req, productId, quantity) {
         console.log('req.session.data at line 25')
         console.log(req.session.data)
+        console.log(req.sessionID )
+        console.log(req.cookies['connect.sid']);
+        console.log('above is the session id ')
         if (productId === undefined) {
             throw new Error("The specified product ID is invalid.")
         }

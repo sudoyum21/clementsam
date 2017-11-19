@@ -14,17 +14,16 @@ var shoppingCart = {
             res.status(200).send(result);
             // avoid general exception in real life! :P
         } catch (e){
-            var vDebug = ""; 
-            for (var prop in e) 
-            {  
-               vDebug += "property: "+ prop+ " value: ["+ e[prop]+ "]\n"; 
-            } 
-            vDebug += "toString(): " + " value: [" + e.toString() + "]"; 
-            // status.rawValue = vDebug; 
+            var vDebug = "";
+            for (var prop in e)
+            {
+               vDebug += "property: "+ prop+ " value: ["+ e[prop]+ "]\n";
+            }
+            vDebug += "toString(): " + " value: [" + e.toString() + "]";
+            // status.rawValue = vDebug;
             console.error('in shoppingcart2 controller : ' + e);
             res.status(500).send(e);
         }
-
     },
     getById: function (req, res) {
         let id = req.params.id;
@@ -121,7 +120,7 @@ var shoppingCart = {
             res.status(400);
         };
     },
-} 
+}
 
 module.exports = shoppingCart;
 
@@ -145,8 +144,8 @@ module.exports = shoppingCart;
 //     // //Bind connection to error event (to get notification of connection errors)
 //     // db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 //     //mongoose.
-  
-  
+
+
 //     // doc.find({}, function (err, collection) {
 //     //   console.log(collection)
 //     //   console.log(collection)
@@ -154,7 +153,7 @@ module.exports = shoppingCart;
 //     //   console.log(collection)
 //     //   console.log(collection)
 //     // });
-  
+
 //   });
 
 // router.get("/:productId", function (req, res) {

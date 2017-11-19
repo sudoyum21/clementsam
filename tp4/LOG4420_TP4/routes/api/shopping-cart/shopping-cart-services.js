@@ -146,11 +146,11 @@ var ShoppingCartService = (function (productsService) {
         });
     },
     self.filterProductsRaw = function (products, req) {
-        console.log('session')
-        console.log('session')
+        // console.log('session')
+        // console.log('session')
         // console.log(req.session.data)
         if (req.session && req.session.data) {
-            console.log('5')
+            // console.log('5')
             // console.log(products)
             return products.filter(function (product) {
                 let dataFound = req.session.data.find(function(prod){
@@ -169,7 +169,7 @@ var ShoppingCartService = (function (productsService) {
                 };
             });
         } else {
-            console.log('7')
+            // console.log('7')
             return [];
         }
     }
@@ -229,7 +229,11 @@ var ShoppingCartService = (function (productsService) {
                 return prod.productId == productId
             }) 
             let pos = req.session.data.indexOf(dataFound);
-            delete req.session.data.slice(pos,1);
+            if(pos == -1){
+                return false;
+            }
+            req.session.data.splice(pos,1);
+            return true;
         }
     };
 
@@ -239,15 +243,18 @@ var ShoppingCartService = (function (productsService) {
     self.removeAllItems = function (req) {
         if (req.session && req.session.data) {
             let data = req.session.data;
-            req.session.data = null;
+            // req.session.data = null;
             delete req.session.data;
             delete req.session['data'];
-            // console.log('deleted ')
+            console.log('deleted ')
+            req.session.data = [];
+            console.log(req.session['data'])
+            console.log('deleted ')
             // console.log('line 174 ' + req.session.data);
         }
-        req.session.destroy(function (err) {
-            // cannot access session here
-        })
+        // req.session.destroy(function (err) {
+        //     // cannot access session here
+        // })
     };
 
     /**

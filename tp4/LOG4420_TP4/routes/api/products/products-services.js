@@ -32,8 +32,8 @@ var ProductsServices = (function () {
  * Gets all the products.
  */
     self.getProducts = function (sortingCriteria, category) {
-        console.log('sortingCriteria ' + sortingCriteria + " category " + category)
-        console.log(self.data.length)
+        // console.log('sortingCriteria ' + sortingCriteria + " category " + category)
+        // console.log(self.data.length)
         let results = self.getUpdatedData(sortingCriteria, category);
         return results;
     }

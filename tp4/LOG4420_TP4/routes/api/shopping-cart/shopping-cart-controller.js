@@ -90,6 +90,11 @@ var shoppingCart = {
         let body = req.body;        
         try {
             if(body){
+                if (!parseInt(body.quantity) || body.quantity <= 0) {
+                    res.status(400);
+                    res.end();
+                    return;
+                }
                 let dataUpdated = ShoppingCartService.addItem(req, body.productId, body.quantity);
                 resultToSend =  ShoppingCartService.filterProductsRaw(productsService.getProducts("alpha-asc", "all"), req);
                 if (resultToSend == null || resultToSend.length == 0) {
@@ -112,9 +117,16 @@ var shoppingCart = {
         let id = req.params.productId;
         try {
             if(body){
+                if (!parseInt(body.quantity) || body.quantity <= 0) {
+                    res.status(400);
+                    res.end();
+                    return;
+                }
                 let dataUpdated = ShoppingCartService.updateItem(req, id, body.quantity)
                 if (dataUpdated == null) {
                     res.status(400);
+                    res.end();
+                    return;
                 }
                 res.status(204).json(dataUpdated);
             } else {
@@ -129,8 +141,11 @@ var shoppingCart = {
         let id = req.params.productId;
         if(id){
             try {
-                ShoppingCartService.removeItem(id, req)
-                res.status(204);
+                if(ShoppingCartService.removeItem(id, req)){
+                    res.status(204);
+                } else {
+                    res.status(404);
+                }                
             } catch (e) {
                 res.status(404);
             };

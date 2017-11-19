@@ -26,7 +26,7 @@ var products = {
             // res.status(400);
             //POUR LES TESTS DU TP
             // res.status(404).send(err);
-            res.end();
+            // res.end();
             return;
         }
         if (!_.some(categoryEnum, function (cat) {
@@ -36,7 +36,7 @@ var products = {
             // res.status(400);
             //POUR LES TESTS DU TP
             // res.status(404).send(err);
-            res.end();
+            // res.end();
             return;
         }
         mongoose.model("Product").find({}).exec(function (err, results) {
@@ -79,7 +79,7 @@ var products = {
                     // res.status(500).send(err);
                     //POUR LES TESTS DU TP
                     res.status(404).send(err);
-                    res.end();
+                    // res.end();
                     return;
                 }
                 if (result == null) {
@@ -104,7 +104,7 @@ var products = {
                     // res.status(500).send(err);
                     //POUR LES TESTS DU TP
                     res.status(400).send("Failed validator");
-                    res.end();
+                    // res.end();
                     return;
                 }
                 mongoose.model("Product").create({
@@ -121,7 +121,7 @@ var products = {
                         // res.status(500).send(err);
                         //POUR LES TESTS DU TP
                         res.status(400).send(err);
-                        res.end();
+                        // res.end();
                         return;
                     }
                     if (result == null) {
@@ -129,23 +129,23 @@ var products = {
                         // res.status(400);
                         //POUR LES TESTS DU TP
                         res.status(400).send("Empty result");
-                        res.end();
+                        // res.end();
                         return;
                     }
                     res.status(201).json(result);
-                    res.end();
+                    // res.end();
                     return;
                 })
             } else {
                 res.status(400).send('Invalid body : ' + body);
-                res.end();
+                // res.end();
                 return;
             }
         } catch (e) {
             // res.status(400);
             //POUR LES TESTS DU TP
             res.status(400).send(e);
-            res.end();
+            // res.end();
             return;
         };
         // res.end();
@@ -161,7 +161,7 @@ var products = {
 
                         //res.status(500).send(err);
                         res.status(400).send(err);
-                        res.end();
+                        // res.end();
                     }
                     let itemRemoved = result.result.n;
                     if (itemRemoved == 0) {
@@ -189,7 +189,7 @@ var products = {
                     // res.status(500).send(err);
                     //POUR LES TESTS DU TP
                     res.status(404).send(e);
-                    res.end();
+                    // res.end();
                 }
                 res.status(204);
                 res.end();
@@ -198,7 +198,7 @@ var products = {
             // res.status(400);
             //POUR LES TESTS DU TP
             res.status(404).send(e);
-            res.end();
+            // res.end();
         };
     },
 

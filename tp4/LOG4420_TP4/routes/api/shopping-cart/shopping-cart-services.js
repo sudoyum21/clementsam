@@ -78,47 +78,29 @@ var ShoppingCartService = (function (productsService) {
   */
     self.getItems = function (req) {
         if(productsService.isDataEmpty()){
-             console.log('updating data ')
             return mongoose.model("Product").find({}).exec(function (err, results) {
                 if (err) {
                     res.status(404).send(err);
                 }
-                 console.log('productsService')
-                // console.log(productsService)
                 productsService.initData(results || []);
                 let productsHolder = productsService.getProducts("alpha-asc", "all");
-                // console.log(productsHolder)
-                // console.log(req.session)
-                // console.log('productsHolder')
-                // console.log(productsHolder)
-                //  console.log(productsHolder)
                 if (req && req.session) {
-                    console.log('productsService3')
                     if (productsHolder ) {
-                        console.log('productsService4')
                         return  self.filterProducts(productsHolder || [], req);               
                     }
         
                 } else {
-                    console.log('here')
                     return self.filterProducts(productsHolder || [], req);
                 }               
             });
         } else {
-             console.log('data is not empty data ')
             let productsHolder = productsService.getProducts("alpha-asc", "all");
-            // console.log(productsHolder)
-            // console.log(req.session)
-            console.log('productsHolder')
-            // console.log(productsHolder)
-            // console.log(productsHolder)
             if (req && req.session) {
                 if (productsHolder ) {                                        
                     return  self.filterProducts(productsHolder || [], req);               
                 }
     
             } else {
-                console.log('herfe3')
                 return self.filterProducts(productsHolder || [], req);
             }
      
@@ -126,19 +108,13 @@ var ShoppingCartService = (function (productsService) {
     };
 
     self.filterProducts = function (products, req) {
-        console.log('session')
-        console.log('session')
-        // console.log(req.session.data)
         if (req.session && req.session.data) {
-            console.log('5')
-            // console.log(products)
             return products.filter(function (product) {
                 let dataFound = req.session.data.find(function(prod){
                     return prod.productId == product.id
                 }) 
                 return dataFound;
             }).map(function (product) {
-                console.log('6')
                 return {
                     product: product,
                     quantity: req.session.data.find(function(prod){
@@ -150,7 +126,6 @@ var ShoppingCartService = (function (productsService) {
                 };
             });
         } else {
-            console.log('7')
             return [];
         }
     }

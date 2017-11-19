@@ -67,7 +67,7 @@ var shoppingCart = {
         console.log(body)
         try {
             if(body){
-                let dataUpdated = ShoppingCartService.addItem(req, id, body.quantity)
+                let dataUpdated = ShoppingCartService.updateItem(req, id, body.quantity)
                 if (dataUpdated == null) {
                     res.status(400);
                 }

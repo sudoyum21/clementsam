@@ -16,7 +16,9 @@ var onlineShop = onlineShop || {};
    */
   function _updateCount() {
     let total = 0;
-    shoppingCartService.getItemsCount().then(function(products) {
+    shoppingCartService.getItems().then(function(products) {
+      console.log('in total count')
+      console.log(products)
       for (var productId in products) {
           total += products[productId].quantity;
       }
@@ -68,6 +70,7 @@ var onlineShop = onlineShop || {};
       // Updates the quantity for a specific item and update the view.
       function updateQuantity(quantity) {
         rowElement.find(".remove-quantity-button").prop("disabled", quantity <= 1);
+        console.log(quantity)
         shoppingCartService.updateItemQuantity(product.id, quantity);
 
         _updateCount();
@@ -88,11 +91,16 @@ var onlineShop = onlineShop || {};
           _updateCount();
         }
       });
-      rowElement.find(".remove-quantity-button").click(function() {
-        updateQuantity(shoppingCartService.getItemQuantity(product.id) - 1);
+      
+      rowElement.find(".remove-quantity-button").click(function() {        
+        shoppingCartService.getItemQuantity(item.product.id).then(function(quantity){
+          updateQuantity(quantity -1 );
+        })
       });
       rowElement.find(".add-quantity-button").click(function() {
-        updateQuantity(shoppingCartService.getItemQuantity(product.id) + 1);
+        shoppingCartService.getItemQuantity(item.product.id).then(function(quantity){
+          updateQuantity(quantity + 1 );
+        })
       });
 
       shoppingCartTable.append(rowElement);

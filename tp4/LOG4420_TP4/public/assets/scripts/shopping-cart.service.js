@@ -47,12 +47,14 @@ onlineShop.shoppingCartService = (function($, productsService) {
    */
   self.getTotalAmount = function() {
       var total = 0;
-      items.forEach(function(item) {
-        if (item) {
-          total += item.total;
-        }
-      });
-      return total;
+      return self.getItems().then(function(items){
+        items.forEach(function(item) {
+          if (item) {
+            total += item.total;
+          }
+        });
+        return total;
+      })
   };
 
   /**
@@ -79,7 +81,19 @@ onlineShop.shoppingCartService = (function($, productsService) {
     }
     items = this.getItems();
   };
-
+  self.getItemQuantity = function (productId) {
+    return self.getItems().then(function(items){
+      var qty = 0;
+      items.forEach(function(item){
+        console.log(item)
+        if(item.product.id == productId){
+          qty = item.quantity;
+        }
+      })
+      console.log(qty)
+      return qty;
+    })
+};
   /**
    * Removes all the items in the shopping cart.
    */

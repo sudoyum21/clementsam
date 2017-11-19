@@ -38,6 +38,26 @@ var ShoppingCartService = (function (productsService) {
         _updateLocalItems();
         return req.session.data;
     };
+        /**
+     * Adds an item in the shopping cart.
+     *
+     * @param productId   The ID associated with the product to add.
+     * @param [quantity]  The quantity of the product.
+     */
+    self.updateItem = function (req, productId, quantity) {
+        if (productId === undefined) {
+            throw new Error("The specified product ID is invalid.")
+        }
+        if (!quantity || typeof quantity !== "number" || quantity <= 0) {
+            quantity = 1;
+        }
+        if (!req.session.data) {
+            req.session['data'] = {};
+        }
+        req.session.data[productId] = quantity;
+        _updateLocalItems();
+        return req.session.data;
+    };
     /**
      * Gets the items in the shopping cart.
      *

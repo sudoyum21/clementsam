@@ -61,7 +61,6 @@ var onlineShop = onlineShop || {};
    * @private
    */
   function _renderShoppingCartView(items) {
-    console.log('here')
     var shoppingCartTable = $(".shopping-cart-table tbody");
     items.forEach(function(item) {
       var product = item.product;

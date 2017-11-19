@@ -162,7 +162,6 @@ var products = {
         let id = req.params.id;
         if (id) {
             try {
-                console.log('here2')
                 mongoose.model("Product").remove({
                     id: id
                 }, function (err, result) {

@@ -43,9 +43,8 @@ onlineShop.productsService = (function($) {
    * @returns {jquery.promise}  A promise that contains the product associated with the ID specified.
    */
   self.getProduct = function(productId) {
-    return $.get("http://127.0.0.1:8000/api/products/"+productId).then(function(product) {
-      return product;
-    });
+    console.log(productId)
+    return $.get("http://127.0.0.1:8000/api/products/"+productId);
     // return self.getProducts().then(function(products) {
     //   var product = products.filter(function(product) {
     //     return product.id === productId;

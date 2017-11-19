@@ -28,7 +28,15 @@ var onlineShop = onlineShop || {};
 
   // Initialize the product view.
   var productId = +utils.getUrlParameter("id");
-  productsService.getProduct(productId).done(function(product) {
+  let promise = productsService.getProduct(productId);
+  promise.catch(function(err){
+    console.error("Invalid ID specified");
+    $("article").html('<h1>Page non trouvée!</h1>')
+  
+  })
+  promise.done(function(product) {
+    console.log('product')
+    console.log(product)
     if (product) {
       _updateView(product);
     } else {

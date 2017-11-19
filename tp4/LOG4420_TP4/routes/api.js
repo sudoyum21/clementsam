@@ -10,7 +10,7 @@ var session = require('express-session');
 /// products ///
 //TODO REMOVE DEBUG restore
 /* GET RESTORE products */
-//router.get('/products/test', products.restoreAll);
+// router.get('/products/test', products.restoreAll);
 
 /* GET all products */
 router.get('/products', products.index);

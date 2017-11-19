@@ -1,5 +1,6 @@
 var express = require("express");
 var path = require("path");
+var cors = require('cors')
 var favicon = require("serve-favicon");
 var logger = require("morgan");
 var cookieParser = require("cookie-parser");
@@ -15,6 +16,7 @@ var index = require("./routes/index");
 const api = require("./routes/api");
 
 var app = express();
+app.use(cors());
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

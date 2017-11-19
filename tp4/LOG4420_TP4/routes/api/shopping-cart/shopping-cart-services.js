@@ -38,7 +38,6 @@ var ShoppingCartService = (function (productsService) {
         _updateLocalItems();
         return req.session.data;
     };
-
     /**
      * Gets the items in the shopping cart.
      *

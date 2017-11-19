@@ -92,7 +92,6 @@ var onlineShop = onlineShop || {};
         updateQuantity(shoppingCartService.getItemQuantity(product.id) - 1);
       });
       rowElement.find(".add-quantity-button").click(function() {
-        console.log('add')
         updateQuantity(shoppingCartService.getItemQuantity(product.id) + 1);
       });
 
@@ -155,8 +154,6 @@ var onlineShop = onlineShop || {};
       if (items.length === 0) {
         _renderEmptyView();
       } else {
-        console.log('items')
-        console.log(items)
         _renderShoppingCartView(items);
       }
     });

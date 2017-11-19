@@ -39,24 +39,6 @@ onlineShop.shoppingCartService = (function($, productsService) {
     return $.get("http://127.0.0.1:8000/api/shopping-cart");
   };
 
-  /**
-   * Gets the items count in the shopping cart.
-   *
-   * @returns {number}  The items count.
-   */
-  self.getItemsCount = function() {
-    return self.getItems();
-  };
-
-  /**
-   * Gets the quantity associated with an item.
-   *
-   * @param productId   The product ID associated with the item quantity to retrieve.
-   * @returns {*}
-   */
-  self.getItemQuantity = function(productId) {
-    return items[productId] || 0;
-  };
 
   /**
    * Gets the total amount of the products in the shopping cart.
@@ -64,7 +46,6 @@ onlineShop.shoppingCartService = (function($, productsService) {
    * @returns {jquery.promise}    A promise that contains the total amount.
    */
   self.getTotalAmount = function() {
-    return self.getItems().then(function(items) {
       var total = 0;
       items.forEach(function(item) {
         if (item) {
@@ -72,7 +53,6 @@ onlineShop.shoppingCartService = (function($, productsService) {
         }
       });
       return total;
-    });
   };
 
   /**
@@ -85,10 +65,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
     if (!quantity || typeof quantity !== "number" || quantity <= 0) {
       throw new Error("The specified quantity is invalid.")
     }
-    if (items[productId]) {
-      items[productId] = quantity;
-      items = this.getItems();
-    }
+    _updateItemToShoppingCart(productId,quantity);
   };
 
   /**
@@ -112,7 +89,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
   };
   
   /**
-   * Updates the shopping cart via req.
+   * Add new item the shopping cart via req.
    *
    * @private
    */
@@ -126,6 +103,29 @@ onlineShop.shoppingCartService = (function($, productsService) {
           type: 'POST',
           contentType: "application/json; charset=utf-8",
           data: JSON.stringify({productId:id, quantity:qty}),
+          dataType: "json",
+          success: function(result) {
+          },
+          error: function (err){
+        }
+      });
+      // }
+  }
+  /**
+   * Updates the shopping cart via req.
+   *
+   * @private
+   */
+  function _updateItemToShoppingCart(id, qty) {
+    //if (!productsPromise) {
+      // console.log(item)
+      // if(!shoppingCartPromise || !items.length > 0){
+        var that = this;
+        $.ajax({
+          url: "http://127.0.0.1:8000/api/shopping-cart/" + id,
+          type: 'PUT',
+          contentType: "application/json; charset=utf-8",
+          data: JSON.stringify({quantity:qty}),
           dataType: "json",
           success: function(result) {
           },

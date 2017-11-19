@@ -8,17 +8,17 @@ var ProductsServices = (function () {
      * Initialisation des datas
      */
     self.initData = function (d) {
-        if(!self.data){
+        if (!self.data) {
             self.data = d;
-        }        
+        }
     }
-      /**
-   * Gets all the products.
-   */
-  self.getProducts = function(sortingCriteria, category) {
-    let results = self.getUpdatedData(sortingCriteria);
-    return results;
-  }
+    /**
+ * Gets all the products.
+ */
+    self.getProducts = function (sortingCriteria, category) {
+        let results = self.getUpdatedData(sortingCriteria);
+        return results;
+    }
     /**
      * Mettre a jour les datas
      */
@@ -98,17 +98,17 @@ var ProductsServices = (function () {
         return products;
     }
     self.sortingCriteriaEnum = {
-        PRICEASC:"price-asc",
-        PRICEDSC:"price-dsc",
-        ALPHAASC:"alpha-asc",
-        ALPHADSC:"alpha-dsc"
+        PRICEASC: "price-asc",
+        PRICEDSC: "price-dsc",
+        ALPHAASC: "alpha-asc",
+        ALPHADSC: "alpha-dsc"
     }
     self.categoryEnum = {
-        ALL:"all",
-        CAMERAS:"cameras",
-        COMPUTERS:"computers",
-        CONSOLES:"consoles",
-        SCREENS:"screens"
+        ALL: "all",
+        CAMERAS: "cameras",
+        COMPUTERS: "computers",
+        CONSOLES: "consoles",
+        SCREENS: "screens"
     }
     return self;
 })();

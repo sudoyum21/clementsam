@@ -43,7 +43,7 @@ router.get('/shopping-cart/:productId', shoppingCart.getById);
 router.post('/shopping-cart/', shoppingCart.addProduct);
 
 /* PUT request for updating product in shopping cart. */
-router.put('/shopping-cart/:productId', shoppingCart.update);
+router.put('/shopping-cart/:productId', shoppingCart.updateProduct);
 
 /* DELETE request for a specific product by id. */
 router.delete('/shopping-cart/:productId', shoppingCart.deleteProduct);

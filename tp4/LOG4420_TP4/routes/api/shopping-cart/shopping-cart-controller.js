@@ -45,7 +45,7 @@ var shoppingCart = {
 
     },
     addProduct: function (req, res) {
-        let body = req.body;
+        let body = req.body;        
         try {
             if(body){
                 let dataUpdated = ShoppingCartService.addItem(req, body.productId, body.quantity)
@@ -53,7 +53,7 @@ var shoppingCart = {
                     res.status(400);
                 }
                 console.log(dataUpdated)
-                res.status(200).json(dataUpdated);
+                res.status(201).json(dataUpdated);
             } else {
                 res.status(404).send('Invalid body : ' + body);
             }
@@ -61,36 +61,24 @@ var shoppingCart = {
             res.status(400);
         };
     },
-    update: function (req, res) {
+    updateProduct: function (req, res) {
         let body = req.body;
+        let id = req.params.productId;
+        console.log(id)
+        console.log(body)
         try {
             if(body){
-                var ObjectID = mongoose.ObjectID;
-                mongoose.model("Product").create({
-                    id: body.id,
-                    name: body.name,
-                    price: body.price,
-                    image: body.image,
-                    category: body.category,
-                    description: body.description,
-                    features: body.features,
-                    // _id : new ObjectID()
-                }, function (err, result) {
-                    if (err) {
-                        res.status(500).send(err);
-                    }
-                    if (result == null) {
-                        //console.log('400')
-                        res.status(400);
-                    }
-                    res.status(200).json(result);
-                    // res.end();
-                })
+                let dataUpdated = ShoppingCartService.addItem(req, id, body.quantity)
+                if (dataUpdated == null) {
+                    res.status(400);
+                }
+                console.log(dataUpdated);
+                res.status(204).json(dataUpdated);
             } else {
                 res.status(404).send('Invalid body : ' + body);
             }
         } catch (e) {
-            res.status(400);
+            res.status(404);
         };
     },
     deleteProduct: function (req, res) {

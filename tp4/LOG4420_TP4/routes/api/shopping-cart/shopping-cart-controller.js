@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var router = express.Router();
 var session = require('express-session');
 const ShoppingCartService = require('./shopping-cart-services');
+const productsService = require('../products/products-services');
 
 var shoppingCart = {
     index: function (req, res) {
@@ -10,12 +11,78 @@ var shoppingCart = {
             // console.log('line 10 '+req.session.data)
             // console.log(req.session.data)
             // console.log('line 11 '+req.session.data)
-            let result = ShoppingCartService.getItems(req);
-            res.status(200).send(result);
+            let resultToSend = [];
+            if(productsService.isDataEmpty()){
+                console.log('updating data ')
+               return mongoose.model("Product").find({}).exec(function (err, results) {
+                   if (err) {
+                       res.status(404).send(err);
+                   }
+                    console.log('productsService')
+                   // console.log(productsService)
+                   productsService.initData(results || []);
+                   let productsHolder = productsService.getProducts("alpha-asc", "all");
+                   // console.log(productsHolder)
+                   // console.log(req.session)
+                   // console.log('productsHolder')
+                   // console.log(productsHolder)
+                   //  console.log(productsHolder)
+                   if (req && req.session) {
+                       console.log('productsService3')
+                       if (productsHolder ) {
+                           console.log('productsService4')
+                           resultToSend = ShoppingCartService.filterProductsRaw(productsHolder || [], req);  
+                           resultToSend = ShoppingCartService.prepareSpecialListJustForTest(req, productsHolder);       
+                           console.log('productsService5')
+                       }
+           
+                   } else {
+                       console.log('here')
+                       resultToSend = ShoppingCartService.filterProductsRaw(productsHolder || [], req);
+                       resultToSend = ShoppingCartService.prepareSpecialListJustForTest(req, productsHolder);
+                   }  
+                   if(!resultToSend) resultToSend = []
+                   console.log('resultToSend')
+                   console.log(resultToSend)
+                   res.status(200).send(resultToSend);
+                   res.end();
+                   return;                  
+               });
+           } else {
+                console.log('data is not empty data ')
+               let productsHolder = productsService.getProducts("alpha-asc", "all");
+               // console.log(productsHolder)
+               // console.log(req.session)
+               console.log('productsHolder')
+               // console.log(productsHolder)
+               // console.log(productsHolder)
+               if (req && req.session) {
+                   if (productsHolder ) {                                        
+                    resultToSend =  ShoppingCartService.filterProductsRaw(productsHolder || [], req);    
+                    resultToSend = ShoppingCartService.prepareSpecialListJustForTest(req, productsHolder);           
+                   }
+       
+               } else {
+                   console.log('herfe3')
+                   resultToSend =  ShoppingCartService.filterProductsRaw(productsHolder || [], req);
+                   resultToSend = ShoppingCartService.prepareSpecialListJustForTest(req, productsHolder);
+               }
+               console.log('in result ')
+               console.log(resultToSend.length)
+            //    console.log(resultToSend)
+               res.status(200).send(resultToSend);
+               res.end();
+               return;
+        
+           }
+          
+          
             // avoid general exception in real life! :P
         } catch (e){
             res.status(500).send(e);
-        }res.end();
+            res.end();
+        }
+        
     },
     getById: function (req, res) {
         let id = req.params.productId;
@@ -32,24 +99,35 @@ var shoppingCart = {
                 }
                 let data = req.session.data;
                 res.status(200).json({
-                    "productId" : id, 
+                    "productId" : parseInt(id), 
                     "quantity" : data[id]
                 } || {});
             });
         } else {
             res.status(404).send('Invalid id : ' + id);
         }
-        res.end();
+        // res.end();
     },
     addProduct: function (req, res) {
         let body = req.body;        
         try {
             if(body){
-                let dataUpdated = ShoppingCartService.addItem(req, body.productId, body.quantity)
-                if (dataUpdated == null) {
+                let dataUpdated = ShoppingCartService.addItem(req, body.productId, body.quantity);
+                resultToSend =  ShoppingCartService.filterProductsRaw(productsService.getProducts("alpha-asc", "all"), req);
+                console.log('resultToSend')
+                // console.log('resultToSend')
+                // console.log('resultToSend')
+                // console.log(resultToSend)
+                //  console.log('resultToSend')
+                //  console.log('resultToSend')
+                //  console.log('resultToSend')
+                // console.log(dataUpdated)
+                if (resultToSend == null || resultToSend.length == 0) {
                     res.status(400);
+                    res.end();
+                    return;
                 }
-                console.log('line 50 '+dataUpdated)
+                // console.log('line 50 '+resultToSend)
                 res.status(201).json(dataUpdated);
             } else {
                 res.status(404).send('Invalid body : ' + body);

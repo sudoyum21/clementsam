@@ -25,20 +25,27 @@ var ShoppingCartService = (function (productsService) {
         if (productId === undefined) {
             throw new Error("The specified product ID is invalid.")
         }
+        let newQuantity = quantity;
         if (!quantity || typeof quantity !== "number" || quantity <= 0) {
             quantity = 1;
         }
         if (!req.session.data) {
-            req.session['data'] = {};
+            req.session['data'] = [];
         }
         // console.log('line 33 creating wftf <==================')
-        if (req.session.data && req.session.data[productId]) {
-            req.session.data[productId] += quantity;
-        } else {
-            req.session.data[productId] = quantity;
-        }
-        // console.log(req.session['data'])
-        return req.session.data;
+        if (req.session.data) {
+            let dataFound = req.session.data.find(function(prod){
+                return prod.productId == productId
+            }) 
+            if(dataFound){
+                dataFound.quantity += quantity;
+                newQuantity = dataFound.quantity;
+            } else {
+                req.session.data.push({'productId':productId, 'quantity':quantity})                
+            }
+        } 
+        //return req.session.data;
+        return {'productId' : productId, 'quantity' : newQuantity };
     };
     /**
  * Adds an item in the shopping cart.
@@ -54,9 +61,15 @@ var ShoppingCartService = (function (productsService) {
             quantity = 1;
         }
         if (!req.session.data) {
-            req.session['data'] = {};
+            req.session['data'] = [];
+            req.session.data.push({'productId':productId, 'quantity':quantity})
+        } else {
+            let dataFound = req.session.data.find(function(prod){
+                return prod.productId == productId
+            }) 
+            dataFound.quantity= quantity
         }
-        req.session.data[productId] = quantity
+      
         return req.session.data;
     };
     /**
@@ -65,64 +78,128 @@ var ShoppingCartService = (function (productsService) {
   */
     self.getItems = function (req) {
         if(productsService.isDataEmpty()){
-            // console.log('updating data ')
+             console.log('updating data ')
             return mongoose.model("Product").find({}).exec(function (err, results) {
                 if (err) {
                     res.status(404).send(err);
                 }
-                // console.log('productsServices')
+                 console.log('productsService')
                 // console.log(productsService)
                 productsService.initData(results || []);
-                let productsHolder = productsService.getProducts("alpha-asc", "all", true);
+                let productsHolder = productsService.getProducts("alpha-asc", "all");
                 // console.log(productsHolder)
                 // console.log(req.session)
                 // console.log('productsHolder')
                 // console.log(productsHolder)
-                // console.log(productsHolder)
+                //  console.log(productsHolder)
                 if (req && req.session) {
-                    if (productsHolder && productsHolder.then) {
-                        return productsHolder.then(function (products) {
-                            return self.filterProducts(products, req);
-                        });
+                    console.log('productsService3')
+                    if (productsHolder ) {
+                        console.log('productsService4')
+                        return  self.filterProducts(productsHolder || [], req);               
                     }
         
-                }
-                return self.filterProducts(productsHolder || [], req);
+                } else {
+                    console.log('here')
+                    return self.filterProducts(productsHolder || [], req);
+                }               
             });
         } else {
-            // console.log('data is not empty data ')
-            let productsHolder = productsService.getProducts("alpha-asc", "all", true);
+             console.log('data is not empty data ')
+            let productsHolder = productsService.getProducts("alpha-asc", "all");
             // console.log(productsHolder)
             // console.log(req.session)
-            // console.log('productsHolder')
+            console.log('productsHolder')
             // console.log(productsHolder)
             // console.log(productsHolder)
             if (req && req.session) {
-                if (productsHolder && productsHolder.then) {
-                    return productsHolder.then(function (products) {
-                        return self.filterProducts(products, req);
-                    });
+                if (productsHolder ) {                                        
+                    return  self.filterProducts(productsHolder || [], req);               
                 }
     
+            } else {
+                console.log('herfe3')
+                return self.filterProducts(productsHolder || [], req);
             }
-            return self.filterProducts(productsHolder || [], req);
+     
         }
     };
 
     self.filterProducts = function (products, req) {
+        console.log('session')
+        console.log('session')
+        // console.log(req.session.data)
         if (req.session && req.session.data) {
+            console.log('5')
+            // console.log(products)
             return products.filter(function (product) {
-                return req.session.data.hasOwnProperty(product.id) && req.session.data[product.id] !== undefined;
+                let dataFound = req.session.data.find(function(prod){
+                    return prod.productId == product.id
+                }) 
+                return dataFound;
+            }).map(function (product) {
+                console.log('6')
+                return {
+                    product: product,
+                    quantity: req.session.data.find(function(prod){
+                        return prod.productId == product.id
+                    }).id ,
+                    total: product.price * req.session.data.find(function(prod){
+                        return prod.productId == product.id
+                    }).quantity 
+                };
+            });
+        } else {
+            console.log('7')
+            return [];
+        }
+    }
+    self.prepareSpecialListJustForTest = function (req, products){
+        if(!req || !req.session || !req.session.data) return;
+        return products.filter(function (product) {
+            let dataFound = req.session.data.find(function(prod){
+                return prod.productId == product.id
+            }) 
+            return dataFound;
+        }).map(function (product) {
+            return {
+                productId: product.id,
+                quantity: req.session.data.find(function(prod){
+                    return prod.productId == product.id
+                }).quantity
+            };
+        });
+    },
+    self.filterProductsRaw = function (products, req) {
+        console.log('session')
+        console.log('session')
+        // console.log(req.session.data)
+        if (req.session && req.session.data) {
+            console.log('5')
+            // console.log(products)
+            return products.filter(function (product) {
+                let dataFound = req.session.data.find(function(prod){
+                    return prod.productId == product.id
+                }) 
+                return dataFound;
             }).map(function (product) {
                 return {
                     product: product,
-                    quantity: req.session.data[product.id],
-                    total: product.price * req.session.data[product.id]
+                    quantity: req.session.data.find(function(prod){
+                        return prod.productId == product.id
+                    }).quantity ,
+                    total: product.price * req.session.data.find(function(prod){
+                        return prod.productId ==  product.id
+                    }).quantity 
                 };
             });
+        } else {
+            console.log('7')
+            return [];
         }
-        return [];
     }
+
+
 
     /**
      * Gets the quantity associated with an item.
@@ -173,8 +250,11 @@ var ShoppingCartService = (function (productsService) {
      */
     self.removeItem = function (productId, req) {
         if (req.session && req.session.data) {
-
-            delete req.session.data[productId];
+            let dataFound = req.session.data.find(function(prod){
+                return prod.productId == productId
+            }) 
+            let pos = req.session.data.indexOf(dataFound);
+            delete req.session.data.slice(pos,1);
         }
     };
 

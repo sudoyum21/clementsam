@@ -26,13 +26,14 @@ var ProductsServices = (function () {
             // console.log(Object.keys(self.data).length)
         }
         // console.log(self.data)
-        return self.data == undefined || Object.keys(self.data).length == 0
+        return self.data == undefined || self.data.length == 0;
     }
     /**
  * Gets all the products.
  */
     self.getProducts = function (sortingCriteria, category) {
-        // console.log('sortingCriteria ' + sortingCriteria + " category " + category)
+        console.log('sortingCriteria ' + sortingCriteria + " category " + category)
+        console.log(self.data.length)
         let results = self.getUpdatedData(sortingCriteria, category);
         return results;
     }

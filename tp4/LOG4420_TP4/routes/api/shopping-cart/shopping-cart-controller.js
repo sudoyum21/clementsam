@@ -1,7 +1,7 @@
 var express = require("express");
 var mongoose = require('mongoose');
-var mongooseAPI = require('../../lib/db');
 var router = express.Router();
+
 
 router.get("/", function (req, res) {
     var id = req.params.name
@@ -9,9 +9,9 @@ router.get("/", function (req, res) {
     for(var i in req.params){
         console.log(req.params[i])
     }
-    mongoose.connection.db.collection('products', function (err, collection) {
-        console.log(collection.find({}));
-    });
+    //mongoose.connection.db.collection('products', function (err, collection) {
+    // console.log(collection.find({}));
+    // });
     res.render("index", { title: "COMMANDE", message: "Ça semble extra!"+id });
     //Get the default connection
     // var db = mongoose.connection;

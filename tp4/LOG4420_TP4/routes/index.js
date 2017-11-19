@@ -1,14 +1,6 @@
 var express = require("express");
 var router = express.Router();
-
-router.get("/", function(req, res) {
-  res.render("index", { title: "Accueil", message: "Ça semble fonctionner!", test:'clems' });
-});
-
-var express = require("express");
 var mongoose = require('mongoose');
-var mongooseAPI = require('../lib/db');
-var router = express.Router();
 
 router.get("/", function (req, res) {
   res.render("index", { title: "Accueil" });
@@ -45,9 +37,5 @@ router.get("/commande", function(req, res) {
 router.get("/confirmation", function(req, res) {
   res.render("confirmation", { title: "Confirmation" });
 });
-
-
-
-module.exports = router;
 
 module.exports = router;

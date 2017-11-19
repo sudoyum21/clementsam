@@ -9,7 +9,7 @@ var mongoose = require('mongoose')
 
 require("./lib/db");
 var index = require("./routes/index");
-var apiShoppingCart = require("./routes/api/shopping-cart");
+const api = require("./routes/api");
 
 var app = express();
 
@@ -38,7 +38,7 @@ app.use(session({
 
 
 app.use("/", index);
-app.use("/api/shopping-cart", apiShoppingCart);
+app.use("/api", api);
 // app.use("/api/shopping-cart", apiShoppingCart);
 // app.use("/api/shopping-cart", apiShoppingCart);
 

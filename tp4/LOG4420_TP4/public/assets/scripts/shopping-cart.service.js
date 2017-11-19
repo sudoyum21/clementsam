@@ -10,6 +10,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
   "use strict";
 
   var self = {};
+  self.data = [];
   // var items = {};
   var shoppingCartPromise;
 
@@ -47,7 +48,28 @@ onlineShop.shoppingCartService = (function($, productsService) {
     return $.get("http://127.0.0.1:8000/api/shopping-cart");
   };
 
-
+  /**
+   * Gets all the products.
+   *
+   * @param [sortingCriteria]   The sorting criteria to use. If no value is specified, the list returned isn't sorted.
+   * @param [category]          The category of the product. The default value is "all".
+   * @returns {jquery.promise}  A promise that contains the products list.
+   */
+  self.getProducts = function() {
+    //if (!productsPromise) {
+      return $.get("http://127.0.0.1:8000/api/products?category=all&criteria=price-asc");
+    //}
+  };
+  /**
+   * Gets all the products.
+   *
+   * @param [sortingCriteria]   The sorting criteria to use. If no value is specified, the list returned isn't sorted.
+   * @param [category]          The category of the product. The default value is "all".
+   * @returns {jquery.promise}  A promise that contains the products list.
+   */
+  self.initData = function(data) {
+    self.data = data;
+  };
   /**
    * Gets the total amount of the products in the shopping cart.
    *
@@ -55,16 +77,51 @@ onlineShop.shoppingCartService = (function($, productsService) {
    */
   self.getTotalAmount = function() {
       var total = 0;
+
       return self.getItems().then(function(items){
+        console.log(items)
         items.forEach(function(item) {
           if (item) {
-            total += item.total;
+            let newItem = self.filterProducts(item)
+            total += newItem.total;
           }
         });
         return total;
       })
   };
-
+  self.filterProducts = function (sc) {
+    if (sc) {
+      let productFound = self.data.find(function(prod){
+        return prod.id == parseInt(sc.productId);
+      });
+      let newItem = {
+        product: productFound,
+        quantity : sc.quantity,
+        total : sc.quantity * productFound.price
+      }
+      return newItem;
+        // return products.filter(function (product) {
+        //     let dataFound = sc.find(function(prod){
+        //         return prod.productId == product.id
+        //     }) 
+        //     return dataFound;
+        // }).map(function (product) {
+        //     return product;
+        // });
+        //     return {
+        //         product: product,
+        //         quantity: sc.find(function(prod){
+        //             return prod.productId == product.id
+        //         }).id ,
+        //         total: product.price * sc.find(function(prod){
+        //             return prod.productId == product.id
+        //         }).quantity 
+        //     };
+        // });
+    } else {
+        return [];
+    }
+}
   /**
    * Updates the quantity associated with a specified item.
    *
@@ -101,7 +158,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
       var qty = 0;
       items.forEach(function(item){
         console.log(item)
-        if(item.product.id == productId){
+        if(item.productId == productId){
           qty = item.quantity;
         }
       })

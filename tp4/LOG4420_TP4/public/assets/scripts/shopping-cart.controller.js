@@ -17,8 +17,6 @@ var onlineShop = onlineShop || {};
   function _updateCount() {
     let total = 0;
     shoppingCartService.getItems().then(function(products) {
-      console.log('in total count')
-      console.log(products)
       for (var productId in products) {
           total += products[productId].quantity;
       }
@@ -63,6 +61,7 @@ var onlineShop = onlineShop || {};
   function _renderShoppingCartView(items) {
     var shoppingCartTable = $(".shopping-cart-table tbody");
     items.forEach(function(item) {
+      item = shoppingCartService.filterProducts(item);
       var product = item.product;
       var rowElement = _createItemElement(item);
 
@@ -101,6 +100,7 @@ var onlineShop = onlineShop || {};
         })
       });
       rowElement.find(".add-quantity-button").click(function() {
+        console.log()
         shoppingCartService.getItemQuantity(item.product.id).then(function(quantity){
           updateQuantity(quantity + 1 );
         })
@@ -118,6 +118,7 @@ var onlineShop = onlineShop || {};
    * @private
    */
   function _createItemElement(item) {
+    
     return $("<tr>" +
       "<td><button class='remove-item-button' title='Supprimer'><i class='fa fa-times'></i></button></td>" +
       "<td><a href='./product.html?id=" + item.product.id + "'>" + item.product.name + "</a></td>" +
@@ -161,14 +162,17 @@ var onlineShop = onlineShop || {};
 
   // Checks if we are on the "shopping cart" page.
   if ($("#shopping-cart-container").length) {
-    shoppingCartService.getItems().done(function(items) {
-      if (items.length === 0) {
-        _renderEmptyView();
-      } else {
-        _renderShoppingCartView(items);
-      }
-    });
-    _updateTotalAmount();
+    shoppingCartService.getProducts().done(function(data){
+      shoppingCartService.initData(data);
+      shoppingCartService.getItems().done(function(items) {
+        if (items.length === 0) {
+          _renderEmptyView();
+        } else {
+          _renderShoppingCartView(items);
+        }
+      });
+      _updateTotalAmount();
+    })
   }
   _updateCount();
 

@@ -7,12 +7,15 @@ const ShoppingCartService = require('./shopping-cart-services');
 var shoppingCart = {
     index: function (req, res) {
         try {
+            console.log('line 10 '+req.session.data)
+            console.log(req.session.data)
+            console.log('line 11 '+req.session.data)
             let result = ShoppingCartService.getItems(req);
             res.status(200).send(result);
             // avoid general exception in real life! :P
         } catch (e){
             res.status(500).send(e);
-        }
+        }res.end();
     },
     getById: function (req, res) {
         let id = req.params.productId;
@@ -36,7 +39,7 @@ var shoppingCart = {
         } else {
             res.status(404).send('Invalid id : ' + id);
         }
-
+        res.end();
     },
     addProduct: function (req, res) {
         let body = req.body;        
@@ -46,7 +49,7 @@ var shoppingCart = {
                 if (dataUpdated == null) {
                     res.status(400);
                 }
-                console.log(dataUpdated)
+                console.log('line 50 '+dataUpdated)
                 res.status(201).json(dataUpdated);
             } else {
                 res.status(404).send('Invalid body : ' + body);
@@ -54,19 +57,20 @@ var shoppingCart = {
         } catch (e) {
             res.status(400);
         };
+        res.end();
     },
     updateProduct: function (req, res) {
         let body = req.body;
         let id = req.params.productId;
-        console.log(id)
-        console.log(body)
+        console.log('line 62 '+id)
+        console.log('line 63  '+body)
         try {
             if(body){
                 let dataUpdated = ShoppingCartService.updateItem(req, id, body.quantity)
                 if (dataUpdated == null) {
                     res.status(400);
                 }
-                console.log(dataUpdated);
+                console.log('line 70 '+dataUpdated);
                 res.status(204).json(dataUpdated);
             } else {
                 res.status(404).send('Invalid body : ' + body);
@@ -74,6 +78,7 @@ var shoppingCart = {
         } catch (e) {
             res.status(404);
         };
+        res.end();
     },
     deleteProduct: function (req, res) {
         let id = req.params.productId;
@@ -87,15 +92,17 @@ var shoppingCart = {
         } else {
             res.status(404).send('Invalid id : ' + id);
         }
+        res.end();
     },
     deleteAllProducts: function (req, res) {
         console.log('deleting all')
         try {
-            ShoppingCartService.removeAllItems(req);
+            ShoppingCartService.removeAllItems(req);                    
             res.status(204);
         } catch (e) {
             res.status(400);
         };
+        res.end();
     },
 }
 

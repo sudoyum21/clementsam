@@ -30,6 +30,7 @@ var ShoppingCartService = (function (productsService) {
         if (!req.session.data) {
             req.session['data'] = {};
         }
+        console.log('line 33 creating wftf <==================')
         if (req.session.data && req.session.data[productId]) {
             req.session.data[productId] += quantity;
         } else {
@@ -38,12 +39,12 @@ var ShoppingCartService = (function (productsService) {
         _updateLocalItems();
         return req.session.data;
     };
-        /**
-     * Adds an item in the shopping cart.
-     *
-     * @param productId   The ID associated with the product to add.
-     * @param [quantity]  The quantity of the product.
-     */
+    /**
+ * Adds an item in the shopping cart.
+ *
+ * @param productId   The ID associated with the product to add.
+ * @param [quantity]  The quantity of the product.
+ */
     self.updateItem = function (req, productId, quantity) {
         if (productId === undefined) {
             throw new Error("The specified product ID is invalid.")
@@ -76,11 +77,7 @@ var ShoppingCartService = (function (productsService) {
     };
 
     self.filterProducts = function (products, req) {
-
-        console.log('req')
-        console.log('req')
-        console.log(req.session.data)
-        if(req.session && req.session.data){
+        if (req.session && req.session.data) {
             return products.filter(function (product) {
                 return req.session.data.hasOwnProperty(product.id) && req.session.data[product.id] !== undefined;
             }).map(function (product) {
@@ -143,16 +140,9 @@ var ShoppingCartService = (function (productsService) {
      * @param productId   The product ID associated with the item to remove.
      */
     self.removeItem = function (productId, req) {
-        if(req.session && req.session.data){
-            if(req.session.data[id] >= 0){
-                console.log('before delete ' + id)
-                console.log(req.session.data)
-                delete req.session.data.id;
-            }
-            console.log('deleted ')
-            console.log(req.session.data[id]);
-            
-            
+        if (req.session && req.session.data) {
+
+            delete req.session.data[productId];
         }
     };
 
@@ -160,28 +150,18 @@ var ShoppingCartService = (function (productsService) {
      * Removes all the items in the shopping cart.
      */
     self.removeAllItems = function (req) {
-        if(req.session && req.session.data){
+        if (req.session && req.session.data) {
             let data = req.session.data;
             req.session.data = null;
-            
+            delete req.session.data;
+            delete req.session['data'];
             console.log('deleted ')
-            console.log(req.session.data);
-            
+            console.log('line 174 ' + req.session.data);
         }
+        req.session.destroy(function (err) {
+            // cannot access session here
+        })
     };
-
-    /**
-     * Updates the shopping cart in the local storage.
-     *
-     * @private
-     */
-    function _updateLocalItems() {
-        //localStorage["shoppingCart"] = JSON.stringify(items);
-    }
-    // Initializes the shopping cart.
-    //   if (localStorage["shoppingCart"]) {
-    //     items = JSON.parse(localStorage["shoppingCart"]);
-    //   }
 
     /**
      * Gets all the products.
@@ -191,17 +171,8 @@ var ShoppingCartService = (function (productsService) {
      * @returns {jquery.promise}  A promise that contains the products list.
      */
     function _getCurrentCart(sortingCriteria, category) {
-        //if (!productsPromise) {
-        //productsPromise = $.get("http://127.0.0.1:8000/api/products?category="+category+"&sortingCriteria="+sortingCriteria);
-        //}
         return productsPromise.then(function (products) {
-            // if (category) {
-            //   products = _applyCategory(products, category);
-            // }
-            // if (sortingCriteria) {
-            //   products = _applySortingCriteria(products, sortingCriteria);
-            // }
-            console.log(products)
+            console.log('line 212 ' + products)
             return products;
         });
     };

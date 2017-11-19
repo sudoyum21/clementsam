@@ -22,6 +22,8 @@ var ShoppingCartService = (function (productsService) {
      * @param [quantity]  The quantity of the product.
      */
     self.addItem = function (req, productId, quantity) {
+        console.log('req.session.data at line 25')
+        console.log(req.session.data)
         if (productId === undefined) {
             throw new Error("The specified product ID is invalid.")
         }
@@ -44,6 +46,8 @@ var ShoppingCartService = (function (productsService) {
                 req.session.data.push({'productId':productId, 'quantity':quantity})                
             }
         } 
+        console.log('req.session.data at line 50')
+        console.log(req.session.data)
         //return req.session.data;
         return {'productId' : productId, 'quantity' : newQuantity };
     };

@@ -6,65 +6,91 @@ var _ = require('lodash');
 const productsServices = require('./products-services');
 
 var products = {
-    init: function(){
+    init: function () {
         mongoose.model("Product").find({}).exec(function (err, result) {
             productsServices.initData(result || []);
         });
     },
     index: function (req, res) {
-        try {
+        // console.log('index')
+        // try {
             //check if req query are valids       
             let categoryEnum = productsServices.categoryEnum;
+            // console.log('index')
             let sortingCriteriaEnum = productsServices.sortingCriteriaEnum;
-            let category = req.query.category;
-            let sortingCriteria = req.query.sortingCriteria;
-            if (!_.some(sortingCriteriaEnum, function (crit) {
-                return crit === sortingCriteria;
-            }) || !_.some(categoryEnum, function (cat) {
-                return cat === category;
-            })) {
-                //res.status(400).send("Parameters criteria " + sortingCriteria + " or category " + category + " are invalid");
-                res.status(400);
-            }
-            mongoose.model("Product").find({}).exec(function (err, result) {
+            // console.log('index')
+            let category = req.query ? req.query.category : "all";
+            // console.log('index')
+            let sortingCriteria = req.query ?req.query.sortingCriteria : "price-asc";
+            // console.log('index')
+            // if (!_.some(sortingCriteriaEnum, function (crit) {
+            //     return crit === sortingCriteria;
+            // }) || !_.some(categoryEnum, function (cat) {
+            //     return cat === category;
+            // })) {
+            //     //res.status(400).send("Parameters criteria " + sortingCriteria + " or category " + category + " are invalid");
+            //     // res.status(400);
+            //     //POUR LES TESTS DU TP
+            //     // res.status(404).send(err);
+            //     // res.end();
+            // }
+            mongoose.model("Product").find({}).exec(function (err, results) {
                 if (err) {
-                    res.status(500).send(err);
+                    // res.status(500).send(err);
+                    //POUR LES TESTS DU TP
+                    res.status(404).send(err);
+                    res.end();
                 }
-                productsServices.initData(result || []);
-                results = productsServices.getUpdatedData(req.query.category, req.query.sortingCriteria);
-                console.log('results')
-                //console.log(results)
-                res.status(200).json(results || []);
+                
+                productsServices.initData(results || []);
+                if(!sortingCriteria){
+                    sortingCriteria = "price-asc";
+                }
+                if(!category){
+                    category = "all";
+                }
+                let resultsFiltered = productsServices.getUpdatedData(category, sortingCriteria);
+                res.status(200).json(resultsFiltered || []);
+                // req.body = results;
+                // console.log(req.body )
+                // res.end();
             });
             // avoid general exception in real life! :P
-        } catch (e){
-            console.error.log('in products controllers : ' + e);
-            req.status(500).send(e);
-        }
-
+        // } catch (e) {
+        //     console.error('in products controllers : ' + e);
+        //     //req.status(500).send(e);
+        //     //POUR LES TESTS DU TP
+        //     res.status(404).send(e);
+        //     res.end();
+        // }
     },
     getById: function (req, res) {
         let id = req.params.id;
-        if(id){
+        console.log('getById')
+        if (id) {
             mongoose.model("Product").findOne({ id: id }).exec(function (err, result) {
                 if (err) {
-                    res.status(500).send(err);
+                    // res.status(500).send(err);
+                    //POUR LES TESTS DU TP
+                    res.status(404).send(e);
+                    res.end();
                 }
                 if (result == null) {
                     //console.log('404')
                     res.status(404);
+                    res.end();
                 }
-                res.status(200).json(result);
+                res.status(201).json(result);
             });
         } else {
             res.status(404).send('Invalid id : ' + id);
         }
-
+        res.end();
     },
     createProduct: function (req, res) {
         let body = req.body;
         try {
-            if(body){
+            if (body) {
                 var ObjectID = mongoose.ObjectID;
                 mongoose.model("Product").create({
                     id: body.id,
@@ -77,40 +103,53 @@ var products = {
                     // _id : new ObjectID()
                 }, function (err, result) {
                     if (err) {
-                        res.status(500).send(err);
+                        // res.status(500).send(err);
+                        //POUR LES TESTS DU TP
+                        res.status(400).send(e);
+                        res.end();
                     }
                     if (result == null) {
                         //console.log('400')
-                        res.status(400);
+                        // res.status(400);
+                        //POUR LES TESTS DU TP
+                        res.status(400).send(e);
+                        res.end();
                     }
-                    res.status(200).json(result);
-                    // res.end();
+                    res.status(201).json(result);
+                    res.end();
                 })
             } else {
-                res.status(404).send('Invalid body : ' + body);
+                res.status(400).send('Invalid body : ' + body);
             }
         } catch (e) {
-            res.status(400);
+            // res.status(400);
+            //POUR LES TESTS DU TP
+            res.status(400).send(e);
         };
+        res.end();
     },
     deleteProduct: function (req, res) {
         let id = req.params.id;
-        if(id){
+        if (id) {
             try {
                 mongoose.model("Product").remove({
                     id: id
                 }, function (err, result) {
                     if (err) {
-                        res.status(500).send(err);
+                        
+                        //res.status(500).send(err);
+                        res.status(400).send(err);
+                        res.end();
                     }
                     let itemRemoved = result.result.n;
                     if (itemRemoved == 0) {
                         res.status(404);
                         // res.end();
                     } else {
-                        res.status(204).json(result);
+                        res.status(204);
                         // res.end();
                     }
+                    res.end();
                 })
             } catch (e) {
                 res.status(404);
@@ -118,19 +157,26 @@ var products = {
         } else {
             res.status(404).send('Invalid id : ' + id);
         }
+        res.end();
     },
     deleteAllProducts: function (req, res) {
-        console.log('deleting all')
+        // console.log('deleting all')
         try {
             mongoose.model("Product").remove({}, function (err, result) {
                 if (err) {
-                    res.status(500).send(err);
+                    // res.status(500).send(err);
+                    //POUR LES TESTS DU TP
+                    res.status(404).send(e);
+                    res.end();
                 }
-                res.status(204).json(result);
-                // res.end();
+                res.status(204);
+                res.end();
             })
         } catch (e) {
-            res.status(400);
+            // res.status(400);
+            //POUR LES TESTS DU TP
+            res.status(404).send(e);
+            res.end();
         };
     },
 
@@ -334,5 +380,6 @@ var products = {
             console.log(err)
         })
     }
+
 }
 module.exports = products;

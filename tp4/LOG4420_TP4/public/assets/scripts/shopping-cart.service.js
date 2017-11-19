@@ -27,7 +27,6 @@ onlineShop.shoppingCartService = (function($, productsService) {
       quantity = 1;
     }
     _addItemToShoppingCart(productId, quantity);
-    // items = this.getItems();
   };
     /**
      * Gets the items count in the shopping cart.

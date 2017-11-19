@@ -7,9 +7,9 @@ const ShoppingCartService = require('./shopping-cart-services');
 var shoppingCart = {
     index: function (req, res) {
         try {
-            console.log('line 10 '+req.session.data)
-            console.log(req.session.data)
-            console.log('line 11 '+req.session.data)
+            // console.log('line 10 '+req.session.data)
+            // console.log(req.session.data)
+            // console.log('line 11 '+req.session.data)
             let result = ShoppingCartService.getItems(req);
             res.status(200).send(result);
             // avoid general exception in real life! :P

@@ -10,22 +10,24 @@ var ProductsServices = (function () {
     self.initData = function (d) {
         if (!self.data) {
             self.data = d;
+            console.log('in init')
+            console.log(self.data)
         }
     }
     /**
  * Gets all the products.
  */
     self.getProducts = function (sortingCriteria, category) {
-        let results = self.getUpdatedData(sortingCriteria);
+        let results = self.getUpdatedData(sortingCriteria, category);
         return results;
     }
     /**
      * Mettre a jour les datas
      */
     self.getUpdatedData = function (filter, sort) {
-        var updatedData = _applyCategory(self.data, filter);
-        _applySortingCriteria(updatedData, sort);
-        return self.data;
+        var data = _applyCategory(self.data, filter);
+        _applySortingCriteria(data, sort);
+        return data;
     }
     /**
      * Applies a filter to the specified products list to keep only the products of the specified category.

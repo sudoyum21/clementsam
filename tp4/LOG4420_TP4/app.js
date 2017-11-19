@@ -9,7 +9,8 @@ var mongoose = require('mongoose');
 var parseurl = require('parseurl');
 var products = require('./routes/api/products/products-controller');
 require("./lib/db");
-products.init();
+// products.restoreAll();
+// products.deleteAllProducts();
 var index = require("./routes/index");
 const api = require("./routes/api");
 
@@ -37,7 +38,7 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: false },
 }));
-// link : https://github.com/expressjs/session
+// link : https://github.com/expressjs/session/
 // app.use(function (req, res, next) {
 //   console.log('req.session in app ')
 //   console.log(req.session.data)

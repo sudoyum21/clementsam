@@ -10,10 +10,10 @@ var session = require('express-session');
 /// products ///
 //TODO REMOVE DEBUG restore
 /* GET RESTORE products */
-router.get('/products/test', products.restoreAll);
+//router.get('/products/test', products.restoreAll);
 
 /* GET all products */
-router.get('/products/', products.index);
+router.get('/products', products.index);
 
 /* GET product by ID */
 router.get('/product/:id', products.getById);
@@ -25,7 +25,7 @@ router.post('/products/create', products.createProduct);
 router.delete('/products/:id', products.deleteProduct);
 
 /* DELETE request for all products. */
-router.delete('/products/', products.deleteAllProducts);
+router.delete('/products', products.deleteAllProducts);
 
 
 /// products ///

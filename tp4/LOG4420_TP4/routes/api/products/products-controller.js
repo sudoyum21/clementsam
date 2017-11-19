@@ -6,90 +6,118 @@ var _ = require('lodash');
 const productsServices = require('./products-services');
 
 var products = {
-    index: function (req, res) {
-        //check if req query are valids       
-        let categoryEnum = productsServices.categoryEnum;
-        let sortingCriteriaEnum = productsServices.sortingCriteriaEnum;
-        let category = req.query.category;
-        let sortingCriteria = req.query.sortingCriteria;
-        if (!_.some(sortingCriteriaEnum, function (crit) {
-            return crit === sortingCriteria;
-        }) || !_.some(categoryEnum, function (cat) {
-            return cat === category;
-        })) {
-            //res.status(400).send("Parameters criteria " + sortingCriteria + " or category " + category + " are invalid");
-            res.status(400);
-        }
+    init: function(){
         mongoose.model("Product").find({}).exec(function (err, result) {
-            if (err) {
-                res.status(500).send(err);
-            }
             productsServices.initData(result || []);
-            results = productsServices.getUpdatedData(req.query.category, req.query.sortingCriteria);
-            res.status(200).json(results || []);
         });
+    },
+    index: function (req, res) {
+        try {
+            //check if req query are valids       
+            let categoryEnum = productsServices.categoryEnum;
+            let sortingCriteriaEnum = productsServices.sortingCriteriaEnum;
+            let category = req.query.category;
+            let sortingCriteria = req.query.sortingCriteria;
+            if (!_.some(sortingCriteriaEnum, function (crit) {
+                return crit === sortingCriteria;
+            }) || !_.some(categoryEnum, function (cat) {
+                return cat === category;
+            })) {
+                //res.status(400).send("Parameters criteria " + sortingCriteria + " or category " + category + " are invalid");
+                res.status(400);
+            }
+            mongoose.model("Product").find({}).exec(function (err, result) {
+                if (err) {
+                    res.status(500).send(err);
+                }
+                productsServices.initData(result || []);
+                results = productsServices.getUpdatedData(req.query.category, req.query.sortingCriteria);
+                console.log('results')
+                console.log(results)
+                res.status(200).json(results || []);
+            });
+            // avoid general exception in real life! :P
+        } catch (e){
+            console.error.log('in products controllers : ' + e);
+            req.status(500).send(e);
+        }
+
     },
     getById: function (req, res) {
         let id = req.params.id;
-        mongoose.model("Product").findOne({ id: id }).exec(function (err, result) {
-            if (err) {
-                res.status(500).send(err);
-            }
-            if (result == null) {
-                //console.log('404')
-                res.status(404);
-            }
-            res.status(200).json(result);
-        });
-    },
-    createProduct: function (req, res) {
-        let body = req.body;
-        try {
-            var ObjectID = mongoose.ObjectID;
-            mongoose.model("Product").create({
-                id: body.id,
-                name: body.name,
-                price: body.price,
-                image: body.image,
-                category: body.category,
-                description: body.description,
-                features: body.features,
-                // _id : new ObjectID()
-            }, function (err, result) {
+        if(id){
+            mongoose.model("Product").findOne({ id: id }).exec(function (err, result) {
                 if (err) {
                     res.status(500).send(err);
                 }
                 if (result == null) {
-                    //console.log('400')
-                    res.status(400);
+                    //console.log('404')
+                    res.status(404);
                 }
                 res.status(200).json(result);
-                res.end();
-            })
+            });
+        } else {
+            res.status(404).send('Invalid id : ' + id);
+        }
+
+    },
+    createProduct: function (req, res) {
+        let body = req.body;
+        try {
+            if(body){
+                var ObjectID = mongoose.ObjectID;
+                mongoose.model("Product").create({
+                    id: body.id,
+                    name: body.name,
+                    price: body.price,
+                    image: body.image,
+                    category: body.category,
+                    description: body.description,
+                    features: body.features,
+                    // _id : new ObjectID()
+                }, function (err, result) {
+                    if (err) {
+                        res.status(500).send(err);
+                    }
+                    if (result == null) {
+                        //console.log('400')
+                        res.status(400);
+                    }
+                    res.status(200).json(result);
+                    // res.end();
+                })
+            } else {
+                res.status(404).send('Invalid body : ' + body);
+            }
         } catch (e) {
             res.status(400);
         };
     },
     deleteProduct: function (req, res) {
         let id = req.params.id;
-        try {
-            mongoose.model("Product").remove({id:id
-            }, function (err, result) {
-                if (err) {
-                    res.status(500).send(err);
-                }
-                let itemRemoved = result.result.n;
-                if(itemRemoved == 0){
-                    res.status(404);
-                    res.end();
-                } else {
-                    res.status(204).json(result);
-                    res.end();
-                }                
-            })
-        } catch (e) {
-            res.status(404);
-        };
+        if(id){
+            try {
+                mongoose.model("Product").remove({
+                    id: id
+                }, function (err, result) {
+                    if (err) {
+                        res.status(500).send(err);
+                    }
+                    let itemRemoved = result.result.n;
+                    if (itemRemoved == 0) {
+                        res.status(404);
+                        // res.end();
+                    } else {
+                        res.status(204).json(result);
+                        // res.end();
+                    }
+                })
+            } catch (e) {
+                res.status(404);
+            };
+        } else {
+            res.status(404).send('Invalid id : ' + id);
+        }
     },
     deleteAllProducts: function (req, res) {
         console.log('deleting all')
@@ -99,7 +127,7 @@ var products = {
                     res.status(500).send(err);
                 }
                 res.status(204).json(result);
-                res.end();
+                // res.end();
             })
         } catch (e) {
             res.status(400);
@@ -108,8 +136,8 @@ var products = {
 
 
 
-//DEBUG USAGE
-restoreAll: function(req, res){
+    //DEBUG USAGE
+    restoreAll: function (req, res) {
         let arrayTest = [{
             "id": 1,
             "name": "Apple TV",

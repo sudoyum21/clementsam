@@ -11,6 +11,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
 
   var self = {};
   var items = {};
+  var shoppingCartPromise;
 
   /**
    * Adds an item in the shopping cart.
@@ -25,12 +26,8 @@ onlineShop.shoppingCartService = (function($, productsService) {
     if (!quantity || typeof quantity !== "number" || quantity <= 0) {
       quantity = 1;
     }
-    if (items[productId]) {
-      items[productId] += quantity;
-    } else {
-      items[productId] = quantity;
-    }
-    _updateLocalStorage();
+    _addItemToShoppingCart(productId, quantity);
+    items = this.getItems();
   };
 
   /**
@@ -39,17 +36,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
    * @returns {jquery.promise}    A promise that contains the list of items in the shopping cart.
    */
   self.getItems = function() {
-    return productsService.getProducts("alpha-asc").then(function(products) {
-      return products.filter(function(product) {
-        return items.hasOwnProperty(product.id) && items[product.id] !== undefined;
-      }).map(function(product) {
-        return {
-          product: product,
-          quantity: items[product.id],
-          total: product.price * items[product.id]
-        };
-      });
-    });
+    return $.get("http://127.0.0.1:8000/api/shopping-cart");
   };
 
   /**
@@ -58,13 +45,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
    * @returns {number}  The items count.
    */
   self.getItemsCount = function() {
-    var total = 0;
-    for (var productId in items) {
-      if (items.hasOwnProperty(productId) && items[productId]) {
-        total += items[productId];
-      }
-    }
-    return total;
+    return self.getItems();
   };
 
   /**
@@ -106,7 +87,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
     }
     if (items[productId]) {
       items[productId] = quantity;
-      _updateLocalStorage();
+      items = this.getItems();
     }
   };
 
@@ -119,7 +100,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
     if (items[productId]) {
       items[productId] = undefined;
     }
-    _updateLocalStorage();
+    items = this.getItems();
   };
 
   /**
@@ -127,22 +108,56 @@ onlineShop.shoppingCartService = (function($, productsService) {
    */
   self.removeAllItems = function() {
     items = {};
-    _updateLocalStorage();
+    items = this.getItems();
   };
-
+  
   /**
-   * Updates the shopping cart in the local storage.
+   * Updates the shopping cart via req.
    *
    * @private
    */
-  function _updateLocalStorage() {
-    localStorage["shoppingCart"] = JSON.stringify(items);
+  function _addItemToShoppingCart(id, qty) {
+    //if (!productsPromise) {
+      // console.log(item)
+      // if(!shoppingCartPromise || !items.length > 0){
+        var that = this;
+        $.ajax({
+          url: "http://127.0.0.1:8000/api/shopping-cart",
+          type: 'POST',
+          contentType: "application/json; charset=utf-8",
+          data: JSON.stringify({productId:id, quantity:qty}),
+          dataType: "json",
+          success: function(result) {
+          },
+          error: function (err){
+        }
+      });
+      // }
   }
 
-  // Initializes the shopping cart.
-  if (localStorage["shoppingCart"]) {
-    items = JSON.parse(localStorage["shoppingCart"]);
-  }
+  /**
+   * Gets all the products.
+   *
+   * @param [sortingCriteria]   The sorting criteria to use. If no value is specified, the list returned isn't sorted.
+   * @param [category]          The category of the product. The default value is "all".
+   * @returns {jquery.promise}  A promise that contains the products list.
+   */
+  function _getCurrentCart(sortingCriteria, category) {
+    //if (!productsPromise) {
+      productsPromise = $.get("http://127.0.0.1:8000/api/products?category="+category+"&sortingCriteria="+sortingCriteria);
+    //}
+    return productsPromise.then(function(products) {
+      // if (category) {
+      //   products = _applyCategory(products, category);
+      // }
+      // if (sortingCriteria) {
+      //   products = _applySortingCriteria(products, sortingCriteria);
+      // }
+      console.log(products)
+      return products;
+    });
+  };
+
 
   return self;
 })(jQuery, onlineShop.productsService);

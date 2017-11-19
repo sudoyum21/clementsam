@@ -163,6 +163,7 @@ var ShoppingCartService = (function (productsService) {
         if(req.session && req.session.data){
             let data = req.session.data;
             req.session.data = null;
+            
             console.log('deleted ')
             console.log(req.session.data);
             

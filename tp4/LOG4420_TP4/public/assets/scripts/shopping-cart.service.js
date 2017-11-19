@@ -90,6 +90,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
       type: 'DELETE',
       contentType: "application/json; charset=utf-8",
       success: function(result) {
+        console.log(result)
       },
       error: function (err){
     }
@@ -118,6 +119,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
       type: 'DELETE',
       contentType: "application/json; charset=utf-8",
       success: function(result) {
+        console.log(result)
       },
       error: function (err){
     }

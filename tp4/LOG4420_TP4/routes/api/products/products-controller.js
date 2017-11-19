@@ -33,7 +33,7 @@ var products = {
                 productsServices.initData(result || []);
                 results = productsServices.getUpdatedData(req.query.category, req.query.sortingCriteria);
                 console.log('results')
-                console.log(results)
+                //console.log(results)
                 res.status(200).json(results || []);
             });
             // avoid general exception in real life! :P

@@ -62,15 +62,15 @@ var shoppingCart = {
     updateProduct: function (req, res) {
         let body = req.body;
         let id = req.params.productId;
-        console.log('line 62 '+id)
-        console.log('line 63  '+body)
+        // console.log('line 62 '+id)
+        // console.log('line 63  '+body)
         try {
             if(body){
                 let dataUpdated = ShoppingCartService.updateItem(req, id, body.quantity)
                 if (dataUpdated == null) {
                     res.status(400);
                 }
-                console.log('line 70 '+dataUpdated);
+                // console.log('line 70 '+dataUpdated);
                 res.status(204).json(dataUpdated);
             } else {
                 res.status(404).send('Invalid body : ' + body);

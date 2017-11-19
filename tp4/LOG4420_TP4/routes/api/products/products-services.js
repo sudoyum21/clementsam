@@ -16,10 +16,23 @@ var ProductsServices = (function () {
             // console.log(self.data)
         // }
     }
+        /**
+     * Initialisation des datas
+     */
+    self.isDataEmpty = function () {
+        // console.log('self.data.length')
+        if(self.data){
+            // console.log('self.data.length')
+            // console.log(Object.keys(self.data).length)
+        }
+        // console.log(self.data)
+        return self.data == undefined || Object.keys(self.data).length == 0
+    }
     /**
  * Gets all the products.
  */
     self.getProducts = function (sortingCriteria, category) {
+        // console.log('sortingCriteria ' + sortingCriteria + " category " + category)
         let results = self.getUpdatedData(sortingCriteria, category);
         return results;
     }
@@ -27,6 +40,7 @@ var ProductsServices = (function () {
      * Mettre a jour les datas
      */
     self.getUpdatedData = function (sort,category) {
+        // console.log(self.data)
         var data = _applyCategory(self.data, category);
         _applySortingCriteria(data, sort);
         return data;
@@ -98,6 +112,7 @@ var ProductsServices = (function () {
                 return category === "all" || product.category === category;
             });
         }
+        // console.log('102 ' + products)
         return products;
     }
 

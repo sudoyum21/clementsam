@@ -1,5 +1,6 @@
 
 const ProductsService = require('../products/products-services');
+var mongoose = require('mongoose');
 
 /**
  * Defines a service to manage the shopping cart.
@@ -30,14 +31,13 @@ var ShoppingCartService = (function (productsService) {
         if (!req.session.data) {
             req.session['data'] = {};
         }
-        console.log('line 33 creating wftf <==================')
+        // console.log('line 33 creating wftf <==================')
         if (req.session.data && req.session.data[productId]) {
             req.session.data[productId] += quantity;
         } else {
             req.session.data[productId] = quantity;
         }
-        console.log(req.session['data'])
-        _updateLocalItems();
+        // console.log(req.session['data'])
         return req.session.data;
     };
     /**
@@ -56,8 +56,7 @@ var ShoppingCartService = (function (productsService) {
         if (!req.session.data) {
             req.session['data'] = {};
         }
-        req.session.data[productId] = quantity;
-        _updateLocalItems();
+        req.session.data[productId] = quantity
         return req.session.data;
     };
     /**
@@ -65,19 +64,49 @@ var ShoppingCartService = (function (productsService) {
      *
   */
     self.getItems = function (req) {
-        let productsHolder = productsService.getProducts("alpha-asc", "all");
-        console.log('productsHolder')
-        console.log(productsHolder)
-        console.log(productsHolder)
-        if (req && req.session) {
-            if (productsHolder && productsHolder.then) {
-                return productsHolder.then(function (products) {
-                    return self.filterProducts(products, req);
-                });
+        if(productsService.isDataEmpty()){
+            // console.log('updating data ')
+            return mongoose.model("Product").find({}).exec(function (err, results) {
+                if (err) {
+                    res.status(404).send(err);
+                }
+                // console.log('productsServices')
+                // console.log(productsService)
+                productsService.initData(results || []);
+                let productsHolder = productsService.getProducts("alpha-asc", "all", true);
+                // console.log(productsHolder)
+                // console.log(req.session)
+                // console.log('productsHolder')
+                // console.log(productsHolder)
+                // console.log(productsHolder)
+                if (req && req.session) {
+                    if (productsHolder && productsHolder.then) {
+                        return productsHolder.then(function (products) {
+                            return self.filterProducts(products, req);
+                        });
+                    }
+        
+                }
+                return self.filterProducts(productsHolder || [], req);
+            });
+        } else {
+            // console.log('data is not empty data ')
+            let productsHolder = productsService.getProducts("alpha-asc", "all", true);
+            // console.log(productsHolder)
+            // console.log(req.session)
+            // console.log('productsHolder')
+            // console.log(productsHolder)
+            // console.log(productsHolder)
+            if (req && req.session) {
+                if (productsHolder && productsHolder.then) {
+                    return productsHolder.then(function (products) {
+                        return self.filterProducts(products, req);
+                    });
+                }
+    
             }
-
+            return self.filterProducts(productsHolder || [], req);
         }
-        return self.filterProducts(productsHolder || [], req);
     };
 
     self.filterProducts = function (products, req) {
@@ -134,7 +163,6 @@ var ShoppingCartService = (function (productsService) {
         }
         if (items[productId]) {
             items[productId] = quantity;
-            _updateLocalItems();
         }
     };
 
@@ -159,8 +187,8 @@ var ShoppingCartService = (function (productsService) {
             req.session.data = null;
             delete req.session.data;
             delete req.session['data'];
-            console.log('deleted ')
-            console.log('line 174 ' + req.session.data);
+            // console.log('deleted ')
+            // console.log('line 174 ' + req.session.data);
         }
         req.session.destroy(function (err) {
             // cannot access session here
@@ -176,7 +204,7 @@ var ShoppingCartService = (function (productsService) {
      */
     function _getCurrentCart(sortingCriteria, category) {
         return productsPromise.then(function (products) {
-            console.log('line 212 ' + products)
+            // console.log('line 212 ' + products)
             return products;
         });
     };

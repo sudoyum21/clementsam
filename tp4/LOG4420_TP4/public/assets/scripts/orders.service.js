@@ -32,10 +32,12 @@ onlineShop.ordersService = (function() {
    * @returns {*}     The order associated with the specified ID.
    */
   self.getOrder = function(orderId) {
+    /*
     if (orderId <= 0 || orderId > orders.length) {
       throw new Error("Invalid order ID specified.")
     }
-    return orders[orderId - 1];
+    return orders[orderId - 1];*/
+    return $.get("http://127.0.0.1:8000/api/orders/"+orderId);
   };
 
   /**

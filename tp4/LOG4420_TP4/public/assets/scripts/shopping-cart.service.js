@@ -29,12 +29,12 @@ onlineShop.shoppingCartService = (function($, productsService) {
     }
     _addItemToShoppingCart(productId, quantity);
   };
-    /**
-     * Gets the items count in the shopping cart.
-     *
-     * @returns {number}  The items count.
-     */
-    self.getItemsCount = function () {
+  /**
+   * Gets the items count in the shopping cart.
+   *
+   * @returns {number}  The items count.
+   */
+  self.getItemsCount = function () {
       return this.getItems().then(function(items){
         return items.length;
       })
@@ -103,7 +103,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
         // return products.filter(function (product) {
         //     let dataFound = sc.find(function(prod){
         //         return prod.productId == product.id
-        //     }) 
+        //     })
         //     return dataFound;
         // }).map(function (product) {
         //     return product;
@@ -115,7 +115,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
         //         }).id ,
         //         total: product.price * sc.find(function(prod){
         //             return prod.productId == product.id
-        //         }).quantity 
+        //         }).quantity
         //     };
         // });
     } else {
@@ -140,7 +140,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
    *
    * @param productId   The product ID associated with the item to remove.
    */
-  self.removeItem = function(id) {   
+  self.removeItem = function(id) {
     $.ajax({
       url: "http://127.0.0.1:8000/api/shopping-cart/" + id,
       type: 'DELETE',
@@ -181,7 +181,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
     }
   });
   }
-  
+
   /**
    * Add new item the shopping cart via req.
    *

@@ -51,33 +51,22 @@ router.delete('/shopping-cart/:productId', shoppingCart.deleteProduct);
 /* DELETE request for all products. */
 router.delete('/shopping-cart/', shoppingCart.deleteAllProducts);
 
-// /// orders ///
+/// orders ///
 
-// /* GET request for creating Author. NOTE This must come before route for id (i.e. display author) */
-// router.get('/orders/', orders.index);
+/* GET all orders */
+router.get('/orders', orders.index);
 
-// router.get('/orders/create', orders.author_create_get);
+/* GET order by ID */
+router.get('/orders/:id', orders.getById);
 
-// /* POST request for creating Author. */
-// router.post('/orders/create', orders.author_create_post);
+/* POST request to create an order */
+router.post('/orders/', orders.addOrder);
 
-// /* GET request to delete Author. */
-// router.get('/orders/:id/delete', orders.author_delete_get);
+/* DELETE request for a specific order by id. */
+router.delete('/orders/:id', orders.deleteOrder);
 
-// // POST request to delete Author
-// router.post('/orders/:id/delete', orders.author_delete_post);
-
-// /* GET request to update Author. */
-// router.get('/orders/:id/update', orders.author_update_get);
-
-// // POST request to update Author
-// router.post('/author/:id/update', orders.author_update_post);
-
-// /* GET request for one Author. */
-// router.get('/orders/:id', orders.author_detail);
-
-// /* GET request for list of all Authors. */
-// router.get('/orders', orders.author_list);
+/* DELETE request for all orders. */
+router.delete('/orders/', orders.deleteAllOrders);
 
 
 

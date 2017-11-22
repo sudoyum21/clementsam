@@ -16,8 +16,9 @@ var ProductsServices = (function () {
             // console.log(self.data)
         // }
     }
-        /**
-     * Initialisation des datas
+
+    /**
+     * Check if data is empty.
      */
     self.isDataEmpty = function () {
         // console.log('self.data.length')
@@ -28,15 +29,17 @@ var ProductsServices = (function () {
         // console.log(self.data)
         return self.data == undefined || self.data.length == 0;
     }
+
     /**
- * Gets all the products.
- */
+     * Gets all the products.
+     */
     self.getProducts = function (sortingCriteria, category) {
         // console.log('sortingCriteria ' + sortingCriteria + " category " + category)
         // console.log(self.data.length)
         let results = self.getUpdatedData(sortingCriteria, category);
         return results;
     }
+
     /**
      * Mettre a jour les datas
      */
@@ -46,8 +49,9 @@ var ProductsServices = (function () {
         _applySortingCriteria(data, sort);
         return data;
     },
-        /**
-     * Validate all fields in product 
+
+    /**
+     * Validate all fields in product
      */
     self.validate = function(body){
         /*                  id: body.id,
@@ -62,14 +66,14 @@ var ProductsServices = (function () {
             return false;
         }
         let featureArray = body.features;
-        if(featureArray && featureArray.length > 0){     
+        if(featureArray && featureArray.length > 0){
             let fail = false;
             featureArray.forEach(function(feat){
-                if((!feat )|| (!feat.length > 0)){     
-                    fail = true;    
+                if((!feat )|| (!feat.length > 0)){
+                    fail = true;
                     return false;
                 }
-            })       
+            })
             if(fail){
                 return false;
             }
@@ -88,12 +92,12 @@ var ProductsServices = (function () {
 
         if (!_.some(self.categoryEnum, function (cat) {
             return cat === body.category;
-        })) {            
+        })) {
             return false;
         }
         return true;
         function checkStrLengthFail(obj, name){
-            if(!obj || !obj[name].length > 0){            
+            if(!obj || !obj[name].length > 0){
                 return true;
             }
             return false;

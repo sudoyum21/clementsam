@@ -58,7 +58,7 @@ var orders = {
             res.status(400).send(err);
             return;
           }
-          if (result == null) {
+          if (result === null) {
             res.status(400).send("Empty result");
             return;
           }
@@ -69,14 +69,29 @@ var orders = {
       }
     } catch (e) {
       res.status(400).send(e);
-    };
+    }
   },
   deleteOrder: function (req, res) {
     let id = req.params.id;
     if (id) {
-
+      try {
+        mongoose.model("Order").remove({ id: id }, function (err, result) {
+          if (err) {
+            res.status(400).send(err);
+          }
+          let orderRemoved = result.result.n;
+          if (orderRemoved === 0) {
+            res.status(404).send('Nothing removed');
+          } else {
+            res.status(204);
+          }
+          res.end();
+        })
+      } catch (e) {
+        res.status(404).end();
+      }
     } else {
-      res.status(404).send('Invalid id : ' + id);
+      res.status(404).end();
     }
   },
   deleteAllOrders: function (req, res) {
@@ -89,8 +104,8 @@ var orders = {
       })
     } catch (e) {
       res.status(404).send(e);
-    };
+    }
   },
-}
+};
 
 module.exports = orders;

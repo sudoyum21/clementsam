@@ -23,6 +23,7 @@ onlineShop.ordersService = (function() {
       orders.push(order);
       _updateLocalStorage();
     }
+    //return $.post("http://127.0.0.1:8000/api/orders/"); + BODY ???
   };
 
   /**

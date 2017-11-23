@@ -9,7 +9,7 @@ var orders = {
   index: function (req, res) {
     try {
       mongoose.model("Order").find({}).exec(function (err, result) {
-        ordersServices.initData(result || []);
+        //ordersServices.initData(result || []);
         /* tests ??
         if (err) {
           res.status(404).send(err);
@@ -43,7 +43,7 @@ var orders = {
           return;
         }
         mongoose.model("Order").create({
-          id: body.id,
+          id: ordersServices.getNextCommandNumber(),
           firstName: body.firstName,
           lastName: body.lastName,
           email: body.email,

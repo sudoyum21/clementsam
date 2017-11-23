@@ -18,12 +18,21 @@ onlineShop.ordersService = (function() {
    * @param order   The order to create.
    */
   self.createOrder = function(order) {
+    /*
     if (order) {
       order.id = orders.length + 1;
       orders.push(order);
       _updateLocalStorage();
-    }
-    //return $.post("http://127.0.0.1:8000/api/orders/"); + BODY ???
+    }*/
+    $.ajax({
+      url: "http://127.0.0.1:8000/api/orders/",
+      type: 'POST',
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify(order),
+      dataType: "json",
+      success: function(result) {},
+      error: function (err) {}
+    });
   };
 
   /**
@@ -47,6 +56,7 @@ onlineShop.ordersService = (function() {
    * @returns {Number}  The orders count.
    */
   self.getOrdersCount = function() {
+    // Besoin pour quoi ?
     return orders.length;
   };
 

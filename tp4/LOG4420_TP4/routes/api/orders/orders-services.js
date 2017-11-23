@@ -5,14 +5,22 @@ var fs = require('fs');
 
 var ProductsServices = (function () {
     var self = {};
-    self.data;
+    //self.data;
+    self.nextCommandNumber = 1;
 
     /**
      * Initialisation of orders
      */
-    self.initData = function (d) {
+    /*self.initData = function (d) {
         self.data = d;
-    }
+    }*/
+
+  /**
+   * Return the next command number
+   */
+  self.getNextCommandNumber = function () {
+      return self.nextCommandNumber++;
+  }
 
     /**
      * Validate all fields of an order

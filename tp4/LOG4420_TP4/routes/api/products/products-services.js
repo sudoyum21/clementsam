@@ -96,11 +96,9 @@ var ProductsServices = (function () {
             return false;
         }
         return true;
+
         function checkStrLengthFail(obj, name){
-            if(!obj || !obj[name].length > 0){
-                return true;
-            }
-            return false;
+            return !obj || !obj[name].length > 0;
         }
     }
     /**

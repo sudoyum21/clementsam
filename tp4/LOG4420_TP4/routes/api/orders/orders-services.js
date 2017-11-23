@@ -23,15 +23,15 @@ let ProductsServices = (function () {
    * Validate all fields of an order
    */
   self.validate = function(body) {
-    return (checkStrLengthFail(body, 'firstName')
-      || checkStrLengthFail(body, 'lastName')
-      || checkStrLengthFail(body, 'email')
-      || checkStrLengthFail(body, 'phone')
+    return (!validateString(body, 'firstName')
+      || !validateString(body, 'lastName')
+      || !validateString(body, 'email')
+      || !validateString(body, 'phone')
       || !validateEmail(body['email'])
       || !validatePhone(body['phone'])
       || !validateProductsArray(body['products']));
 
-    function checkStrLengthFail(obj, name) {
+    function validateString(obj, name) {
       return !obj || !obj[name].length > 0;
     }
     function validateEmail(email) { // from StackOverflow

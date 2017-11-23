@@ -35,8 +35,9 @@ let orders = {
     let body = req.body;
     try {
       if (body) {
-        if (!ordersServices.validate(body) || body.id) {
+        if (!ordersServices.validate(body)) { //|| body.id
           res.status(400).end();
+          console.log("------5");
           return;
         }
         mongoose.model("Order").create({

@@ -10,7 +10,7 @@ onlineShop.ordersService = (function() {
   "use strict";
 
   var self = {};
-  var orders = [];
+  //var orders = [];
 
   /**
    * Creates a new order.
@@ -55,24 +55,23 @@ onlineShop.ordersService = (function() {
    *
    * @returns {Number}  The orders count.
    */
-  self.getOrdersCount = function() {
-    // Besoin pour quoi ?
+  /*self.getOrdersCount = function() { // Besoin pour quoi ?
     return orders.length;
-  };
+  };*/
 
   /**
    * Updates the orders list in the local storage.
    *
    * @private
    */
-  function _updateLocalStorage() {
+  /*function _updateLocalStorage() {
     localStorage["orders"] = JSON.stringify(orders);
   }
 
   // Initializes the orders list.
   if (localStorage["orders"]) {
     orders = JSON.parse(localStorage["orders"]);
-  }
+  }*/
 
   return self;
 })();

@@ -1,23 +1,20 @@
-var express = require("express");
-var mongoose = require('mongoose');
-var router = express.Router();
-var session = require('express-session');
+'use strict';
+let mongoose = require('mongoose');
 
 const ordersServices = require('./orders-services');
 
-var orders = {
+let orders = {
   index: function (req, res) {
     try {
       mongoose.model("Order").find({}).exec(function (err, result) {
         //ordersServices.initData(result || []);
-        /* tests ??
         if (err) {
-          res.status(404).send(err);
-        }*/
+          res.status(404).end();
+        }
         res.status(200).send(result || []);
       });
     } catch (e){
-      res.status(500).send(e);
+      res.status(404).end();
     }
   },
   getById: function (req, res) {
@@ -38,12 +35,12 @@ var orders = {
     let body = req.body;
     try {
       if (body) {
-        if (!ordersServices.validate(body)) {
-          res.status(400).send("Failed validator");
+        if (!ordersServices.validate(body) || body.id) {
+          res.status(400).end();
           return;
         }
         mongoose.model("Order").create({
-          id: ordersServices.getNextCommandNumber(),
+          id: ordersServices.getNextCommandNumber(), // orders-services manages this doing +1
           firstName: body.firstName,
           lastName: body.lastName,
           email: body.email,
@@ -64,7 +61,7 @@ var orders = {
         res.status(400).end();
       }
     } catch (e) {
-      res.status(400).send(e);
+      res.status(400).end();
     }
   },
   deleteOrder: function (req, res) {
@@ -93,12 +90,12 @@ var orders = {
     try {
       mongoose.model("Order").remove({}, function (err, result) {
         if (err) {
-          res.status(404).send(e);
+          res.status(404).end();
         }
         res.status(204).end();
       })
     } catch (e) {
-      res.status(404).send(e);
+      res.status(404).end();
     }
   },
 };

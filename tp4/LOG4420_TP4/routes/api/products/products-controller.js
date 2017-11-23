@@ -399,7 +399,7 @@ var products = {
             ]
         }]
         mongoose.model("Product").insertMany(arrayTest, function (err) {
-            console.log(err)
+            // console.log(err)
         })
     }
 

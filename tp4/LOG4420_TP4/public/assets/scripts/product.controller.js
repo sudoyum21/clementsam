@@ -35,8 +35,8 @@ var onlineShop = onlineShop || {};
   
   })
   promise.done(function(product) {
-    console.log('product')
-    console.log(product)
+    // console.log('product')
+    // console.log(product)
     if (product) {
       _updateView(product);
     } else {

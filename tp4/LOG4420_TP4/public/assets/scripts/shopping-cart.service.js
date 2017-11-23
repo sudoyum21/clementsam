@@ -79,7 +79,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
       var total = 0;
 
       return self.getItems().then(function(items){
-        console.log(items)
+        // console.log(items)
         items.forEach(function(item) {
           if (item) {
             let newItem = self.filterProducts(item)
@@ -146,7 +146,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
       type: 'DELETE',
       contentType: "application/json; charset=utf-8",
       success: function(result) {
-        console.log(result)
+        // console.log(result)
       },
       error: function (err){
     }
@@ -157,12 +157,12 @@ onlineShop.shoppingCartService = (function($, productsService) {
     return self.getItems().then(function(items){
       var qty = 0;
       items.forEach(function(item){
-        console.log(item)
+        // console.log(item)
         if(item.productId == productId){
           qty = item.quantity;
         }
       })
-      console.log(qty)
+      // console.log(qty)
       return qty;
     })
 };
@@ -175,7 +175,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
       type: 'DELETE',
       contentType: "application/json; charset=utf-8",
       success: function(result) {
-        console.log(result)
+        // console.log(result)
       },
       error: function (err){
     }
@@ -251,7 +251,7 @@ onlineShop.shoppingCartService = (function($, productsService) {
       // if (sortingCriteria) {
       //   products = _applySortingCriteria(products, sortingCriteria);
       // }
-      console.log(products)
+      // console.log(products)
       return products;
     });
   };

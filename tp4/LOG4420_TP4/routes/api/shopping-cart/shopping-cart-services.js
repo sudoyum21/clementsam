@@ -22,11 +22,11 @@ var ShoppingCartService = (function (productsService) {
      * @param [quantity]  The quantity of the product.
      */
     self.addItem = function (req, productId, quantity) {
-        console.log('req.session.data at line 25')
-        console.log(req.session.data)
-        console.log(req.sessionID )
-        console.log(req.cookies['connect.sid']);
-        console.log('above is the session id ')
+        // console.log('req.session.data at line 25')
+        // console.log(req.session.data)
+        // console.log(req.sessionID )
+        // console.log(req.cookies['connect.sid']);
+        // console.log('above is the session id ')
         if (productId === undefined) {
             throw new Error("The specified product ID is invalid.")
         }
@@ -49,8 +49,8 @@ var ShoppingCartService = (function (productsService) {
                 req.session.data.push({'productId':productId, 'quantity':quantity})
             }
         }
-        console.log('req.session.data at line 50')
-        console.log(req.session.data)
+        // console.log('req.session.data at line 50')
+        // console.log(req.session.data)
         //return req.session.data;
         return {'productId' : productId, 'quantity' : newQuantity };
     };
@@ -253,10 +253,10 @@ var ShoppingCartService = (function (productsService) {
             // req.session.data = null;
             delete req.session.data;
             delete req.session['data'];
-            console.log('deleted ')
+            // console.log('deleted ')
             req.session.data = [];
-            console.log(req.session['data'])
-            console.log('deleted ')
+            // console.log(req.session['data'])
+            // console.log('deleted ')
             // console.log('line 174 ' + req.session.data);
         }
         // req.session.destroy(function (err) {

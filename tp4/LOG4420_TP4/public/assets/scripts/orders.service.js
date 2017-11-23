@@ -31,7 +31,7 @@ onlineShop.ordersService = (function() {
       data: JSON.stringify(order),
       dataType: "json",
       success: function(result) {
-        console.log(result);
+        // console.log(result);
         self['lastOrderId'] = result['id'];
       },
       error: function (err) {}

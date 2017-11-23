@@ -68,7 +68,7 @@ var onlineShop = onlineShop || {};
       // Updates the quantity for a specific item and update the view.
       function updateQuantity(quantity) {
         rowElement.find(".remove-quantity-button").prop("disabled", quantity <= 1);
-        console.log(quantity)
+        // console.log(quantity)
         shoppingCartService.updateItemQuantity(product.id, quantity);
 
         _updateCount();
@@ -82,9 +82,9 @@ var onlineShop = onlineShop || {};
           shoppingCartService.removeItem(product.id);
           rowElement.remove();
           shoppingCartService.getItems().done(function(items) {
-            console.log(items)
+            // console.log(items)
             if (items.length === 0) {
-              console.log('is empty?')
+              // console.log('is empty?')
               _renderEmptyView();
             } else {
               _updateTotalAmount();
@@ -100,7 +100,7 @@ var onlineShop = onlineShop || {};
         })
       });
       rowElement.find(".add-quantity-button").click(function() {
-        console.log()
+        // console.log()
         shoppingCartService.getItemQuantity(item.product.id).then(function(quantity){
           updateQuantity(quantity + 1 );
         })

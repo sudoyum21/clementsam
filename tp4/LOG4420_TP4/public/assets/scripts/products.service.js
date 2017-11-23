@@ -21,7 +21,7 @@ onlineShop.productsService = (function($) {
    */
   self.getProducts = function(sortingCriteria, category) {
     //if (!productsPromise) {
-      console.log('sending category ' + category + " " + sortingCriteria)
+      // console.log('sending category ' + category + " " + sortingCriteria)
       productsPromise = $.get("http://127.0.0.1:8000/api/products?category="+category+"&criteria="+sortingCriteria);
     //}
     return productsPromise.then(function(products) {
@@ -31,7 +31,7 @@ onlineShop.productsService = (function($) {
       // if (sortingCriteria) {
       //   products = _applySortingCriteria(products, sortingCriteria);
       // }
-      console.log(products)
+      // console.log(products)
       return products;
     });
   };
@@ -43,7 +43,7 @@ onlineShop.productsService = (function($) {
    * @returns {jquery.promise}  A promise that contains the product associated with the ID specified.
    */
   self.getProduct = function(productId) {
-    console.log(productId)
+    // console.log(productId)
     return $.get("http://127.0.0.1:8000/api/products/"+productId);
     // return self.getProducts().then(function(products) {
     //   var product = products.filter(function(product) {

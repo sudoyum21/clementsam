@@ -11,7 +11,7 @@ onlineShop.ordersService = (function() {
 
   var self = {};
   //var orders = [];
-  self['lastOrderId'] = 1;
+  self['lastOrderId'] = -1;
   /**
    * Creates a new order.
    *
@@ -31,7 +31,7 @@ onlineShop.ordersService = (function() {
       data: JSON.stringify(order),
       dataType: "json",
       success: function(result) {
-        console.log(result)
+        console.log(result);
         self['lastOrderId'] = result['id'];
       },
       error: function (err) {}
@@ -50,7 +50,6 @@ onlineShop.ordersService = (function() {
       throw new Error("Invalid order ID specified.")
     }
     return orders[orderId - 1];*/
-    console.log(orderId)
     return $.get("http://127.0.0.1:8000/api/orders/"+orderId);
   };
 
@@ -59,8 +58,7 @@ onlineShop.ordersService = (function() {
    *
    * @returns {Number}  The orders count.
    */
-  self.getOrdersCount = function() { // Besoin pour quoi ?
-    console.log(self['lastOrderId'])
+  self.getCommandId = function() {
     return self['lastOrderId'];
   };
 

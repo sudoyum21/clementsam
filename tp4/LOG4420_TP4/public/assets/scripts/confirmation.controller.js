@@ -9,8 +9,8 @@ var onlineShop = onlineShop || {};
 (function($, ordersService, utils) {
   "use strict";
 
-  var order = ordersService.getOrder(ordersService.getOrdersCount());
-  $("#name").text(order.firstName + " " + order.lastName);
-  $("#confirmation-number").text(utils.pad(order.id, 5));
-
+  ordersService.getOrder(ordersService.getCommandId()).then(function(order){
+    $("#name").text(" " + order.firstName + " " + order.lastName);
+    $("#confirmation-number").text(" " + utils.pad(order.id, 5));
+  });
 })(jQuery, onlineShop.ordersService, onlineShop.utils);

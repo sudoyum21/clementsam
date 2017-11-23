@@ -62,7 +62,8 @@ var ProductsServices = (function () {
         description: body.description,
         features: body.features,
         */
-        if(checkStrLengthFail(body, 'name')||checkStrLengthFail(body, 'description')||checkStrLengthFail(body, 'image')){
+        if(checkStrLengthFail(body, 'name')||checkStrLengthFail(body, 'description')||checkStrLengthFail(body, 'image')
+    ||checkStrLengthFail(body,'name') || parseInt(body['price'].toString())<0){
             return false;
         }
         let featureArray = body.features;

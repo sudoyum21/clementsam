@@ -16,7 +16,6 @@ var orders = {
         }*/
         res.status(200).send(result || []);
       });
-    // avoid general exception in real life! :P
     } catch (e){
       res.status(500).send(e);
     }
@@ -26,26 +25,23 @@ var orders = {
     if(id){
       mongoose.model("Order").findOne({ id: id }).exec(function (err, result) {
         if (result === null) {
-          res.status(404).end();//send();
+          res.status(404).end();
         } else {
           res.status(200).send(result);
         }
       });
     } else {
-      res.status(404).send('Invalid id : ' + id);
+      res.status(404).end();
     }
   },
   addOrder: function (req, res) {
     let body = req.body;
     try {
       if (body) {
-        if (!ordersServices.validate(body)) { // TOUT TESTER DANS VALIDATE
+        if (!ordersServices.validate(body)) {
           res.status(400).send("Failed validator");
           return;
         }
-        console.log("----DEBUG");
-        console.log("id: " + body.id + "\nbody: ");
-        console.log(body);
         mongoose.model("Order").create({
           id: body.id,
           firstName: body.firstName,
@@ -55,17 +51,17 @@ var orders = {
           products: body.products
         }, function (err, result) {
           if (err) {
-            res.status(400).send(err);
+            res.status(400).end();
             return;
           }
           if (result === null) {
-            res.status(400).send("Empty result");
+            res.status(400).end();
             return;
           }
           res.status(201).send(result);
         })
       } else {
-        res.status(400).send('Invalid body : ' + body);
+        res.status(400).end();
       }
     } catch (e) {
       res.status(400).send(e);
@@ -81,11 +77,10 @@ var orders = {
           }
           let orderRemoved = result.result.n;
           if (orderRemoved === 0) {
-            res.status(404).send('Nothing removed');
+            res.status(404).end();
           } else {
-            res.status(204);
+            res.status(204).end();
           }
-          res.end();
         })
       } catch (e) {
         res.status(404).end();

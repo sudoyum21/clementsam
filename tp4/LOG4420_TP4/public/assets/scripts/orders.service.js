@@ -11,7 +11,7 @@ onlineShop.ordersService = (function() {
 
   var self = {};
   //var orders = [];
-
+  self['lastOrderId'] = 1;
   /**
    * Creates a new order.
    *
@@ -30,7 +30,10 @@ onlineShop.ordersService = (function() {
       contentType: "application/json; charset=utf-8",
       data: JSON.stringify(order),
       dataType: "json",
-      success: function(result) {},
+      success: function(result) {
+        console.log(result)
+        self['lastOrderId'] = result['id'];
+      },
       error: function (err) {}
     });
   };
@@ -47,6 +50,7 @@ onlineShop.ordersService = (function() {
       throw new Error("Invalid order ID specified.")
     }
     return orders[orderId - 1];*/
+    console.log(orderId)
     return $.get("http://127.0.0.1:8000/api/orders/"+orderId);
   };
 
@@ -55,9 +59,10 @@ onlineShop.ordersService = (function() {
    *
    * @returns {Number}  The orders count.
    */
-  /*self.getOrdersCount = function() { // Besoin pour quoi ?
-    return orders.length;
-  };*/
+  self.getOrdersCount = function() { // Besoin pour quoi ?
+    console.log(self['lastOrderId'])
+    return self['lastOrderId'];
+  };
 
   /**
    * Updates the orders list in the local storage.

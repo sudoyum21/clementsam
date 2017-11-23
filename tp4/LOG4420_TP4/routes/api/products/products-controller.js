@@ -14,7 +14,7 @@ var products = {
     index: function (req, res) {
         // console.log('index')
         // try {
-        //check if req query are valids       
+        //check if req query are valids
         let categoryEnum = productsServices.categoryEnum;
         let sortingCriteriaEnum = productsServices.sortingCriteriaEnum;
         let category = req.query ? req.query.category : "all";

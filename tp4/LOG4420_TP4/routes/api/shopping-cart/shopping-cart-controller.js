@@ -18,44 +18,39 @@ var shoppingCart = {
                    let productsHolder = productsService.getProducts("alpha-asc", "all");
                    if (req && req.session) {
                        if (productsHolder ) {
-                           resultToSend = ShoppingCartService.filterProductsRaw(productsHolder || [], req);  
-                           resultToSend = ShoppingCartService.prepareSpecialListJustForTest(req, productsHolder);  
+                           resultToSend = ShoppingCartService.filterProductsRaw(productsHolder || [], req);
+                           resultToSend = ShoppingCartService.prepareSpecialListJustForTest(req, productsHolder);
                        }
-           
+
                    } else {
                        resultToSend = ShoppingCartService.filterProductsRaw(productsHolder || [], req);
                        resultToSend = ShoppingCartService.prepareSpecialListJustForTest(req, productsHolder);
-                   }  
+                   }
                    if(!resultToSend) resultToSend = [];
                    res.status(200).send(resultToSend);
-                   res.end();
-                   return;                  
                });
            } else {
                let productsHolder = productsService.getProducts("alpha-asc", "all");
                if (req && req.session) {
-                   if (productsHolder ) {                                        
-                    resultToSend =  ShoppingCartService.filterProductsRaw(productsHolder || [], req);    
-                    resultToSend = ShoppingCartService.prepareSpecialListJustForTest(req, productsHolder);           
+                   if (productsHolder ) {
+                    resultToSend =  ShoppingCartService.filterProductsRaw(productsHolder || [], req);
+                    resultToSend = ShoppingCartService.prepareSpecialListJustForTest(req, productsHolder);
                    }
-       
+
                } else {
                    resultToSend =  ShoppingCartService.filterProductsRaw(productsHolder || [], req);
                    resultToSend = ShoppingCartService.prepareSpecialListJustForTest(req, productsHolder);
                }
                res.status(200).send(resultToSend);
-               res.end();
-               return;
-        
            }
-          
-          
+
+
             // avoid general exception in real life! :P
         } catch (e){
             res.status(500).send(e);
             res.end();
         }
-        
+
     },
     getById: function (req, res) {
         let id = req.params.productId;
@@ -63,7 +58,7 @@ var shoppingCart = {
             mongoose.model("Product").findOne({ id: id }).exec(function (err, result) {
                 if (err) {
                     res.status(500).send(err);
-                }             
+                }
                 if (result == null || result.length == 0 ||  !req.session || !req.session.data) {
                     res.status(404);
                     res.end();
@@ -74,12 +69,12 @@ var shoppingCart = {
                 });
                 if(data){
                     res.status(200).json({
-                        "productId" : parseInt(id), 
+                        "productId" : parseInt(id),
                         "quantity" : data.quantity
                     } || {});
                 } else {
                     res.status(404).send('Invalid id : ' + id);                }
-               
+
             });
         } else {
             res.status(404).send('Invalid id : ' + id);
@@ -87,7 +82,7 @@ var shoppingCart = {
         // res.end();
     },
     addProduct: function (req, res) {
-        let body = req.body;        
+        let body = req.body;
         try {
             if(body){
                 if (!parseInt(body.quantity) || parseInt(body.quantity) <= 0 || !parseInt(body.productId)) {
@@ -145,7 +140,7 @@ var shoppingCart = {
                     res.status(204);
                 } else {
                     res.status(404);
-                }                
+                }
             } catch (e) {
                 res.status(404);
             };
@@ -156,7 +151,7 @@ var shoppingCart = {
     },
     deleteAllProducts: function (req, res) {
         try {
-            ShoppingCartService.removeAllItems(req);                    
+            ShoppingCartService.removeAllItems(req);
             res.status(204);
         } catch (e) {
             res.status(400);

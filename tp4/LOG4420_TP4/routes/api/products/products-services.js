@@ -63,7 +63,7 @@ var ProductsServices = (function () {
         features: body.features,
         */
         if(checkStrLengthFail(body, 'name')||checkStrLengthFail(body, 'description')||checkStrLengthFail(body, 'image')
-    ||checkStrLengthFail(body,'name') || parseInt(body['price'].toString())<0){
+    ||checkStrLengthFail(body,'name') || parseFloat(body['price'])<0 || isNaN(body['price'])){
             return false;
         }
         let featureArray = body.features;

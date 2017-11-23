@@ -21,26 +21,10 @@ var ProductsServices = (function () {
       if(checkStrLengthFail(body, 'firstName')
         || checkStrLengthFail(body, 'lastName')
         || checkStrLengthFail(body, 'email')
-        || checkStrLengthFail(body, 'phone')){
-        return false;
-      }
-      if (!validateEmail(body['email'])
-        || !validatePhone(body['phone'])) {
-        return false;
-      }
-      let productsArray = body.products;
-      if(productsArray && productsArray.length > 0){
-        let fail = false;
-        productsArray.forEach(function(feat){
-          if((!feat ) || (!feat.length > 0)){
-            fail = true;
-            return false;
-          }
-        })
-        if(fail){
-          return false;
-        }
-      } else {
+        || checkStrLengthFail(body, 'phone')
+        || !validateEmail(body['email'])
+        || !validatePhone(body['phone'])
+        || !validateProductsArray(body['products'])) {
         return false;
       }
       return true;
@@ -48,10 +32,30 @@ var ProductsServices = (function () {
       function checkStrLengthFail(obj, name) {
         return !obj || !obj[name].length > 0;
       }
-      function validateEmail(email) {
-        return true;
+      function validateEmail(email) { // from StackOverflow
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
       }
-      function validatePhone(phone) {
+      function validatePhone(phone) { // from StackOverflow; Accepts (123) 456-7890 or 123-456-7890
+        let re = /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/;
+        return re.test(phone);
+      }
+      function validateProductsArray(products) {
+        if(products && products.length > 0){
+          let fail = false;
+          products.forEach(function(product){
+            if (!/^\d*[1-9]+\d*$/.test(product['id'])
+              || !/^\d*[1-9]+\d*$/.test(product['quantity'])) {
+              fail = true;
+              return false;
+            }
+          });
+          if(fail){
+            return false;
+          }
+        } else {
+          return false;
+        }
         return true;
       }
     };

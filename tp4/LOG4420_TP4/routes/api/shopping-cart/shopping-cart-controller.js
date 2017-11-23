@@ -90,7 +90,7 @@ var shoppingCart = {
         let body = req.body;        
         try {
             if(body){
-                if (!parseInt(body.quantity) || body.quantity <= 0) {
+                if (!parseInt(body.quantity) || parseInt(body.quantity) <= 0 || !parseInt(body.productId)) {
                     res.status(400);
                     res.end();
                     return;

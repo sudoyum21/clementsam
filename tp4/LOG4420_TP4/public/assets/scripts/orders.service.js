@@ -11,7 +11,7 @@ onlineShop.ordersService = (function() {
 
   var self = {};
   //var orders = [];
-  self['lastOrderId'] = -1;
+  self['lastOrderId'] = 0;
   /**
    * Creates a new order.
    *

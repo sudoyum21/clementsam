@@ -2,8 +2,7 @@
 
 let ProductsServices = (function () {
   let self = {};
-  //self.data;
-  self.nextCommandNumber = -1;
+  self.nextCommandNumber = 1;
 
   /**
    * Initialisation of orders
@@ -17,6 +16,7 @@ let ProductsServices = (function () {
    */
   self.getNextCommandNumber = function () {
       return self.nextCommandNumber++;
+
   };
 
   /**

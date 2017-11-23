@@ -7,7 +7,6 @@ let orders = {
   index: function (req, res) {
     try {
       mongoose.model("Order").find({}).exec(function (err, result) {
-        //ordersServices.initData(result || []);
         if (err) {
           res.status(404).end();
         }
@@ -40,7 +39,7 @@ let orders = {
           return;
         }
         mongoose.model("Order").create({
-          id: ordersServices.getNextCommandNumber(), // orders-services manages this doing +1
+          id: ordersServices.getNextCommandNumber(),
           firstName: body.firstName,
           lastName: body.lastName,
           email: body.email,

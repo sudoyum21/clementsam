@@ -23,15 +23,17 @@ var onlineShop = onlineShop || {};
       return false;
     }
     shoppingCartService.getItems().done(function(items) {
+      console.log(items)
       var order = {
         firstName: $("#first-name").val(),
         lastName: $("#last-name").val(),
         email: $("#email").val(),
         phone: $("#phone").val(),
         products: items.map(function(item) {
+          console.log(item)
           return {
-            productId: item.product.id,
-            quantity: item.quantity
+            productId: item['productId'],
+            quantity: item['quantity']
           }
         })
       };

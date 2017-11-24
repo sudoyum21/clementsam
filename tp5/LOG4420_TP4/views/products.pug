@@ -1,0 +1,36 @@
+extends layout
+
+block content
+  section.sidebar(aria-label="Filtres")
+    section
+      h2 Catégories
+      #product-categories.btn-group.vertical
+        button(data-category='cameras') Appareils photo
+        button(data-category='consoles') Consoles
+        button(data-category='screens') Écrans
+        button(data-category='computers') Ordinateurs
+        button.selected(data-category='all') Tous les produits
+
+    section
+      h2 Classement
+      #product-criteria.btn-group.vertical
+        button.selected(data-criteria='price-asc') Prix (bas-haut)
+        button(data-criteria='price-dsc') Prix (haut-bas)
+        button(data-criteria='alpha-asc') Nom (A-Z)
+        button(data-criteria='alpha-dsc') Nom (Z-A)
+
+  article
+    span#products-count.right-header #{productsList.length} produit#{(productsList.length) ? "s" : ""}
+    h1 Produits
+    #products-list.products
+      each product in productsList
+        .product
+          a(href='./produit?id=' + product.id, title='En savoir plus...')
+            h2= product.name
+            img(alt=product.name, src='./img/' + product.image)
+            p
+              small Prix
+              |  !{formatPrice(product.price)}
+
+block append scripts
+  script(type='text/javascript', src='./scripts/products.controller.js')

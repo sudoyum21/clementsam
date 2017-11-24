@@ -43,8 +43,10 @@ export class ApiServiceComponent implements OnInit {
   }
   postDataWithPromiseShoppingCart(body) {
 
-    this.http.post(this.api + "api/shopping-cart/", body, this.buildPostHeader()).subscribe();
-    this.changeObservable.next("updateCart");
+    this.http.post(this.api + "api/shopping-cart/", body, this.buildPostHeader()).subscribe((data)=>{
+      this.changeObservable.next("updateCart");
+    });
+
 
   }
   extractData(res: Response) {

@@ -17,37 +17,42 @@ export class ApiServiceComponent implements OnInit {
   getObservable() {
     return this.changeObservable.asObservable();
   };
+
   //GENERAL QUERY
+
   getDataWithPromiseWithJSON(path): Promise<Response> {
-    return this.http.get(this.api + path, this.buildPostHeader()).toPromise()
+    return this.http.get(this.api + path, this.buildHeader()).toPromise()
       .then(this.extractData)
       .catch(this.handleErrorPromise);
   }
+
   //PRODUCTS QUERY
+
   getDataWithPromiseProducts(path = ""): Promise<any> {
-    return this.http.get(this.api + "api/products/" + path, this.buildPostHeader()).toPromise()
+    return this.http.get(this.api + "api/products/" + path, this.buildHeader()).toPromise()
       .then(this.extractData)
       .catch(this.handleErrorPromise);
   }
+
   //ORDERS QUERY
+
   getDataWithPromiseOrders(path = ""): Promise<Response> {
-    return this.http.get(this.api + "api/orders/" + path, this.buildPostHeader()).toPromise()
+    return this.http.get(this.api + "api/orders/" + path, this.buildHeader()).toPromise()
       .then(this.extractData)
       .catch(this.handleErrorPromise);
   }
+
   //SHOPPING-CART QUERY
+
   getDataWithPromiseShoppingCart(path = ""): Promise<Response> {
-    return this.http.get(this.api + "api/shopping-cart/" + path, this.buildPostHeader()).toPromise()
+    return this.http.get(this.api + "api/shopping-cart/" + path, this.buildHeader()).toPromise()
       .then(this.extractData)
       .catch(this.handleErrorPromise);
   }
   postDataWithPromiseShoppingCart(body) {
-
-    this.http.post(this.api + "api/shopping-cart/", body, this.buildPostHeader()).subscribe((data)=>{
+    this.http.post(this.api + "api/shopping-cart/", body, this.buildHeader()).subscribe((data)=>{
       this.changeObservable.next("updateCart");
     });
-
-
   }
   extractData(res: Response) {
     let body = res.json();  // If response is a JSON use json()
@@ -65,7 +70,7 @@ export class ApiServiceComponent implements OnInit {
     console.error(error.message || error);
     return Promise.reject(error.message || error);
   }
-  private buildPostHeader() : RequestOptions{
+  private buildHeader() : RequestOptions{
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers, withCredentials : true });
     return options;

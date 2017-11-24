@@ -40,11 +40,15 @@ export class ProductComponent implements OnInit {
   }
 
   onAddItemClick(){
+    
     var that = this;
-    console.log({productId: this.product['id'], quantity: this.quantityAdding})
-    this.apiService.postDataWithPromiseShoppingCart({productId: this.product['id'], quantity: this.quantityAdding});
+    this.pop = true;
     setTimeout(function(){
       that.pop = false;
+      
     }, 3000);
+    console.log({productId: this.product['id'], quantity: this.quantityAdding})
+    this.apiService.postDataWithPromiseShoppingCart({productId: this.product['id'], quantity: this.quantityAdding});
+
   }
 }

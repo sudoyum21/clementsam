@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
       if(data === "updateCart"){
         that.apiService.getDataWithPromiseShoppingCart().then(function(dataFromServer){
           console.log(dataFromServer)
+          that.count = dataFromServer['length'];
         })
       }
     

@@ -19,31 +19,31 @@ export class ApiServiceComponent implements OnInit {
   };
   //GENERAL QUERY
   getDataWithPromiseWithJSON(path): Promise<Response> {
-    return this.http.get(this.api + path).toPromise()
+    return this.http.get(this.api + path, this.buildPostHeader()).toPromise()
       .then(this.extractData)
       .catch(this.handleErrorPromise);
   }
   //PRODUCTS QUERY
   getDataWithPromiseProducts(path = ""): Promise<any> {
-    return this.http.get(this.api + "api/products/" + path).toPromise()
+    return this.http.get(this.api + "api/products/" + path, this.buildPostHeader()).toPromise()
       .then(this.extractData)
       .catch(this.handleErrorPromise);
   }
   //ORDERS QUERY
   getDataWithPromiseOrders(path = ""): Promise<Response> {
-    return this.http.get(this.api + "api/orders/" + path).toPromise()
+    return this.http.get(this.api + "api/orders/" + path, this.buildPostHeader()).toPromise()
       .then(this.extractData)
       .catch(this.handleErrorPromise);
   }
   //SHOPPING-CART QUERY
   getDataWithPromiseShoppingCart(path = ""): Promise<Response> {
-    return this.http.get(this.api + "api/shopping-cart/" + path).toPromise()
+    return this.http.get(this.api + "api/shopping-cart/" + path, this.buildPostHeader()).toPromise()
       .then(this.extractData)
       .catch(this.handleErrorPromise);
   }
   postDataWithPromiseShoppingCart(body) {
 
-    this.http.post(this.api + "api/shopping-cart/", JSON.stringify(body), this.buildPostHeader()).subscribe();
+    this.http.post(this.api + "api/shopping-cart/", body, this.buildPostHeader()).subscribe();
     this.changeObservable.next("updateCart");
 
   }

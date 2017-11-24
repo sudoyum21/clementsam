@@ -12,7 +12,7 @@ export class AppComponent {
   // TODO: Modifier le nom des auteurs pour vos noms
   readonly authors = [
     'Ba Samson Lam',
-    'Clement '
+    'Sorneau Clément'
   ];
 
   // TODO: À compléter

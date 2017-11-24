@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ApiServiceComponent } from 'app/api-service/api-service';
 
 /**
  * Defines the component responsible to manage the shopping cart page.
@@ -9,4 +10,11 @@ import { Component } from '@angular/core';
 })
 export class ShoppingCartComponent {
   // TODO: À compléter
+  constructor(private apiService : ApiServiceComponent){
+    var that = this;
+    this.apiService.getObservable().subscribe(data => {
+
+    
+    })
+  }
 }

@@ -1,36 +1,51 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, RequestOptionsArgs } from '@angular/http';
-import { } from '@angular/http';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
 @Component({
 })
 @Injectable()
 export class ApiServiceComponent implements OnInit {
   private api: string;
+  private changeObservable:BehaviorSubject<any> = new BehaviorSubject(null);
   constructor(private http: Http) {
     this.api = "http://127.0.0.1:3000/";
+
   }
   ngOnInit() {
   }
-
+  getObservable() {
+    return this.changeObservable.asObservable();
+  };
+  //GENERAL QUERY
   getDataWithPromiseWithJSON(path): Promise<Response> {
     return this.http.get(this.api + path).toPromise()
       .then(this.extractData)
       .catch(this.handleErrorPromise);
   }
-  getDataWithPromiseProducts(): Promise<any> {
-    return this.http.get(this.api + "api/products").toPromise()
+  //PRODUCTS QUERY
+  getDataWithPromiseProducts(path = ""): Promise<any> {
+    return this.http.get(this.api + "api/products/" + path).toPromise()
       .then(this.extractData)
       .catch(this.handleErrorPromise);
   }
-  getDataWithPromiseOrders(): Promise<Response> {
-    return this.http.get(this.api + "api/orders").toPromise()
+  //ORDERS QUERY
+  getDataWithPromiseOrders(path = ""): Promise<Response> {
+    return this.http.get(this.api + "api/orders/" + path).toPromise()
       .then(this.extractData)
       .catch(this.handleErrorPromise);
   }
-  getDataWithPromiseShoppingCart(): Promise<Response> {
-    return this.http.get(this.api + "api/shopping-cart").toPromise()
+  //SHOPPING-CART QUERY
+  getDataWithPromiseShoppingCart(path = ""): Promise<Response> {
+    return this.http.get(this.api + "api/shopping-cart/" + path).toPromise()
       .then(this.extractData)
       .catch(this.handleErrorPromise);
+  }
+  postDataWithPromiseShoppingCart(body) {
+
+    this.http.post(this.api + "api/shopping-cart/", JSON.stringify(body), this.buildPostHeader()).subscribe();
+    this.changeObservable.next("updateCart");
+
   }
   extractData(res: Response) {
     let body = res.json();  // If response is a JSON use json()
@@ -47,5 +62,10 @@ export class ApiServiceComponent implements OnInit {
   private handleErrorPromise(error: Response | any) {
     console.error(error.message || error);
     return Promise.reject(error.message || error);
+  }
+  private buildPostHeader() : RequestOptions{
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers, withCredentials : true });
+    return options;
   }
 }

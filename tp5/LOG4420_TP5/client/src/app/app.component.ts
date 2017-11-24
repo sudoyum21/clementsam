@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { ApiServiceComponent } from './api-service/api-service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 /**
  * Defines the main component of the application.
  */
@@ -9,7 +10,8 @@ import { ApiServiceComponent } from './api-service/api-service';
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-
+  private changeObservable:BehaviorSubject<any> = new BehaviorSubject(null);
+  public count = 0;
   // TODO: Modifier le nom des auteurs pour vos noms
   readonly authors = [
     'Ba Samson Lam',
@@ -17,13 +19,17 @@ export class AppComponent implements OnInit {
   ];
 
   constructor(private apiService : ApiServiceComponent){
-  }
-
-
-  ngOnInit(){
+    var that = this;
+    this.apiService.getObservable().subscribe(data => {
+      if(data === "updateCart"){
+        that.apiService.getDataWithPromiseShoppingCart().then(function(dataFromServer){
+          console.log(dataFromServer)
+        })
+      }
     
+    })
   }
-  
 
-  // TODO: À compléter
+  ngOnInit(){    
+  }
 }

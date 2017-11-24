@@ -10,6 +10,8 @@ router.use(function(req, res, next) {
 
 // Gets all the items in the shopping cart.
 router.get("/", function(req, res) {
+  console.log('inside get all'+shoppingCartManager.getItems())
+  console.log('inside get all'+shoppingCartManager.getItems())
   res.json(shoppingCartManager.getItems());
 });
 
@@ -25,6 +27,7 @@ router.get("/:id", function(req, res) {
 
 // Adds a new item in the shopping cart.
 router.post("/", function(req, res) {
+  console.log(req.body)
   shoppingCartManager.addItem(req.body).done(function(err) {
     if (err) {
       res.status(400).send();

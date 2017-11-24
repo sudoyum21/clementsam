@@ -29,6 +29,7 @@ self.initialize = function(session) {
  * @return {Array}  An array that contains the items.
  */
 self.getItems = function() {
+  console.log('inside get items : ' + items)
   return items;
 };
 
@@ -52,7 +53,6 @@ self.getItem = function(productId) {
  */
 self.addItem = function(item) {
   var deferred = Q.defer();
-
   var isValid = MODEL.every(function(property) {
     return property in item;
   });
@@ -73,6 +73,8 @@ self.addItem = function(item) {
       return element.productId === item.productId;
     });
     if (result.data !== null && !itemFound) {
+      console.log('pushing item')
+      console.log(item)
       items.push(item);
       deferred.resolve(false);
     } else {

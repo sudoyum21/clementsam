@@ -8,23 +8,28 @@ import { ApiServiceComponent } from 'app/api-service/api-service';
   templateUrl: './products.component.html'
 })
 export class ProductsComponent implements OnInit {
-  // TODO: À compléter
-  // <h2>Manette Xbox 360</h2>
-  // <img alt="Manette Xbox 360" src="./assets/img/xbox-controller.png">
-  // <p><small>Prix</small> 29,99&thinsp;$</p>
-  private products:any [] = [];
-  constructor (private apiService : ApiServiceComponent){
+
+  private products: any[] = [];
+  category: String = "to";
+  criteria: String = "bh";
+  constructor(private apiService: ApiServiceComponent) {
 
   }
-  ngOnInit(){
+  ngOnInit() {
     var that = this;
-    this.apiService.getDataWithPromiseProducts().then(function(data){
-      if(data){
+    this.apiService.getDataWithPromiseProducts().then(function (data) {
+      if (data) {
         that.products = data;
-        that.products.forEach(function(product){
-          console.log(product)
-        })
+        // that.products.forEach(function(product){
+        //   console.log(product)
+        // })
       }
     })
+  }
+  onCriteriaClick(value: string) {
+    this.criteria = value;
+  }
+  onCategoryClick(value: string) {
+    this.category = value;
   }
 }

@@ -55,7 +55,6 @@ const appRoutes: Routes = [
   providers: [
     ProductsService,
     ApiServiceComponent,
-    { provide: APP_BASE_HREF, useValue: window['_app_base'] || '/' },
   ],
   bootstrap: [AppComponent]
 })

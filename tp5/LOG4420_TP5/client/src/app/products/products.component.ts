@@ -13,7 +13,6 @@ export class ProductsComponent implements OnInit {
   // <img alt="Manette Xbox 360" src="./assets/img/xbox-controller.png">
   // <p><small>Prix</small> 29,99&thinsp;$</p>
   private products:any [] = [];
-  private ready:boolean = false;
   constructor (private apiService : ApiServiceComponent){
 
   }
@@ -22,7 +21,6 @@ export class ProductsComponent implements OnInit {
     this.apiService.getDataWithPromiseProducts().then(function(data){
       if(data){
         that.products = data;
-        that.ready = true;
         that.products.forEach(function(product){
           console.log(product)
         })

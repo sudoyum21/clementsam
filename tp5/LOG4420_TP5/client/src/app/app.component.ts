@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   // TODO: Modifier le nom des auteurs pour vos noms
   readonly authors = [
     'Ba Samson Lam',
-    'Clement '
+    'Sorneau Clément'
   ];
 
   constructor(private apiService : ApiServiceComponent){

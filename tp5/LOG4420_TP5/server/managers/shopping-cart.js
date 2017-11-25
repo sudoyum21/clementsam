@@ -97,12 +97,17 @@ self.addItem = function(item) {
 self.updateItemQuantity = function(productId, quantity) {
   var item = items.find(function(item) {
     return item.productId === parseInt(productId);
+    console.log('item.productId')
+    console.log(item.productId)
   });
   if (!item) {
     return 1;
   }
   if (!isNaN(quantity) && typeof quantity === "number" && quantity >= 0) {
     item.quantity = quantity;
+    console.log(quantity)
+    console.log(quantity)
+    console.log(quantity)
     return 0;
   } else {
     return 2;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiServiceComponent } from 'app/api-service/api-service';
+import * as _ from "lodash";
 
 /**
  * Defines the component responsible to manage the product page.
@@ -12,6 +13,7 @@ import { ApiServiceComponent } from 'app/api-service/api-service';
 export class ProductComponent implements OnInit {
 
   private product : {} = {};
+  private currentCart : {} = {};
   pop : boolean = false;
   quantityAdding : Number = 1;
   /**
@@ -20,8 +22,6 @@ export class ProductComponent implements OnInit {
    * @param route                   The active route.
    */
   constructor(private route: ActivatedRoute, private apiService:ApiServiceComponent) { 
-
-    console.log(this.route.snapshot)
   }
 
   /**
@@ -40,15 +40,20 @@ export class ProductComponent implements OnInit {
   }
 
   onAddItemClick(){
-    
-    var that = this;
-    this.pop = true;
-    setTimeout(function(){
-      that.pop = false;
-      
-    }, 3000);
+        this.pop = true;
     console.log({productId: this.product['id'], quantity: this.quantityAdding})
-    this.apiService.postDataWithPromiseShoppingCart({productId: this.product['id'], quantity: this.quantityAdding});
+    this.apiService.getDataWithPromiseShoppingCart().then((dataFromServer) => {
+      this.currentCart = dataFromServer;
+      console.log(this.currentCart)
+      if(_.find(this.currentCart, (data)=>{
+        return data['productId'] == this.product['id'];
+      })){
+        this.apiService.putDataWithPromiseShoppingCart({productId: this.product['id'], quantity: this.quantityAdding});
+      } else {
+        this.apiService.postDataWithPromiseShoppingCart({productId: this.product['id'], quantity: this.quantityAdding});
+      }
+    })
+   
 
   }
 }

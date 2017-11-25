@@ -19,18 +19,22 @@ export class AppComponent implements OnInit {
   ];
 
   constructor(private apiService: ApiServiceComponent) {
-    var that = this;
-
+    this.apiService.getDataWithPromiseShoppingCart().then((dataFromServer) => {
+      dataFromServer.forEach(element => {
+        this.count += element.quantity;
+      });
+    })
   }
   ngOnDestroy() {
     console.log('destroy')
   }
   ngOnInit() {
-    var that = this;
     this.apiService.getObservable().subscribe((data) => {
       if (data === "updateCart") {
-        that.apiService.getDataWithPromiseShoppingCart().then((dataFromServer) => {
-          that.count = dataFromServer['length'];
+        this.apiService.getDataWithPromiseShoppingCart().then((dataFromServer) => {
+          dataFromServer.forEach(element => {
+            this.count += element.quantity;
+          });
         })
       }
     })

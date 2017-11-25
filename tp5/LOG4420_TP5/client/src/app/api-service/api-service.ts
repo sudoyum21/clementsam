@@ -20,7 +20,7 @@ export class ApiServiceComponent implements OnInit {
 
   //GENERAL QUERY
 
-  getDataWithPromiseWithJSON(path): Promise<Response> {
+  getDataWithPromiseWithJSON(path:string = ""): Promise<any> {
     return this.http.get(this.api + path, this.buildHeader()).toPromise()
       .then(this.extractData)
       .catch(this.handleErrorPromise);
@@ -28,7 +28,7 @@ export class ApiServiceComponent implements OnInit {
 
   //PRODUCTS QUERY
 
-  getDataWithPromiseProducts(path = ""): Promise<any> {
+  getDataWithPromiseProducts(path:string = ""): Promise<any> {
     return this.http.get(this.api + "api/products/" + path, this.buildHeader()).toPromise()
       .then(this.extractData)
       .catch(this.handleErrorPromise);
@@ -36,7 +36,7 @@ export class ApiServiceComponent implements OnInit {
 
   //ORDERS QUERY
 
-  getDataWithPromiseOrders(path = ""): Promise<Response> {
+  getDataWithPromiseOrders(path:string = ""): Promise<any> {
     return this.http.get(this.api + "api/orders/" + path, this.buildHeader()).toPromise()
       .then(this.extractData)
       .catch(this.handleErrorPromise);
@@ -44,17 +44,22 @@ export class ApiServiceComponent implements OnInit {
 
   //SHOPPING-CART QUERY
 
-  getDataWithPromiseShoppingCart(path = ""): Promise<Response> {
+  getDataWithPromiseShoppingCart(path:String = ""): Promise<any> {
     return this.http.get(this.api + "api/shopping-cart/" + path, this.buildHeader()).toPromise()
       .then(this.extractData)
       .catch(this.handleErrorPromise);
   }
-  postDataWithPromiseShoppingCart(body) {
+  postDataWithPromiseShoppingCart(body:any) {
     this.http.post(this.api + "api/shopping-cart/", body, this.buildHeader()).subscribe((data)=>{
       this.changeObservable.next("updateCart");
     });
   }
-  extractData(res: Response) {
+  putDataWithPromiseShoppingCart(body:any) {
+    this.http.put(this.api + "api/shopping-cart/"+body.productId, body, this.buildHeader()).subscribe((data)=>{
+      this.changeObservable.next("updateCart");
+    });
+  }
+  extractData(res: any) {
     let body = res.json();  // If response is a JSON use json()
     if (body) {
       return body['data'] || body;
@@ -62,7 +67,7 @@ export class ApiServiceComponent implements OnInit {
       return {};
     }
   }
-  extractDataJSON(res: Response) {
+  extractDataJSON(res: any) {
     let body = res.json();
     return body;
   }

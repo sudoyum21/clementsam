@@ -18,6 +18,40 @@ export class ShoppingCartComponent implements OnInit {
   constructor(private apiService : ApiServiceComponent){
   }
   ngOnInit(){
+    this.updateWholeSc();
+  }
+
+  removeItem(item){
+    item.quantity--;
+    this.apiService.putDataWithPromiseShoppingCart({productId:item.product.id, quantity:item.quantity});
+    this.updateTotal();
+  }
+  addItem(item){
+    item.quantity++;
+    this.apiService.putDataWithPromiseShoppingCart({productId:item.product.id, quantity:item.quantity});
+    this.updateTotal();
+  }
+  clearRow(item){
+    let idx = this.sc.indexOf(item);
+    if(idx !== -1){
+      this.sc.splice(idx,1);
+    }
+    this.apiService.deleteDataWithPromiseShoppingCart(item.product.id);
+    this.updateTotal();
+  }
+  emptySC(){
+    this.sc = [];
+    this.apiService.deleteAllDataWithPromiseShoppingCart();
+    this.updateTotal();
+  }
+  updateTotal(){
+    this.total = 0;
+    this.updateWholeSc();
+    this.sc.forEach(item => {
+      this.total += (item.quantity * item.product.price);
+    })
+  }
+  updateWholeSc(){
     this.apiService.getDataWithPromiseShoppingCart().then(sc => {
       this.scFromServer = sc;
       if(this.scFromServer && this.scFromServer.length > 0){
@@ -29,27 +63,19 @@ export class ShoppingCartComponent implements OnInit {
               return prod.id === item.productId;
             })){
               let total = item.quantity * foundProduct.price;
-              let convertedToComma = total.toString().replace('.' , ",");
-              
-              this.sc.push({product:foundProduct, quantity : item.quantity, total : convertedToComma})
+              let convertedToComma = total.toString().replace('.' , ",");          
               this.total += total;
+              let itemInSc = this.sc.find(item=>{
+                return item.product.id === foundProduct.id;
+              })
+              if(!itemInSc){
+                this.sc.push({product:foundProduct, quantity : item.quantity, total : convertedToComma})
+              }
+              
             }
           })
         })
       }
     })
-  }
-
-  removeItem(item){
-    item.quantity--;
-  }
-  addItem(item){
-    item.quantity++;
-  }
-  clearRow(item){
-    let idx = this.sc.indexOf(item);
-    if(idx !== -1){
-      this.sc.splice(idx,1);
-    }
   }
 }

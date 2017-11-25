@@ -51,14 +51,34 @@ export class ApiServiceComponent implements OnInit {
   }
   postDataWithPromiseShoppingCart(body:any) {
     this.http.post(this.api + "api/shopping-cart/", body, this.buildHeader()).subscribe((data)=>{
+    },()=>{},()=>{
       this.changeObservable.next("updateCart");
     });
   }
   putDataWithPromiseShoppingCart(body:any) {
+    console.log(body)
     this.http.put(this.api + "api/shopping-cart/"+body.productId, body, this.buildHeader()).subscribe((data)=>{
+    },()=>{},()=>{
       this.changeObservable.next("updateCart");
     });
   }
+  deleteDataWithPromiseShoppingCart(id:string) {
+    this.http.delete(this.api + "api/shopping-cart/"+id, this.buildHeader()).subscribe((data)=>{
+    },()=>{},()=>{
+      this.changeObservable.next("updateCart");
+    });
+  }
+  deleteAllDataWithPromiseShoppingCart() {
+    this.http.delete(this.api + "api/shopping-cart/", this.buildHeader()).subscribe((data)=>{
+      
+    },()=>{},()=>{
+      this.changeObservable.next("updateCart");
+    });
+  }
+
+
+
+  //FIN
   extractData(res: any) {
     let body = res.json();  // If response is a JSON use json()
     if (body) {

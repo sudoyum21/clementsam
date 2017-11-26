@@ -28,7 +28,7 @@
         <h2>{{product.name}}</h2>
         <img alt="Manette Xbox 360" src="./assets/img/{{product.image}}">
         <p>
-          <small>Prix</small> {{product.price}}&thinsp;$</p>
+          <small>Prix</small> {{product.price | replaceDot}}&thinsp;$</p>
       </a>
     </div>
   </div>

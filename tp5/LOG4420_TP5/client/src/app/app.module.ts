@@ -14,7 +14,7 @@ import { OrderComponent } from './order/order.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProductsService } from './products.service';
-
+import { ReplaceDot } from './pipe/format-dot';
 import { ApiServiceComponent } from './api-service/api-service';
 
 // Application routes
@@ -40,7 +40,8 @@ const appRoutes: Routes = [
     ShoppingCartComponent,
     OrderComponent,
     ConfirmationComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ReplaceDot
   ],
   imports: [
     BrowserModule,

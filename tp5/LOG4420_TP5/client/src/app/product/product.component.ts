@@ -54,6 +54,9 @@ export class ProductComponent implements OnInit {
       } else {
         this.apiService.postDataWithPromiseShoppingCart({ productId: this.product['id'], quantity: this.quantityAdding });
       }
-    })
+    });
+    setTimeout(()=>{
+      this.pop = false;
+    }, 3000);
   }
 }

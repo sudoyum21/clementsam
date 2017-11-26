@@ -47,11 +47,7 @@ export class ShoppingCartComponent implements OnInit {
   updateTotal(){
     this.total = 0;
     this.updateWholeSc();
-    this.sc.forEach(item => {
-      item.total = item.quantity * item.product.price;
-      this.total += (item.total);
-      item.total = parseFloat(item.total.toString()).toFixed(2).replace('.' , ",");
-    })
+
   }
   updateWholeSc(){
     this.apiService.getDataWithPromiseShoppingCart().then(sc => {
@@ -59,22 +55,25 @@ export class ShoppingCartComponent implements OnInit {
       if(this.scFromServer && this.scFromServer.length > 0){
         this.apiService.getDataWithPromiseProducts().then(products => {
           this.products = products;
+        
           this.scFromServer.forEach(item => {
             let foundProduct = null;
             if(foundProduct = _.find(this.products, (prod) =>{
               return prod.id === item.productId;
             })){
-              let total = item.quantity * foundProduct.price;
-              let convertedToComma = parseFloat(total.toString()).toFixed(2).replace('.' , ",");          
-              this.total += total;
+              let total = item.quantity * foundProduct.price;      
               let itemInSc = this.sc.find(item=>{
                 return item.product.id === foundProduct.id;
               })
               if(!itemInSc){
-                this.sc.push({product:foundProduct, quantity : item.quantity, total : convertedToComma})
+                this.sc.push({product:foundProduct, quantity : item.quantity, total : total})
               }
               
             }
+          })
+          this.sc.forEach(item => {
+            item.total = item.quantity * item.product.price;
+            this.total += (item.total);
           })
         })
       }

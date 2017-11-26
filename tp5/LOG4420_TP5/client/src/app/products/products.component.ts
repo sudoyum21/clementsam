@@ -10,26 +10,56 @@ import { ApiServiceComponent } from 'app/api-service/api-service';
 export class ProductsComponent implements OnInit {
 
   private products: any[] = [];
-  category: String = "to";
-  criteria: String = "bh";
+  private fullListProducts : any[] = [];
+  private filters = {
+    category: "all",
+    sortingCriteria: "price-asc"
+  };
   constructor(private apiService: ApiServiceComponent) {
 
   }
   ngOnInit() {
-    var that = this;
-    this.apiService.getDataWithPromiseProducts().then(function (data) {
+    this.apiService.getDataWithPromiseProducts().then((data) => {
       if (data) {
-        that.products = data;
+        this.products = data;
+        this.fullListProducts = data;
         // that.products.forEach(function(product){
         //   console.log(product)
         // })
       }
-    })
+    });
   }
   onCriteriaClick(value: string) {
-    this.criteria = value;
+    this.filters.sortingCriteria = value;
+    let path = "?criteria="+this.filters.sortingCriteria;
+    if (this.filters.sortingCriteria && this.filters.category !== "all") {
+      path += "&category=" + this.filters.category
+    }
+    this.apiService.getDataWithPromiseProducts(path).then((data) => {
+      if (data) {
+        this.products = data;
+        // that.products.forEach(function(product){
+        //   console.log(product)
+        // })
+      }
+    });
   }
   onCategoryClick(value: string) {
-    this.category = value;
+    this.filters.category = value;
+    let path = "?criteria="+this.filters.sortingCriteria;
+    if (this.filters.category && this.filters.category !== "all") {
+      path += "&category=" + this.filters.category
+    }
+    this.apiService.getDataWithPromiseProducts(path).then((data) => {
+      if (data) {
+        this.products = data;
+        // that.products.forEach(function(product){
+        //   console.log(product)
+        // })
+      }
+    });
   }
+
+
+
 }

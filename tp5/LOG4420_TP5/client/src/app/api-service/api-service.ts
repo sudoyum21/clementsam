@@ -29,7 +29,7 @@ export class ApiServiceComponent implements OnInit {
   //PRODUCTS QUERY
 
   getDataWithPromiseProducts(path:string = ""): Promise<any> {
-    return this.http.get(this.api + "api/products/" + path, this.buildHeader()).toPromise()
+    return this.http.get(this.api + "api/products" + path, this.buildHeader()).toPromise()
       .then(this.extractData)
       .catch(this.handleErrorPromise);
   }

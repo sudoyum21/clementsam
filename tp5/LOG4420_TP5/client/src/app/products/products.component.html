@@ -2,25 +2,26 @@
   <section>
     <h2>Catégories</h2>
     <div class="btn-group vertical" id="product-categories">
-      <button [class.selected]="category==='ap'" (click)="onCategoryClick('ap')">Appareils photo</button>
-      <button [class.selected]="category==='co'" (click)="onCategoryClick('co')">Consoles</button>
-      <button [class.selected]="category==='ec'" (click)="onCategoryClick('ec')">Écrans</button>
-      <button [class.selected]="category==='or'" (click)="onCategoryClick('or')"> Ordinateurs</button>
-      <button [class.selected]="category==='to'" (click)="onCategoryClick('to')">Tous les produits</button>
+      <button [class.selected]="filters.category==='cameras'" (click)="onCategoryClick('cameras')">Appareils photo</button>
+      <button [class.selected]="filters.category==='consoles'" (click)="onCategoryClick('consoles')">Consoles</button>
+      <button [class.selected]="filters.category==='screens'" (click)="onCategoryClick('screens')">Écrans</button>
+      <button [class.selected]="filters.category==='computers'" (click)="onCategoryClick('computers')"> Ordinateurs</button>
+      <button [class.selected]="filters.category==='all'" (click)="onCategoryClick('all')">Tous les produits</button>
     </div>
   </section>
   <section>
     <h2>Classement</h2>
     <div class="btn-group vertical" id="product-criteria">
-      <button [class.selected]="criteria==='bh'" (click)="onCriteriaClick('bh')">Prix (bas-haut)</button>
-      <button [class.selected]="criteria==='hb'" (click)="onCriteriaClick('hb')">Prix (haut-bas)</button>
-      <button [class.selected]="criteria==='az'" (click)="onCriteriaClick('az')">Nom (A-Z)</button>
-      <button [class.selected]="criteria==='za'" (click)="onCriteriaClick('za')">Nom (Z-A)</button>
+      <button [class.selected]="filters.sortingCriteria==='price-asc'" (click)="onCriteriaClick('price-asc')">Prix (bas-haut)</button>
+      <button [class.selected]="filters.sortingCriteria==='price-dsc'" (click)="onCriteriaClick('price-dsc')">Prix (haut-bas)</button>
+      <button [class.selected]="filters.sortingCriteria==='alpha-asc'" (click)="onCriteriaClick('alpha-asc')">Nom (A-Z)</button>
+      <button [class.selected]="filters.sortingCriteria==='alpha-dsc'" (click)="onCriteriaClick('alpha-dsc')">Nom (Z-A)</button>
     </div>
   </section>
 </section>
 <article>
-  <span class="right-header" id="products-count">6 produits</span>
+  <span class="right-header" id="products-count">{{products.length +" produit" +
+    (products.length > 1 ? "s" : "")}}</span>
   <h1>Produits</h1>
   <div class="products" id="products-list" >
     <div class="product" *ngFor="let product of products">

@@ -12,16 +12,16 @@ import * as _ from "lodash";
 })
 export class ProductComponent implements OnInit {
 
-  private product : {} = {};
-  private currentCart : {} = {};
-  pop : boolean = false;
-  quantityAdding : Number = 1;
+  private product: {} = {};
+  private currentCart: {} = {};
+  pop: boolean = false;
+  quantityAdding: Number = 1;
   /**
    * Initializes a new instance of the ProductComponent class.
    *
    * @param route                   The active route.
    */
-  constructor(private route: ActivatedRoute, private apiService:ApiServiceComponent) { 
+  constructor(private route: ActivatedRoute, private apiService: ApiServiceComponent) {
   }
 
   /**
@@ -31,29 +31,29 @@ export class ProductComponent implements OnInit {
     const productId = this.route.snapshot.paramMap.get('id');
     // TODO: Compléter la logique pour afficher le produit associé à l'identifiant spécifié (productId).
     var that = this;
-    this.apiService.getDataWithPromiseProducts(productId).then(function(data){
-      if(data){
+    this.apiService.getDataWithPromiseProducts(productId).then(function (data) {
+      if (data) {
         that.product = data;
-        
+
       }
     })
   }
 
-  onAddItemClick(){
-        this.pop = true;
-    console.log({productId: this.product['id'], quantity: this.quantityAdding})
+  onAddItemClick() {
+    this.pop = true;
+    // console.log({productId: this.product['id'], quantity: this.quantityAdding})
     this.apiService.getDataWithPromiseShoppingCart().then((dataFromServer) => {
       this.currentCart = dataFromServer;
-      console.log(this.currentCart)
-      if(_.find(this.currentCart, (data)=>{
+      // console.log(this.currentCart)
+      let dataFound = _.find(this.currentCart, (data) => {
         return data['productId'] == this.product['id'];
-      })){
-        this.apiService.putDataWithPromiseShoppingCart({productId: this.product['id'], quantity: this.quantityAdding});
+      })
+      if (dataFound) {
+        console.log(dataFound)
+        this.apiService.putDataWithPromiseShoppingCart({ productId: this.product['id'], quantity: this.quantityAdding + dataFound['quantity'] });
       } else {
-        this.apiService.postDataWithPromiseShoppingCart({productId: this.product['id'], quantity: this.quantityAdding});
+        this.apiService.postDataWithPromiseShoppingCart({ productId: this.product['id'], quantity: this.quantityAdding });
       }
     })
-   
-
   }
 }

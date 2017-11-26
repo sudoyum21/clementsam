@@ -31,10 +31,16 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.apiService.getObservable().subscribe((data) => {
       if (data === "updateCart") {
+      
         this.apiService.getDataWithPromiseShoppingCart().then((dataFromServer) => {
-          dataFromServer.forEach(element => {
-            this.count += element.quantity;
-          });
+          console.log(dataFromServer)
+          if(dataFromServer){
+            this.count = 0;
+            dataFromServer.forEach(element => {
+              this.count += element.quantity;
+            });
+          }
+         
         })
       }
     })

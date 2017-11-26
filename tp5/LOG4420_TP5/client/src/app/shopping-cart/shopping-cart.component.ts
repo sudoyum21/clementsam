@@ -48,7 +48,9 @@ export class ShoppingCartComponent implements OnInit {
     this.total = 0;
     this.updateWholeSc();
     this.sc.forEach(item => {
-      this.total += (item.quantity * item.product.price);
+      item.total = item.quantity * item.product.price;
+      this.total += (item.total);
+      item.total = parseFloat(item.total.toString()).toFixed(2).replace('.' , ",");
     })
   }
   updateWholeSc(){
@@ -63,7 +65,7 @@ export class ShoppingCartComponent implements OnInit {
               return prod.id === item.productId;
             })){
               let total = item.quantity * foundProduct.price;
-              let convertedToComma = total.toString().replace('.' , ",");          
+              let convertedToComma = parseFloat(total.toString()).toFixed(2).replace('.' , ",");          
               this.total += total;
               let itemInSc = this.sc.find(item=>{
                 return item.product.id === foundProduct.id;

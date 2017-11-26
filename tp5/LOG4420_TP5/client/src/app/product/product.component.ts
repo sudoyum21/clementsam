@@ -31,7 +31,7 @@ export class ProductComponent implements OnInit {
     const productId = this.route.snapshot.paramMap.get('id');
     // TODO: Compléter la logique pour afficher le produit associé à l'identifiant spécifié (productId).
     var that = this;
-    this.apiService.getDataWithPromiseProducts(productId).then(function (data) {
+    this.apiService.getDataWithPromiseProducts("/"+productId).then(function (data) {
       if (data) {
         that.product = data;
 

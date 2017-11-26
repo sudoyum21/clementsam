@@ -15,17 +15,12 @@ export class ProductsComponent implements OnInit {
     category: "all",
     sortingCriteria: "price-asc"
   };
-  constructor(private apiService: ApiServiceComponent) {
-
-  }
+  constructor(private apiService: ApiServiceComponent) {  }
   ngOnInit() {
     this.apiService.getDataWithPromiseProducts().then((data) => {
       if (data) {
         this.products = data;
         this.fullListProducts = data;
-        // that.products.forEach(function(product){
-        //   console.log(product)
-        // })
       }
     });
   }
@@ -35,31 +30,21 @@ export class ProductsComponent implements OnInit {
     if (this.filters.sortingCriteria && this.filters.category !== "all") {
       path += "&category=" + this.filters.category
     }
-    this.apiService.getDataWithPromiseProducts(path).then((data) => {
-      if (data) {
-        this.products = data;
-        // that.products.forEach(function(product){
-        //   console.log(product)
-        // })
-      }
-    });
+    this.prepareAndGetDatas(path);
   }
   onCategoryClick(value: string) {
     this.filters.category = value;
     let path = "?criteria="+this.filters.sortingCriteria;
+    this.prepareAndGetDatas(path);
+  }
+  private prepareAndGetDatas(path){
     if (this.filters.category && this.filters.category !== "all") {
       path += "&category=" + this.filters.category
     }
     this.apiService.getDataWithPromiseProducts(path).then((data) => {
       if (data) {
         this.products = data;
-        // that.products.forEach(function(product){
-        //   console.log(product)
-        // })
       }
     });
   }
-
-
-
 }

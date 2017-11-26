@@ -20,17 +20,16 @@
   </section>
 </section>
 <article>
-  <span class="right-header" id="products-count">{{products.length +" produit" +
-    (products.length > 1 ? "s" : "")}}</span>
+  <span class="right-header" id="products-count">{{products.length +" produit" + (products.length > 1 ? "s" : "")}}</span>
   <h1>Produits</h1>
-  <div class="products" id="products-list" >
+  <div class="products" id="products-list">
     <div class="product" *ngFor="let product of products">
-      <a routerLink="/produits/{{product.id}}" title="En savoir plus..." >
+      <a routerLink="/produits/{{product.id}}" title="En savoir plus...">
         <h2>{{product.name}}</h2>
         <img alt="Manette Xbox 360" src="./assets/img/{{product.image}}">
-        <p><small>Prix</small> {{product.price}}&thinsp;$</p>
+        <p>
+          <small>Prix</small> {{product.price}}&thinsp;$</p>
       </a>
     </div>
-    
   </div>
 </article>

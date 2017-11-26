@@ -64,28 +64,37 @@ self.getOrder = function(orderId) {
  * @returns {promise|*}   A promise object that indicates if an error occurred during the deletion (TRUE/FALSE).
  */
 self.createOrder = function(order) {
+  console.log(order)
   var deferred = Q.defer();
   var productsManager = require("./products");
   productsManager.getProducts().done(function(result) {
     var productsList = result.data;
-
+    console.log(1)
     var isValid = MODEL.every(function(property) {
       return property in order;
     });
+    console.log(2)
     if (!isValid) { // Missing properties
       deferred.resolve(true);
       return deferred.promise;
     }
-
+    console.log(3)
     isValid &= !isNaN(order.id) && typeof order.id === "number";
+    console.log(isValid)
     isValid &= !!validator.trim(order.firstName);
+    console.log(isValid)
     isValid &= !!validator.trim(order.lastName);
+    console.log(isValid)
     isValid &= validator.isEmail(order.email);
+    console.log(isValid)
     isValid &= validator.isMobilePhone(validator.whitelist(order.phone, "0123456789"), "en-CA");
+    console.log(isValid)
+    console.log(4)
     isValid &= order.products instanceof Array && order.products.every(function(product) {
       var productIsValid = true;
       productIsValid &= "id" in product;
       productIsValid &= "quantity" in product;
+      console.log(productIsValid)
       if (!productIsValid) {
         return false;
       }
@@ -98,13 +107,19 @@ self.createOrder = function(order) {
       deferred.resolve(true);
       return deferred.promise;
     }
-
+    console.log('save')
     self.getOrder(order.id).done(function(result) {
+      console.log('inside save')
+      console.log(order.id + " id order")
+      console.log(result.data)
       if (result.data === null) {
+        console.log(" ok new data")
         new Order(order).save(function(err) {
+          console.log("err in new order " + err)
           deferred.resolve(err);
         });
       } else {
+        console.log(" resolev ok new data")
         deferred.resolve(true);
       }
     });

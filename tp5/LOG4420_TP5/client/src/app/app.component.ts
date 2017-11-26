@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { ApiServiceComponent } from './api-service/api-service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Router } from '@angular/router';
 /**
  * Defines the main component of the application.
  */
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit {
     'Sorneau Clément'
   ];
 
-  constructor(private apiService: ApiServiceComponent) {
+  constructor(private apiService: ApiServiceComponent, private router:Router) {
     this.apiService.getDataWithPromiseShoppingCart().then((dataFromServer) => {
       dataFromServer.forEach(element => {
         this.count += element.quantity;
@@ -31,17 +32,19 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.apiService.getObservable().subscribe((data) => {
       if (data === "updateCart") {
-      
+        this.count = 0;
         this.apiService.getDataWithPromiseShoppingCart().then((dataFromServer) => {
           console.log(dataFromServer)
           if(dataFromServer){
-            this.count = 0;
+            
             dataFromServer.forEach(element => {
               this.count += element.quantity;
             });
           }
          
         })
+      } else if(data && data.id){ //confirmation
+        this.router.navigateByUrl('confirmation');
       }
     })
   }

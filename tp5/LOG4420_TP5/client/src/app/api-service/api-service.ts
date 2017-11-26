@@ -41,6 +41,15 @@ export class ApiServiceComponent implements OnInit {
       .then(this.extractData)
       .catch(this.handleErrorPromise);
   }
+  postDataWithPromiseOrders(body:any) {
+    this.http.post(this.api + "api/orders/", body, this.buildHeader()).subscribe((data)=>{
+      if(data){
+        this.changeObservable.next(body);
+      }
+    },()=>{},()=>{
+      this.changeObservable.next("updateCart");
+    });
+  }
 
   //SHOPPING-CART QUERY
 

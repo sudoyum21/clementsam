@@ -21,7 +21,7 @@ import { ApiServiceComponent } from './api-service/api-service';
 const appRoutes: Routes = [
   { path: '', redirectTo: '/accueil', pathMatch: 'full' },
   { path: 'accueil', component: HomeComponent },
-  { path: 'produits', component: ProductsComponent },
+  { path: 'produits', component: ProductsComponent, pathMatch: 'full' },
   { path: 'produits/:id', component: ProductComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'panier', component: ShoppingCartComponent },

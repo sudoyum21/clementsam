@@ -7,14 +7,14 @@
     <div class="col">
       <section>
         <h2>Description</h2>
-        <p id="product-desc">
+        <p id="product-desc" [innerHtml]="product.description">
           {{product.description}}
         </p>
       </section>
       <section>
         <h2>Caractéristiques</h2>
         <ul id="product-features">          
-          <li *ngFor="let feature of product.features">{{feature}}</li>
+          <li *ngFor="let feature of product.features" [innerHtml]="feature"></li>
         </ul>
       </section>
       <hr>

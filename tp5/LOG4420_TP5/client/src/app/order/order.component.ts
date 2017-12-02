@@ -88,6 +88,7 @@ export class OrderComponent implements OnInit {
             })
           }
           body['id'] = nextId + 1;
+          this.apiSerivce.deleteAllDataWithPromiseShoppingCart();
           this.apiSerivce.postDataWithPromiseOrders(body);
         });
         

@@ -8,12 +8,14 @@ import * as _ from "lodash";
  */
 @Component({
   selector: 'product',
-  templateUrl: './product.component.html'
+  templateUrl: './product.component.html',
+  styleUrls:['./product.component.css']
 })
 export class ProductComponent implements OnInit {
 
   private product: {} = {};
   private currentCart: {} = {};
+  pageFound = false;
   pop: boolean = false;
   quantityAdding: Number = 1;
   /**
@@ -34,8 +36,8 @@ export class ProductComponent implements OnInit {
     this.apiService.getDataWithPromiseProducts("/"+productId).then(function (data) {
       if (data) {
         that.product = data;
-
-      }
+        that.pageFound = true;
+      } 
     })
   }
 
@@ -57,6 +59,6 @@ export class ProductComponent implements OnInit {
     });
     setTimeout(()=>{
       this.pop = false;
-    }, 3000);
+    }, 5000);
   }
 }
